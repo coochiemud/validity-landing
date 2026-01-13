@@ -36,10 +36,10 @@
             padding: 100px 0;
         }
 
-        .logo-small {
-            font-size: 24px;
+        .logo {
+            width: 180px;
             margin-bottom: 60px;
-            opacity: 0.9;
+            display: block;
         }
 
         h1 {
@@ -92,19 +92,29 @@
             line-height: 1.3;
         }
 
-        p {
-            font-size: 17px;
-            color: #B8C5D6;
-            margin-bottom: 24px;
-            line-height: 1.7;
+        /* Use Cases */
+        .use-case {
+            margin-bottom: 30px;
         }
 
-        /* Lists */
+        .use-case h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .use-case p {
+            font-size: 16px;
+            color: #6B85A6;
+        }
+
+        /* What It Detects */
         ul {
             list-style: none;
             margin: 30px 0;
         }
-<img src="validity-logo.png" alt="Validity" style="width: 180px; margin-bottom: 60px; display: block;">
+
         ul li {
             font-size: 17px;
             color: #B8C5D6;
@@ -120,64 +130,53 @@
             color: #4DA3FF;
         }
 
-        /* How It Works */
-        .steps {
-            margin: 40px 0;
-        }
-
-        .step {
-            margin-bottom: 40px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .step:last-child {
-            border-bottom: none;
-        }
-
-        .step-number {
-            font-family: 'IBM Plex Serif', Georgia, serif;
-            font-size: 48px;
-            color: #4DA3FF;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .step h3 {
-            font-size: 22px;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .step p {
-            color: #6B85A6;
-        }
-
-        /* Use Cases */
-        .use-case {
-            margin-bottom: 40px;
-        }
-
-        .use-case h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #ffffff;
-        }
-
-        .use-case p {
-            font-size: 16px;
-            color: #6B85A6;
-        }
-
         /* Sample Output */
         .sample-output {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 30px;
+            padding: 40px;
             margin: 40px 0;
             font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .output-header {
             font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .output-meta {
+            margin-bottom: 25px;
+            color: #B8C5D6;
+        }
+
+        .output-meta div {
+            margin-bottom: 6px;
+        }
+
+        .output-section {
+            margin-top: 25px;
+        }
+
+        .output-section-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .finding {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .finding:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
         }
 
         .severity-high {
@@ -190,6 +189,18 @@
             font-weight: 600;
         }
 
+        .finding-text {
+            color: #B8C5D6;
+            margin-top: 8px;
+        }
+
+        /* Early Access */
+        .early-access-text {
+            font-size: 17px;
+            color: #B8C5D6;
+            margin-bottom: 40px;
+        }
+
         /* Footer */
         .footer {
             padding: 60px 0;
@@ -198,9 +209,8 @@
         }
 
         .footer p {
-            font-size: 16px;
+            font-size: 14px;
             color: #6B85A6;
-            font-style: italic;
         }
 
         /* Responsive */
@@ -225,6 +235,15 @@
             .section {
                 padding: 60px 0;
             }
+
+            .logo {
+                width: 140px;
+            }
+
+            .sample-output {
+                padding: 30px 24px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -232,67 +251,10 @@
     <!-- Hero -->
     <section class="hero">
         <div class="container">
-            <img src="validity-logo.png" alt="Validity" style="width: 180px; margin-bottom: 60px; display: block;">
+            <img src="validity-logo.png" alt="Validity" class="logo">
             <h1>Better Decisions Start With Better Reasoning.</h1>
-            <p class="hero-subtitle">Validity analyses the logic inside high‑stakes documents and exposes hidden weaknesses before they become costly decisions. Designed for investment, policy, legal, and strategic review.</p>
-            <a href="https://validity-mvp.streamlit.app" class="cta-button">Request Access</a>
-        </div>
-    </section>
-
-    <!-- The Problem -->
-    <section class="section">
-        <div class="container">
-            <h2>The Problem</h2>
-            <p>High‑stakes decisions are rarely undone by missing data. They fail because of <em>bad reasoning</em> hidden behind confident language, complex models, and institutional consensus.</p>
-            <ul>
-                <li>Assumptions stack without evidence</li>
-                <li>Causal claims are asserted, not proven</li>
-                <li>Risks are buried in footnotes or ignored entirely</li>
-                <li>Review processes reward fluency, not truth</li>
-            </ul>
-            <p>Human reviewers miss these failures—not because they are careless, but because reasoning errors are subtle, systemic, and cognitively expensive to detect.</p>
-        </div>
-    </section>
-
-    <!-- The Solution -->
-    <section class="section">
-        <div class="container">
-            <h2>The Solution</h2>
-            <h3 style="font-size: 24px; margin-bottom: 30px;">Validity audits reasoning—not writing.</h3>
-            <p>Validity reads documents the way a first‑rate analyst would <em>if time, bias, and fatigue didn't exist</em>.</p>
-            <p>It identifies:</p>
-            <ul>
-                <li>Unsupported assumptions</li>
-                <li>Logical leaps and causal gaps</li>
-                <li>Internal contradictions</li>
-                <li>Overconfidence masked as certainty</li>
-                <li>Risk blindness and narrative coercion</li>
-            </ul>
-            <p>The result is not a rewrite—but a <strong>diagnostic map of decision risk</strong>.</p>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="section">
-        <div class="container">
-            <h2>How It Works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Upload or paste a document</h3>
-                    <p>Investment memos, policy briefs, legal arguments, strategy decks</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Validity analyses the reasoning structure</h3>
-                    <p>Claims, premises, dependencies, and risk concentration</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Receive a structured risk report</h3>
-                    <p>Reasoning score, decision‑risk classification, flagged failures with severity and actionability</p>
-                </div>
-            </div>
+            <p class="hero-subtitle">Validity audits the logic inside high-stakes documents—exposing hidden flaws before they become costly decisions.</p>
+            <a href="https://validity-mvp.streamlit.app" class="cta-button">Try Demo</a>
         </div>
     </section>
 
@@ -301,59 +263,69 @@
         <div class="container">
             <h2>Who It's For</h2>
             <div class="use-case">
-                <h3>Investment & VC</h3>
-                <p>Catch flawed theses before capital is committed.</p>
+                <h3>Investment</h3>
+                <p>Catch flawed theses before capital is committed</p>
             </div>
             <div class="use-case">
-                <h3>Policy & Government</h3>
-                <p>Stress‑test recommendations before public consequences.</p>
+                <h3>Policy</h3>
+                <p>Stress-test recommendations before consequences</p>
             </div>
             <div class="use-case">
-                <h3>Legal & Compliance</h3>
-                <p>Expose weak arguments before they fail under scrutiny.</p>
+                <h3>Legal</h3>
+                <p>Expose weak arguments before scrutiny</p>
             </div>
             <div class="use-case">
-                <h3>Strategy & Consulting</h3>
-                <p>Validate internal logic before clients do.</p>
+                <h3>Strategy</h3>
+                <p>Validate logic before clients do</p>
             </div>
         </div>
     </section>
 
-    <!-- Why Different -->
+    <!-- What It Detects -->
     <section class="section">
         <div class="container">
-            <h2>Why Validity Is Different</h2>
-            <p>Most tools optimise <em>language</em>.</p>
-            <p>Validity evaluates <em>truth‑bearing structure</em>.</p>
+            <h2>What It Detects</h2>
             <ul>
-                <li>Not sentiment analysis</li>
-                <li>Not style grading</li>
-                <li>Not fact‑checking alone</li>
+                <li>Unsupported assumptions</li>
+                <li>Logical leaps and causal gaps</li>
+                <li>Overconfidence masked as certainty</li>
+                <li>Risk blindness and narrative coercion</li>
             </ul>
-            <p>Validity focuses on <strong>whether conclusions are justified by their premises</strong>.</p>
-            <p>This is epistemic quality control.</p>
         </div>
     </section>
 
     <!-- Sample Output -->
     <section class="section">
         <div class="container">
-            <h2>Outputs You Can Defend</h2>
-            <p>Validity doesn't just flag problems—it explains <em>why they matter</em>.</p>
+            <h2>Sample Output</h2>
             <div class="sample-output">
-                <div style="margin-bottom: 20px;">
-                    <span class="severity-high">HIGH</span> — Assumption Stacking<br>
-                    Location: Financial Projections, para 3<br>
-                    Issue: $25M ARR projection assumes market acceptance, pricing power, and zero competitive response without supporting evidence.
+                <div class="output-header">VALIDITY ANALYSIS — EXECUTIVE SUMMARY</div>
+                
+                <div class="output-meta">
+                    <div>Document Type: Investment Memorandum</div>
+                    <div>Risk Classification: Medium</div>
+                    <div>Reasoning Quality: 62/100</div>
                 </div>
-                <div>
-                    <span class="severity-medium">MEDIUM</span> — Causal Leap<br>
-                    Location: Go-to-Market Strategy<br>
-                    Issue: Claims US playbook will work in SE Asia without establishing causal mechanism or regional precedent.
+
+                <div class="output-section">
+                    <div class="output-section-title">Critical Issues Identified:</div>
+                    
+                    <div class="finding">
+                        <div><span class="severity-high">[HIGH]</span> Inferential Chain Breakdown</div>
+                        <div class="finding-text">The conclusion depends on three sequential assumptions, each independently unverified. Failure of any single assumption invalidates the projection.</div>
+                    </div>
+
+                    <div class="finding">
+                        <div><span class="severity-medium">[MEDIUM]</span> Unsupported Causality</div>
+                        <div class="finding-text">Claims market maturity will drive adoption without mechanism or precedent.</div>
+                    </div>
+
+                    <div class="finding">
+                        <div><span class="severity-medium">[MEDIUM]</span> Selective Evidence</div>
+                        <div class="finding-text">Quantitative support provided only for favorable scenarios.</div>
+                    </div>
                 </div>
             </div>
-            <p>Each issue includes failure type, severity level, location, clear explanation, and recommended action.</p>
-            <p>Designed to support real decisions—not abstract scores.</p>
         </div>
     </section>
 
@@ -361,24 +333,15 @@
     <section class="section">
         <div class="container">
             <h2>Early Access</h2>
-            <p>Validity is currently in controlled release.</p>
-            <p>We are onboarding:</p>
-            <ul>
-                <li>Funds and investment teams</li>
-                <li>Policy units and advisory bodies</li>
-                <li>Legal and compliance groups</li>
-                <li>Strategy leaders</li>
-            </ul>
-            <p style="margin-top: 40px;">Request access to participate in early deployment.</p>
-            <a href="https://validity-mvp.streamlit.app" class="cta-button" style="margin-top: 20px;">Request Access</a>
+            <p class="early-access-text">Request access for your team.</p>
+            <a href="https://validity-mvp.streamlit.app" class="cta-button">Request Access</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>Validity is built for people who are accountable for decisions.</p>
-            <p style="margin-top: 15px;">Because clarity is cheaper than failure.</p>
+            <p>© 2026 Validity</p>
         </div>
     </footer>
 </body>
