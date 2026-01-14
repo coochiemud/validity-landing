@@ -213,6 +213,13 @@
             color: #6B85A6;
         }
 
+        /* Button Container */
+        .button-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -244,6 +251,15 @@
                 padding: 30px 24px;
                 font-size: 12px;
             }
+
+            .button-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cta-button {
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -254,7 +270,10 @@
             <img src="validity-logo.png" alt="Validity" class="logo">
             <h1>Better Decisions Start With Better Reasoning.</h1>
             <p class="hero-subtitle">Validity audits the logic inside high-stakes documents—exposing hidden flaws before they become costly decisions.</p>
-            <a href="https://validity-mvp.streamlit.app" class="cta-button">Try Demo</a>
+            <div class="button-group">
+                <a href="https://validity-mvp.streamlit.app" class="cta-button">Try Demo</a>
+                <a href="pitch-deck.html" class="cta-button" style="background: transparent; border: 1px solid rgba(255,255,255,0.3);">View Pitch Deck</a>
+            </div>
         </div>
     </section>
 
