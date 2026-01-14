@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validity - Reasoning Quality Verification</title>
+    <title>Validity - Investor Memo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -18,57 +18,101 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #0E1A2B 0%, #132A4A 100%);
             color: #ffffff;
-            line-height: 1.7;
+            line-height: 1.8;
+            min-height: 100vh;
         }
 
         .container {
             max-width: 680px;
             margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 100px 0;
+            padding: 80px 40px 120px;
         }
 
         .logo {
-            width: 180px;
-            margin-bottom: 60px;
+            width: 160px;
+            margin-bottom: 80px;
             display: block;
         }
 
         h1 {
             font-family: 'IBM Plex Serif', Georgia, serif;
-            font-size: 52px;
+            font-size: 42px;
             font-weight: 500;
             line-height: 1.2;
-            margin-bottom: 30px;
+            margin-bottom: 60px;
             letter-spacing: -0.5px;
+            color: #ffffff;
         }
 
-        .hero-subtitle {
-            font-size: 20px;
-            color: #6B85A6;
-            line-height: 1.6;
-            margin-bottom: 50px;
-            max-width: 600px;
+        h2 {
+            font-family: 'IBM Plex Serif', Georgia, serif;
+            font-size: 28px;
+            font-weight: 500;
+            margin-top: 60px;
+            margin-bottom: 24px;
+            line-height: 1.3;
+            color: #ffffff;
         }
 
-        .button-group {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            flex-wrap: wrap;
+        h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #B8C5D6;
+        }
+
+        ul {
+            list-style: none;
+            margin: 24px 0;
+            padding-left: 0;
+        }
+
+        ul li {
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+            color: #B8C5D6;
+        }
+
+        ul li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #4DA3FF;
+            font-weight: bold;
+        }
+
+        .emphasis {
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .cta-section {
+            margin-top: 80px;
+            padding: 40px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
         }
 
         .cta-button {
             display: inline-block;
-            padding: 16px 32px;
+            padding: 16px 40px;
             background: transparent;
             border: 1px solid #ffffff;
             color: #ffffff;
@@ -78,6 +122,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             transition: all 150ms ease;
+            margin-top: 20px;
         }
 
         .cta-button:hover {
@@ -85,293 +130,377 @@
             color: #4DA3FF;
         }
 
-        .cta-button.secondary {
-            border-color: rgba(255,255,255,0.3);
+        .subsection {
+            margin-bottom: 32px;
         }
 
-        .cta-button.secondary:hover {
-            border-color: rgba(255,255,255,0.5);
-        }
-
-        /* Section Headers */
-        .section {
-            padding: 80px 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        h2 {
-            font-family: 'IBM Plex Serif', Georgia, serif;
-            font-size: 36px;
-            font-weight: 500;
-            margin-bottom: 40px;
-            line-height: 1.3;
-        }
-
-        /* Use Cases */
-        .use-case {
-            margin-bottom: 30px;
-        }
-
-        .use-case h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #ffffff;
-        }
-
-        .use-case p {
-            font-size: 16px;
-            color: #6B85A6;
-        }
-
-        /* What It Detects */
-        ul {
-            list-style: none;
-            margin: 30px 0;
-        }
-
-        ul li {
-            font-size: 17px;
-            color: #B8C5D6;
-            margin-bottom: 16px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        ul li:before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #4DA3FF;
-        }
-
-        /* Sample Output */
-        .sample-output {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 40px;
-            margin: 40px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.8;
-        }
-
-        .output-header {
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 20px;
-            color: #ffffff;
-        }
-
-        .output-meta {
-            margin-bottom: 25px;
-            color: #B8C5D6;
-        }
-
-        .output-meta div {
-            margin-bottom: 6px;
-        }
-
-        .output-section {
-            margin-top: 25px;
-        }
-
-        .output-section-title {
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-
-        .finding {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .finding:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .severity-high {
-            color: #FF6B6B;
-            font-weight: 600;
-        }
-
-        .severity-medium {
-            color: #FFB347;
-            font-weight: 600;
-        }
-
-        .finding-text {
-            color: #B8C5D6;
-            margin-top: 8px;
-        }
-
-        /* Early Access */
-        .early-access-text {
-            font-size: 17px;
-            color: #B8C5D6;
-            margin-bottom: 40px;
-        }
-
-        /* Footer */
-        .footer {
-            padding: 60px 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-        }
-
-        .footer p {
-            font-size: 14px;
-            color: #6B85A6;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
             .container {
-                padding: 0 24px;
-            }
-
-            h1 {
-                font-size: 36px;
-            }
-
-            h2 {
-                font-size: 28px;
-            }
-
-            .hero {
-                min-height: 80vh;
-                padding: 60px 0;
-            }
-
-            .section {
-                padding: 60px 0;
+                padding: 60px 24px 80px;
             }
 
             .logo {
-                width: 140px;
+                width: 120px;
+                margin-bottom: 60px;
             }
 
-            .sample-output {
+            h1 {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            h2 {
+                font-size: 24px;
+                margin-top: 48px;
+            }
+
+            h3 {
+                font-size: 17px;
+            }
+
+            p, ul li {
+                font-size: 16px;
+            }
+
+            .cta-section {
                 padding: 30px 24px;
-                font-size: 12px;
+            }
+        }
+
+        @media print {
+            body {
+                background: #ffffff;
+                color: #000000;
             }
 
-            .button-group {
-                flex-direction: column;
-                align-items: stretch;
+            h1, h2, h3 {
+                color: #000000;
+            }
+
+            p, ul li {
+                color: #2a2a2a;
+            }
+
+            .cta-section {
+                page-break-before: always;
             }
 
             .cta-button {
-                text-align: center;
-                width: 100%;
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container">
-            <img src="validity-logo.png" alt="Validity" class="logo">
-            <h1>Better Decisions Start With Better Reasoning.</h1>
-            <p class="hero-subtitle">Validity audits the logic inside high-stakes documents—exposing hidden flaws before they become costly decisions.</p>
-            <div class="button-group">
-                <a href="https://validity-mvp.streamlit.app" class="cta-button">Try Demo</a>
-                <a href="pitch-deck.html" class="cta-button secondary">Pitch Deck</a>
-                <a href="investor-memo.html" class="cta-button secondary">Investor Memo</a>
-            </div>
-        </div>
-    </section>
+    <div class="container">
+        <img src="validity-logo.png" alt="Validity" class="logo">
 
-    <!-- Who It's For -->
-    <section class="section">
-        <div class="container">
-            <h2>Who It's For</h2>
-            <div class="use-case">
-                <h3>Investment</h3>
-                <p>Catch flawed theses before capital is committed</p>
-            </div>
-            <div class="use-case">
-                <h3>Policy</h3>
-                <p>Stress-test recommendations before consequences</p>
-            </div>
-            <div class="use-case">
-                <h3>Legal</h3>
-                <p>Expose weak arguments before scrutiny</p>
-            </div>
-            <div class="use-case">
-                <h3>Strategy</h3>
-                <p>Validate logic before clients do</p>
-            </div>
-        </div>
-    </section>
+        <h1>Why This Should Exist</h1>
 
-    <!-- What It Detects -->
-    <section class="section">
-        <div class="container">
-            <h2>What It Detects</h2>
+        <div class="section">
+            <h2>The Problem: Decisions Fail Before They Fail Publicly</h2>
+            
+            <p>Most catastrophic decisions do not collapse because the data was unavailable, the intelligence was missing, or the people involved were unintelligent.</p>
+            
+            <p>They fail earlier.</p>
+            
+            <p>They fail at the level of reasoning.</p>
+            
+            <p>Before money is lost, reputations destroyed, or policies unravel, there is almost always a quieter failure upstream:</p>
+            
             <ul>
-                <li>Unsupported assumptions</li>
-                <li>Logical leaps and causal gaps</li>
-                <li>Overconfidence masked as certainty</li>
-                <li>Risk blindness and narrative coercion</li>
+                <li>Unexamined assumptions stack on top of each other</li>
+                <li>Correlation is treated as causation</li>
+                <li>Confidence grows faster than evidence</li>
+                <li>Risks are rhetorically minimised rather than analytically addressed</li>
+                <li>Conclusions feel "obvious" without being logically secured</li>
+            </ul>
+            
+            <p>These failures are rarely malicious. They are structural. And they recur across sectors.</p>
+            
+            <p>Investment committees approve deals that later implode. Governments adopt policies that produce perverse outcomes. Legal strategies proceed on fragile causal claims. Corporate boards sign off on initiatives that were never logically sound to begin with.</p>
+            
+            <p><span class="emphasis">In almost every case, the failure was already present in the document.</span></p>
+        </div>
+
+        <div class="section">
+            <h2>The Gap: We Audit Everything Except Reasoning</h2>
+            
+            <p>Modern institutions are saturated with review mechanisms:</p>
+            
+            <ul>
+                <li>Financial audits</li>
+                <li>Legal compliance</li>
+                <li>Cybersecurity assessments</li>
+                <li>ESG frameworks</li>
+                <li>Risk registers</li>
+                <li>Fact-checking and verification</li>
+            </ul>
+            
+            <p>Yet there is no standard tool that audits the logic of a document before it becomes a decision.</p>
+            
+            <p>We check:</p>
+            <ul>
+                <li>Whether the numbers add up</li>
+                <li>Whether the claims are legally defensible</li>
+                <li>Whether the language is acceptable</li>
+            </ul>
+            
+            <p>We do not systematically check:</p>
+            <ul>
+                <li>Whether the conclusions follow from the premises</li>
+                <li>Whether assumptions are explicit, justified, or stacked</li>
+                <li>Whether causal claims are actually demonstrated</li>
+                <li>Whether uncertainty is being acknowledged or rhetorically concealed</li>
+            </ul>
+            
+            <p>As a result, institutions routinely approve decisions that are logically fragile but procedurally compliant.</p>
+            
+            <p><span class="emphasis">Validity exists to address that gap.</span></p>
+        </div>
+
+        <div class="section">
+            <h2>What Validity Is</h2>
+            
+            <p>Validity is a reasoning-analysis engine that audits the logical structure of high-stakes documents before they become decisions.</p>
+            
+            <p>It does not fact-check claims. It does not optimize language. It does not replace human judgment.</p>
+            
+            <p>It does one thing: it maps the reasoning inside a document and identifies structural failures—assumptions treated as facts, causal leaps without mechanism, risks buried in confident language, evidence selectively deployed.</p>
+            
+            <h3>How it works:</h3>
+            
+            <ul>
+                <li>A user uploads an investment memo, policy brief, legal argument, or strategy document</li>
+                <li>The system analyzes the logical structure: claims, premises, inference chains, counterfactuals, uncertainty acknowledgment</li>
+                <li>It returns a diagnostic report: reasoning score, failure taxonomy, location of flaws, actionable recommendations</li>
+            </ul>
+            
+            <p>The output is not a judgment of whether the conclusion is "right" or "wrong." It is an assessment of whether the conclusion is justified by the reasoning provided.</p>
+            
+            <h3>What makes this possible now:</h3>
+            
+            <p>Large language models can parse complex documents and identify reasoning patterns at scale. What previously required trained logicians reviewing documents line-by-line can now be systematized.</p>
+            
+            <p>But the real unlock is not technical—it is institutional. Organizations are beginning to understand that process compliance does not guarantee reasoning quality. The appetite for epistemic infrastructure is growing.</p>
+        </div>
+
+        <div class="section">
+            <h2>Why Now</h2>
+            
+            <p>Three forces converge to make reasoning infrastructure both possible and necessary:</p>
+            
+            <div class="subsection">
+                <h3>1. AI makes systematic analysis feasible</h3>
+                
+                <p>Until recently, auditing reasoning quality required expensive human expertise applied document-by-document. Large language models change the economics. What once required a team of analysts can now be delivered in seconds at negligible marginal cost.</p>
+            </div>
+            
+            <div class="subsection">
+                <h3>2. Institutions are experiencing reasoning failures at scale</h3>
+                
+                <p>The last decade has produced a mounting catalog of decisions that were procedurally sound but epistemically fragile:</p>
+                <ul>
+                    <li>Investment theses that assumed permanence where there was cyclicality</li>
+                    <li>Policy interventions that confused correlation with mechanism</li>
+                    <li>Strategic plans built on assumptions that were never tested</li>
+                </ul>
+                
+                <p>The pattern is consistent: smart people, robust processes, catastrophic outcomes. The missing layer is reasoning verification.</p>
+            </div>
+            
+            <div class="subsection">
+                <h3>3. Accountability is tightening</h3>
+                
+                <p>Boards, regulators, and stakeholders are no longer satisfied with "we followed the process." They want to know: was the logic sound? Were the assumptions explicit? Were the risks actually assessed or just acknowledged?</p>
+                
+                <p>Due diligence is expanding beyond financial and legal compliance. Epistemic diligence is the next frontier.</p>
+            </div>
+            
+            <p><span class="emphasis">Validity is infrastructure for that shift.</span></p>
+        </div>
+
+        <div class="section">
+            <h2>What We're Building</h2>
+            
+            <h3>Product Roadmap</h3>
+            
+            <div class="subsection">
+                <p><span class="emphasis">Phase 1: Core Engine (Now)</span></p>
+                <ul>
+                    <li>8-failure reasoning taxonomy validated across investment, policy, and legal documents</li>
+                    <li>Sub-10 second analysis turnaround</li>
+                    <li>Reasoning score + diagnostic report</li>
+                    <li>Live production system at validity.live</li>
+                </ul>
+            </div>
+            
+            <div class="subsection">
+                <p><span class="emphasis">Phase 2: Enterprise Platform (2026)</span></p>
+                <ul>
+                    <li>API integration with existing workflows (deal flow systems, document management, policy platforms)</li>
+                    <li>Custom taxonomies for sector-specific reasoning patterns</li>
+                    <li>Team collaboration features (shared analyses, comment threads, version tracking)</li>
+                    <li>White-label deployment for consulting firms and advisory practices</li>
+                </ul>
+            </div>
+            
+            <div class="subsection">
+                <p><span class="emphasis">Phase 3: Real-Time Verification (2027+)</span></p>
+                <ul>
+                    <li>Browser extension for live reasoning verification as documents are drafted</li>
+                    <li>Integration with writing tools (Google Docs, Notion, Confluence)</li>
+                    <li>Reasoning quality metrics embedded in organizational dashboards</li>
+                    <li>Historical pattern analysis: track reasoning quality over time, by team, by document type</li>
+                </ul>
+            </div>
+            
+            <h3>Go-to-Market</h3>
+            
+            <div class="subsection">
+                <p><span class="emphasis">Year 1: Design Partners</span></p>
+                <ul>
+                    <li>Target: Investment firms, policy advisory units, legal compliance teams</li>
+                    <li>Offer: Free pilot, co-develop use cases, case studies</li>
+                    <li>Goal: 5-10 design partners, convert to paid by end of Q2</li>
+                </ul>
+            </div>
+            
+            <div class="subsection">
+                <p><span class="emphasis">Year 2: Wedge Expansion</span></p>
+                <ul>
+                    <li>Proven ROI in investment → expand to policy and legal</li>
+                    <li>Inbound from case studies and direct sales</li>
+                    <li>Goal: $2M ARR, 40-50 paying customers</li>
+                </ul>
+            </div>
+            
+            <div class="subsection">
+                <p><span class="emphasis">Year 3: Platform Play</span></p>
+                <ul>
+                    <li>Enterprise deals, API partnerships, white-label for consulting firms</li>
+                    <li>Category leadership: "reasoning infrastructure" becomes a recognized layer in enterprise decision-making</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>The Opportunity</h2>
+            
+            <h3>Market Structure</h3>
+            
+            <p>Validity operates at the intersection of three established markets:</p>
+            <ul>
+                <li>Enterprise decision support software: $18B</li>
+                <li>Professional advisory services: $250B+</li>
+                <li>Compliance and risk management: $45B</li>
+            </ul>
+            
+            <p>We are not displacing any of these. We are adding a missing layer.</p>
+            
+            <h3>Addressable Market</h3>
+            
+            <p>Organizations where decisions are high-stakes and accountable:</p>
+            <ul>
+                <li><span class="emphasis">Investment firms and asset managers:</span> 15,000+ globally</li>
+                <li><span class="emphasis">Policy advisory and government units:</span> 8,000+ agencies and consulting practices</li>
+                <li><span class="emphasis">Legal and compliance teams:</span> 50,000+ in-house and external counsel practices</li>
+                <li><span class="emphasis">Corporate strategy and consulting:</span> 12,000+ firms and internal strategy functions</li>
+            </ul>
+            
+            <h3>Initial wedge: Investment</h3>
+            
+            <p>Investment firms have:</p>
+            <ul>
+                <li><span class="emphasis">Urgent pain:</span> A single flawed thesis can cost millions</li>
+                <li><span class="emphasis">Clear ROI:</span> Preventing one bad $10M deployment justifies years of subscription</li>
+                <li><span class="emphasis">Fast sales cycle:</span> Partners understand the problem immediately, no need to educate the market</li>
+                <li><span class="emphasis">Concentrated buyers:</span> Decision-makers are accessible, deals close in 30-60 days</li>
+            </ul>
+            
+            <p>Once proven in investment, the playbook expands to policy (similar logic, different stakes) and legal (reasoning quality = case outcomes).</p>
+            
+            <h3>Unit Economics</h3>
+            
+            <ul>
+                <li><span class="emphasis">Average contract value:</span> $50K annually</li>
+                <li><span class="emphasis">CAC:</span> $8K (direct sales, design partner referrals)</li>
+                <li><span class="emphasis">LTV:</span> $180K (36-month retention, low churn once embedded in workflow)</li>
+                <li><span class="emphasis">Gross margin:</span> 85%+ (software margins, minimal variable cost)</li>
+            </ul>
+            
+            <h3>Revenue Trajectory</h3>
+            
+            <ul>
+                <li><span class="emphasis">Year 1:</span> $600K ARR (10 design partners convert, 10 additional sales)</li>
+                <li><span class="emphasis">Year 2:</span> $2M ARR (40 customers, case study-driven inbound)</li>
+                <li><span class="emphasis">Year 3:</span> $8M ARR (expansion into policy/legal, enterprise platform deals)</li>
             </ul>
         </div>
-    </section>
 
-    <!-- Sample Output -->
-    <section class="section">
-        <div class="container">
-            <h2>Sample Output</h2>
-            <div class="sample-output">
-                <div class="output-header">VALIDITY ANALYSIS — EXECUTIVE SUMMARY</div>
+        <div class="section">
+            <h2>What We Need</h2>
+            
+            <h3>The Ask: $2M Seed Round</h3>
+            
+            <p>This capital enables three things:</p>
+            
+            <div class="subsection">
+                <p><span class="emphasis">1. Product: Commercial-Grade Infrastructure ($900K)</span></p>
                 
-                <div class="output-meta">
-                    <div>Document Type: Investment Memorandum</div>
-                    <div>Risk Classification: Medium</div>
-                    <div>Reasoning Quality: 62/100</div>
-                </div>
-
-                <div class="output-section">
-                    <div class="output-section-title">Critical Issues Identified:</div>
-                    
-                    <div class="finding">
-                        <div><span class="severity-high">[HIGH]</span> Inferential Chain Breakdown</div>
-                        <div class="finding-text">The conclusion depends on three sequential assumptions, each independently unverified. Failure of any single assumption invalidates the projection.</div>
-                    </div>
-
-                    <div class="finding">
-                        <div><span class="severity-medium">[MEDIUM]</span> Unsupported Causality</div>
-                        <div class="finding-text">Claims market maturity will drive adoption without mechanism or precedent.</div>
-                    </div>
-
-                    <div class="finding">
-                        <div><span class="severity-medium">[MEDIUM]</span> Selective Evidence</div>
-                        <div class="finding-text">Quantitative support provided only for favorable scenarios.</div>
-                    </div>
-                </div>
+                <p>The current system works. It analyzes documents, detects reasoning failures, and returns diagnostic reports in under 10 seconds.</p>
+                
+                <p>But moving from working prototype to enterprise-grade platform requires:</p>
+                <ul>
+                    <li><span class="emphasis">Senior full-stack engineer:</span> Scale infrastructure, build API, ensure 99.9% uptime</li>
+                    <li><span class="emphasis">ML engineer:</span> Improve accuracy, reduce latency, expand taxonomy coverage</li>
+                    <li><span class="emphasis">Product manager:</span> Enterprise features, workflow integrations, customer feedback loops</li>
+                    <li><span class="emphasis">Security and compliance:</span> SOC 2, data privacy, on-premise deployment options</li>
+                </ul>
             </div>
+            
+            <div class="subsection">
+                <p><span class="emphasis">2. Sales & Marketing: Proof of Market Fit ($700K)</span></p>
+                
+                <p>We know the problem is real. We need to prove the market will pay to solve it.</p>
+                
+                <ul>
+                    <li><span class="emphasis">VP Sales:</span> Close first 50 customers, build repeatable sales process</li>
+                    <li><span class="emphasis">2 Account Executives:</span> Pipeline generation, design partner conversion</li>
+                    <li><span class="emphasis">Marketing lead:</span> Case studies, content positioning, inbound funnel</li>
+                    <li><span class="emphasis">Customer success:</span> Onboarding, retention, upsell to enterprise tiers</li>
+                </ul>
+            </div>
+            
+            <div class="subsection">
+                <p><span class="emphasis">3. Operations: 18-Month Runway ($400K)</span></p>
+                
+                <p>Legal, compliance, finance, administrative infrastructure to support growth through Series A milestones.</p>
+            </div>
+            
+            <h3>Milestones This Unlocks</h3>
+            
+            <ul>
+                <li><span class="emphasis">Q1 2026:</span> 10 design partners operational</li>
+                <li><span class="emphasis">Q2 2026:</span> First paying customers, case studies published</li>
+                <li><span class="emphasis">Q4 2026:</span> $2M ARR, clear unit economics, platform roadmap validated</li>
+                <li><span class="emphasis">Q1 2027:</span> Series A position with product-market fit proven</li>
+            </ul>
+            
+            <h3>Why This Works</h3>
+            
+            <p>Reasoning verification is not a "nice-to-have." It is infrastructure for institutional decision-making in an era where process compliance no longer guarantees quality.</p>
+            
+            <p>The market exists. The technology is ready. The timing is correct.</p>
+            
+            <p><span class="emphasis">Validity makes reasoning quality auditable, systematic, and scalable.</span></p>
         </div>
-    </section>
 
-    <!-- Early Access -->
-    <section class="section">
-        <div class="container">
-            <h2>Early Access</h2>
-            <p class="early-access-text">Request access for your team.</p>
-            <a href="https://validity-mvp.streamlit.app" class="cta-button">Request Access</a>
+        <div class="cta-section">
+            <h3 style="margin-top: 0; margin-bottom: 16px; color: #ffffff;">Read the Full Pitch Deck</h3>
+            <p style="color: #B8C5D6; margin-bottom: 0;">See detailed product roadmap, market analysis, and team background</p>
+            <a href="pitch-deck.html" class="cta-button">View Pitch Deck</a>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>© 2026 Validity</p>
-        </div>
-    </footer>
+    </div>
 </body>
 </html>
