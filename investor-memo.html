@@ -16,9 +16,10 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #ffffff;
-            color: #1a1a1a;
+            background: linear-gradient(135deg, #0E1A2B 0%, #132A4A 100%);
+            color: #ffffff;
             line-height: 1.8;
+            min-height: 100vh;
         }
 
         .container {
@@ -40,7 +41,7 @@
             line-height: 1.2;
             margin-bottom: 60px;
             letter-spacing: -0.5px;
-            color: #000000;
+            color: #ffffff;
         }
 
         h2 {
@@ -50,7 +51,7 @@
             margin-top: 60px;
             margin-bottom: 24px;
             line-height: 1.3;
-            color: #000000;
+            color: #ffffff;
         }
 
         h3 {
@@ -59,14 +60,14 @@
             font-weight: 600;
             margin-top: 32px;
             margin-bottom: 16px;
-            color: #000000;
+            color: #ffffff;
         }
 
         p {
             font-size: 17px;
             line-height: 1.8;
             margin-bottom: 20px;
-            color: #2a2a2a;
+            color: #B8C5D6;
         }
 
         ul {
@@ -81,20 +82,20 @@
             margin-bottom: 12px;
             padding-left: 24px;
             position: relative;
-            color: #2a2a2a;
+            color: #B8C5D6;
         }
 
         ul li:before {
             content: "•";
             position: absolute;
             left: 0;
-            color: #666;
+            color: #4DA3FF;
             font-weight: bold;
         }
 
         .emphasis {
             font-weight: 600;
-            color: #000000;
+            color: #ffffff;
         }
 
         .section {
@@ -104,15 +105,16 @@
         .cta-section {
             margin-top: 80px;
             padding: 40px;
-            background: #f8f9fa;
-            border: 1px solid #e1e4e8;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
             text-align: center;
         }
 
         .cta-button {
             display: inline-block;
             padding: 16px 40px;
-            background: #0E1A2B;
+            background: transparent;
+            border: 1px solid #ffffff;
             color: #ffffff;
             text-decoration: none;
             font-size: 14px;
@@ -124,7 +126,8 @@
         }
 
         .cta-button:hover {
-            background: #132A4A;
+            border-color: #4DA3FF;
+            color: #4DA3FF;
         }
 
         .subsection {
@@ -167,6 +170,15 @@
         @media print {
             body {
                 background: #ffffff;
+                color: #000000;
+            }
+
+            h1, h2, h3 {
+                color: #000000;
+            }
+
+            p, ul li {
+                color: #2a2a2a;
             }
 
             .cta-section {
@@ -409,86 +421,3 @@
             <p>Once proven in investment, the playbook expands to policy (similar logic, different stakes) and legal (reasoning quality = case outcomes).</p>
             
             <h3>Unit Economics</h3>
-            
-            <ul>
-                <li><span class="emphasis">Average contract value:</span> $50K annually</li>
-                <li><span class="emphasis">CAC:</span> $8K (direct sales, design partner referrals)</li>
-                <li><span class="emphasis">LTV:</span> $180K (36-month retention, low churn once embedded in workflow)</li>
-                <li><span class="emphasis">Gross margin:</span> 85%+ (software margins, minimal variable cost)</li>
-            </ul>
-            
-            <h3>Revenue Trajectory</h3>
-            
-            <ul>
-                <li><span class="emphasis">Year 1:</span> $600K ARR (10 design partners convert, 10 additional sales)</li>
-                <li><span class="emphasis">Year 2:</span> $2M ARR (40 customers, case study-driven inbound)</li>
-                <li><span class="emphasis">Year 3:</span> $8M ARR (expansion into policy/legal, enterprise platform deals)</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>What We Need</h2>
-            
-            <h3>The Ask: $2M Seed Round</h3>
-            
-            <p>This capital enables three things:</p>
-            
-            <div class="subsection">
-                <p><span class="emphasis">1. Product: Commercial-Grade Infrastructure ($900K)</span></p>
-                
-                <p>The current system works. It analyzes documents, detects reasoning failures, and returns diagnostic reports in under 10 seconds.</p>
-                
-                <p>But moving from working prototype to enterprise-grade platform requires:</p>
-                <ul>
-                    <li><span class="emphasis">Senior full-stack engineer:</span> Scale infrastructure, build API, ensure 99.9% uptime</li>
-                    <li><span class="emphasis">ML engineer:</span> Improve accuracy, reduce latency, expand taxonomy coverage</li>
-                    <li><span class="emphasis">Product manager:</span> Enterprise features, workflow integrations, customer feedback loops</li>
-                    <li><span class="emphasis">Security and compliance:</span> SOC 2, data privacy, on-premise deployment options</li>
-                </ul>
-            </div>
-            
-            <div class="subsection">
-                <p><span class="emphasis">2. Sales & Marketing: Proof of Market Fit ($700K)</span></p>
-                
-                <p>We know the problem is real. We need to prove the market will pay to solve it.</p>
-                
-                <ul>
-                    <li><span class="emphasis">VP Sales:</span> Close first 50 customers, build repeatable sales process</li>
-                    <li><span class="emphasis">2 Account Executives:</span> Pipeline generation, design partner conversion</li>
-                    <li><span class="emphasis">Marketing lead:</span> Case studies, content positioning, inbound funnel</li>
-                    <li><span class="emphasis">Customer success:</span> Onboarding, retention, upsell to enterprise tiers</li>
-                </ul>
-            </div>
-            
-            <div class="subsection">
-                <p><span class="emphasis">3. Operations: 18-Month Runway ($400K)</span></p>
-                
-                <p>Legal, compliance, finance, administrative infrastructure to support growth through Series A milestones.</p>
-            </div>
-            
-            <h3>Milestones This Unlocks</h3>
-            
-            <ul>
-                <li><span class="emphasis">Q1 2026:</span> 10 design partners operational</li>
-                <li><span class="emphasis">Q2 2026:</span> First paying customers, case studies published</li>
-                <li><span class="emphasis">Q4 2026:</span> $2M ARR, clear unit economics, platform roadmap validated</li>
-                <li><span class="emphasis">Q1 2027:</span> Series A position with product-market fit proven</li>
-            </ul>
-            
-            <h3>Why This Works</h3>
-            
-            <p>Reasoning verification is not a "nice-to-have." It is infrastructure for institutional decision-making in an era where process compliance no longer guarantees quality.</p>
-            
-            <p>The market exists. The technology is ready. The timing is correct.</p>
-            
-            <p><span class="emphasis">Validity makes reasoning quality auditable, systematic, and scalable.</span></p>
-        </div>
-
-        <div class="cta-section">
-            <h3 style="margin-top: 0; margin-bottom: 16px;">Read the Full Pitch Deck</h3>
-            <p style="color: #666; margin-bottom: 0;">See detailed product roadmap, market analysis, and team background</p>
-            <a href="pitch-deck.html" class="cta-button">View Pitch Deck</a>
-        </div>
-    </div>
-</body>
-</html>
