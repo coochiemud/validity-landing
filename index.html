@@ -194,6 +194,11 @@
             gap: 2rem;
         }
 
+        .who-card-link {
+            text-decoration: none;
+            display: block;
+        }
+
         .who-card {
             background: rgba(30, 47, 72, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -202,6 +207,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .who-card::before {
@@ -226,10 +232,10 @@
             opacity: 1;
         }
 
-        .who-card:nth-child(1) { --card-accent: var(--accent-red); }
-        .who-card:nth-child(2) { --card-accent: var(--accent-blue); }
-        .who-card:nth-child(3) { --card-accent: var(--accent-amber); }
-        .who-card:nth-child(4) { --card-accent: var(--accent-emerald); }
+        .who-card-link:nth-child(1) .who-card { --card-accent: var(--accent-red); }
+        .who-card-link:nth-child(2) .who-card { --card-accent: var(--accent-blue); }
+        .who-card-link:nth-child(3) .who-card { --card-accent: var(--accent-amber); }
+        .who-card-link:nth-child(4) .who-card { --card-accent: var(--accent-emerald); }
 
         .who-card h3 {
             font-size: 1.5rem;
@@ -595,22 +601,30 @@
             <div class="container">
                 <h2 class="section-title">Who It's For</h2>
                 <div class="who-grid">
-                    <div class="who-card">
-                        <h3>Investment</h3>
-                        <p>Catch flawed theses before capital is committed</p>
-                    </div>
-                    <div class="who-card">
-                        <h3>Policy</h3>
-                        <p>Stress-test recommendations before consequences</p>
-                    </div>
-                    <div class="who-card">
-                        <h3>Legal</h3>
-                        <p>Expose weak arguments before scrutiny</p>
-                    </div>
-                    <div class="who-card">
-                        <h3>Strategy</h3>
-                        <p>Validate logic before clients do</p>
-                    </div>
+                    <a href="investment.html" class="who-card-link">
+                        <div class="who-card">
+                            <h3>Investment</h3>
+                            <p>Catch flawed theses before capital is committed</p>
+                        </div>
+                    </a>
+                    <a href="policy.html" class="who-card-link">
+                        <div class="who-card">
+                            <h3>Policy</h3>
+                            <p>Stress-test recommendations before consequences</p>
+                        </div>
+                    </a>
+                    <a href="legal.html" class="who-card-link">
+                        <div class="who-card">
+                            <h3>Legal</h3>
+                            <p>Expose weak arguments before scrutiny</p>
+                        </div>
+                    </a>
+                    <a href="strategy.html" class="who-card-link">
+                        <div class="who-card">
+                            <h3>Strategy</h3>
+                            <p>Validate logic before clients do</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>
