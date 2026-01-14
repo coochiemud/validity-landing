@@ -59,9 +59,16 @@
             max-width: 600px;
         }
 
+        .button-group {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
         .cta-button {
             display: inline-block;
-            padding: 16px 40px;
+            padding: 16px 32px;
             background: transparent;
             border: 1px solid #ffffff;
             color: #ffffff;
@@ -76,6 +83,14 @@
         .cta-button:hover {
             border-color: #4DA3FF;
             color: #4DA3FF;
+        }
+
+        .cta-button.secondary {
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .cta-button.secondary:hover {
+            border-color: rgba(255,255,255,0.5);
         }
 
         /* Section Headers */
@@ -213,13 +228,6 @@
             color: #6B85A6;
         }
 
-        /* Button Container */
-        .button-group {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -259,6 +267,7 @@
 
             .cta-button {
                 text-align: center;
+                width: 100%;
             }
         }
     </style>
@@ -272,7 +281,8 @@
             <p class="hero-subtitle">Validity audits the logic inside high-stakes documents—exposing hidden flaws before they become costly decisions.</p>
             <div class="button-group">
                 <a href="https://validity-mvp.streamlit.app" class="cta-button">Try Demo</a>
-                <a href="pitch-deck.html" class="cta-button" style="background: transparent; border: 1px solid rgba(255,255,255,0.3);">View Pitch Deck</a>
+                <a href="pitch-deck.html" class="cta-button secondary">Pitch Deck</a>
+                <a href="investor-memo.html" class="cta-button secondary">Investor Memo</a>
             </div>
         </div>
     </section>
