@@ -3,11 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validity - Reasoning Quality Verification</title>
+    <title>Validity — Logic Auditing for High-Stakes Documents</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --navy-deep: #0a1628;
+            --navy-rich: #162238;
+            --navy-medium: #1e2f48;
+            --slate: #64748b;
+            --slate-light: #94a3b8;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --accent-red: #ef4444;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-blue: #3b82f6;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,362 +29,698 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #0E1A2B 0%, #132A4A 100%);
-            color: #ffffff;
-            line-height: 1.7;
+            font-family: 'Inter', sans-serif;
+            background: var(--navy-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(239, 68, 68, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Noise texture */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
-            max-width: 680px;
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 6rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo {
+            height: 32px;
+        }
+        
+        .logo img {
+            height: 100%;
+            width: auto;
         }
 
         /* Hero Section */
         .hero {
-            min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 100px 0;
-        }
-
-        .logo {
-            width: 180px;
-            margin-bottom: 60px;
-            display: block;
+            text-align: center;
+            margin-bottom: 8rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
         }
 
         h1 {
-            font-family: 'IBM Plex Serif', Georgia, serif;
-            font-size: 52px;
-            font-weight: 500;
-            line-height: 1.2;
-            margin-bottom: 30px;
-            letter-spacing: -0.5px;
+            font-family: 'Sora', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
         }
 
         .hero-subtitle {
-            font-size: 20px;
-            color: #6B85A6;
+            font-size: 1.4rem;
+            color: var(--slate-light);
+            max-width: 900px;
+            margin: 0 auto 1.5rem;
             line-height: 1.6;
-            margin-bottom: 50px;
-            max-width: 600px;
         }
 
-        .button-group {
+        .positioning-statement {
+            font-size: 0.95rem;
+            color: var(--slate);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .cta-group {
             display: flex;
-            gap: 16px;
+            gap: 1.5rem;
+            justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 16px 32px;
-            background: transparent;
-            border: 1px solid #ffffff;
-            color: #ffffff;
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 600;
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 1px;
             text-transform: uppercase;
-            transition: all 150ms ease;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .cta-button:hover {
-            border-color: #4DA3FF;
-            color: #4DA3FF;
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-1px);
         }
 
-        .cta-button.secondary {
-            border-color: rgba(255,255,255,0.3);
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
-        .cta-button.secondary:hover {
-            border-color: rgba(255,255,255,0.5);
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.6);
         }
 
-        /* Section Headers */
-        .section {
-            padding: 80px 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        .btn-secondary {
+            font-size: 0.85rem;
+            padding: 0.85rem 1.5rem;
+            opacity: 0.8;
         }
 
-        h2 {
-            font-family: 'IBM Plex Serif', Georgia, serif;
-            font-size: 36px;
-            font-weight: 500;
-            margin-bottom: 40px;
-            line-height: 1.3;
+        .btn-secondary:hover {
+            opacity: 1;
         }
 
-        /* Use Cases */
-        .use-case {
-            margin-bottom: 30px;
+        /* Who It's For Section */
+        .who-section {
+            margin-bottom: 8rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
         }
 
-        .use-case h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #ffffff;
+        .section-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+            letter-spacing: -0.02em;
         }
 
-        .use-case p {
-            font-size: 16px;
-            color: #6B85A6;
+        .who-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
         }
 
-        /* What It Detects */
-        ul {
-            list-style: none;
-            margin: 30px 0;
-        }
-
-        ul li {
-            font-size: 17px;
-            color: #B8C5D6;
-            margin-bottom: 16px;
-            padding-left: 20px;
+        .who-card {
+            background: rgba(30, 47, 72, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
         }
 
-        ul li:before {
-            content: "•";
+        .who-card::before {
+            content: '';
             position: absolute;
+            top: 0;
             left: 0;
-            color: #4DA3FF;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--card-accent), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        /* Sample Output */
-        .sample-output {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 40px;
-            margin: 40px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.8;
+        .who-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(30, 47, 72, 0.6);
+        }
+
+        .who-card:hover::before {
+            opacity: 1;
+        }
+
+        .who-card:nth-child(1) { --card-accent: var(--accent-red); }
+        .who-card:nth-child(2) { --card-accent: var(--accent-blue); }
+        .who-card:nth-child(3) { --card-accent: var(--accent-amber); }
+        .who-card:nth-child(4) { --card-accent: var(--accent-emerald); }
+
+        .who-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .who-card p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        /* What It Detects Section */
+        .detects-section {
+            margin-bottom: 8rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .detects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .detect-item {
+            background: linear-gradient(135deg, rgba(30, 47, 72, 0.3), rgba(22, 34, 56, 0.3));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .detect-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.1), transparent);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        .detect-item h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .detect-item p {
+            color: var(--slate-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Sample Output Section */
+        .sample-section {
+            margin-bottom: 8rem;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .sample-container {
+            background: rgba(22, 34, 56, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .sample-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-amber), var(--accent-emerald));
         }
 
         .output-header {
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 20px;
-            color: #ffffff;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--slate-light);
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .output-meta {
-            margin-bottom: 25px;
-            color: #B8C5D6;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .output-meta div {
-            margin-bottom: 6px;
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
-        .output-section {
-            margin-top: 25px;
+        .meta-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--slate);
         }
 
-        .output-section-title {
+        .meta-value {
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 15px;
-            color: #ffffff;
+            color: var(--text-primary);
         }
 
-        .finding {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+        .risk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-amber);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            font-size: 0.95rem;
         }
 
-        .finding:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
+        .score-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .score-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .score-bar {
+            width: 200px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-amber));
+            width: 62%;
+            border-radius: 4px;
+            animation: fillScore 1.5s ease-out 1s both;
+        }
+
+        @keyframes fillScore {
+            from { width: 0; }
+            to { width: 62%; }
+        }
+
+        .issues-section {
+            margin-top: 2.5rem;
+        }
+
+        .issues-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .issue-item {
+            background: rgba(10, 22, 40, 0.5);
+            border-left: 3px solid var(--issue-color);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .issue-item:nth-child(1) { --issue-color: var(--accent-red); }
+        .issue-item:nth-child(2) { --issue-color: var(--accent-amber); }
+        .issue-item:nth-child(3) { --issue-color: var(--accent-amber); }
+
+        .issue-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .severity-badge {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            background: var(--badge-bg);
+            color: var(--badge-color);
         }
 
         .severity-high {
-            color: #FF6B6B;
-            font-weight: 600;
+            --badge-bg: rgba(239, 68, 68, 0.2);
+            --badge-color: var(--accent-red);
         }
 
         .severity-medium {
-            color: #FFB347;
+            --badge-bg: rgba(245, 158, 11, 0.2);
+            --badge-color: var(--accent-amber);
+        }
+
+        .issue-title {
+            font-size: 1.1rem;
             font-weight: 600;
+            color: var(--text-primary);
         }
 
-        .finding-text {
-            color: #B8C5D6;
-            margin-top: 8px;
+        .issue-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
 
-        /* Early Access */
-        .early-access-text {
-            font-size: 17px;
-            color: #B8C5D6;
-            margin-bottom: 40px;
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin-bottom: 6rem;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(30, 47, 72, 0.4), rgba(22, 34, 56, 0.4));
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .cta-section h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
         }
 
         /* Footer */
-        .footer {
-            padding: 60px 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        footer {
             text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--slate);
+            font-size: 0.9rem;
         }
 
-        .footer p {
-            font-size: 14px;
-            color: #6B85A6;
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 24px;
-            }
-
             h1 {
-                font-size: 36px;
+                font-size: 3rem;
             }
 
-            h2 {
-                font-size: 28px;
+            .hero-subtitle {
+                font-size: 1.2rem;
             }
 
-            .hero {
-                min-height: 80vh;
-                padding: 60px 0;
-            }
-
-            .section {
-                padding: 60px 0;
-            }
-
-            .logo {
-                width: 140px;
-            }
-
-            .sample-output {
-                padding: 30px 24px;
-                font-size: 12px;
-            }
-
-            .button-group {
+            .cta-group {
                 flex-direction: column;
-                align-items: stretch;
+                width: 100%;
             }
 
-            .cta-button {
-                text-align: center;
+            .btn {
                 width: 100%;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .who-grid,
+            .detects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sample-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .score-value {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Hero -->
-    <section class="hero">
+    <header>
         <div class="container">
-            <img src="validity-logo.png" alt="Validity" class="logo">
-            <h1>Better Decisions Start With Better Reasoning.</h1>
-            <p class="hero-subtitle">Validity audits the logic inside high-stakes documents—exposing hidden flaws before they become costly decisions.</p>
-            <div class="button-group">
-                <a href="https://validity-mvp.streamlit.app" class="cta-button">Try Demo</a>
-                <a href="pitch-deck.html" class="cta-button secondary">Pitch Deck</a>
-                <a href="investor-memo.html" class="cta-button secondary">Investor Memo</a>
+            <div class="logo">
+                <img src="validity-logo.png" alt="Validity">
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- Who It's For -->
-    <section class="section">
-        <div class="container">
-            <h2>Who It's For</h2>
-            <div class="use-case">
-                <h3>Investment</h3>
-                <p>Catch flawed theses before capital is committed</p>
-            </div>
-            <div class="use-case">
-                <h3>Policy</h3>
-                <p>Stress-test recommendations before consequences</p>
-            </div>
-            <div class="use-case">
-                <h3>Legal</h3>
-                <p>Expose weak arguments before scrutiny</p>
-            </div>
-            <div class="use-case">
-                <h3>Strategy</h3>
-                <p>Validate logic before clients do</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- What It Detects -->
-    <section class="section">
-        <div class="container">
-            <h2>What It Detects</h2>
-            <ul>
-                <li>Unsupported assumptions</li>
-                <li>Logical leaps and causal gaps</li>
-                <li>Overconfidence masked as certainty</li>
-                <li>Risk blindness and narrative coercion</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Sample Output -->
-    <section class="section">
-        <div class="container">
-            <h2>Sample Output</h2>
-            <div class="sample-output">
-                <div class="output-header">VALIDITY ANALYSIS — EXECUTIVE SUMMARY</div>
-                
-                <div class="output-meta">
-                    <div>Document Type: Investment Memorandum</div>
-                    <div>Risk Classification: Medium</div>
-                    <div>Reasoning Quality: 62/100</div>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Better Decisions Start With<br>Better Reasoning</h1>
+                <p class="hero-subtitle">
+                    Validity audits how conclusions are reached inside high-stakes documents—exposing hidden flaws before they become costly decisions.
+                </p>
+                <p class="positioning-statement">
+                    Validity does not rewrite documents or assess tone. It evaluates the logical structure underlying conclusions.
+                </p>
+                <div class="cta-group">
+                    <a href="#" class="btn btn-primary">Try Demo</a>
+                    <a href="#" class="btn btn-secondary">Pitch Deck</a>
+                    <a href="#" class="btn btn-secondary">Investor Memo</a>
                 </div>
+            </div>
+        </section>
 
-                <div class="output-section">
-                    <div class="output-section-title">Critical Issues Identified:</div>
+        <section class="who-section">
+            <div class="container">
+                <h2 class="section-title">Who It's For</h2>
+                <div class="who-grid">
+                    <div class="who-card">
+                        <h3>Investment</h3>
+                        <p>Catch flawed theses before capital is committed</p>
+                    </div>
+                    <div class="who-card">
+                        <h3>Policy</h3>
+                        <p>Stress-test recommendations before consequences</p>
+                    </div>
+                    <div class="who-card">
+                        <h3>Legal</h3>
+                        <p>Expose weak arguments before scrutiny</p>
+                    </div>
+                    <div class="who-card">
+                        <h3>Strategy</h3>
+                        <p>Validate logic before clients do</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="detects-section">
+            <div class="container">
+                <h2 class="section-title">What It Detects</h2>
+                <div class="detects-grid">
+                    <div class="detect-item">
+                        <h4>Unsupported assumptions</h4>
+                        <p>Hidden premises that feel obvious but lack foundation</p>
+                    </div>
+                    <div class="detect-item">
+                        <h4>Logical leaps and causal gaps</h4>
+                        <p>Missing steps between evidence and conclusions</p>
+                    </div>
+                    <div class="detect-item">
+                        <h4>Overconfidence masked as certainty</h4>
+                        <p>Assertions that sound definitive but rest on weak support</p>
+                    </div>
+                    <div class="detect-item">
+                        <h4>Risk blindness and narrative-driven conclusions</h4>
+                        <p>When the story is too clean, critical threats disappear from view</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="sample-section">
+            <div class="container">
+                <h2 class="section-title">Sample Output</h2>
+                <div class="sample-container">
+                    <div class="output-header">Validity Analysis — Executive Summary (Automated Logic Audit)</div>
                     
-                    <div class="finding">
-                        <div><span class="severity-high">[HIGH]</span> Inferential Chain Breakdown</div>
-                        <div class="finding-text">The conclusion depends on three sequential assumptions, each independently unverified. Failure of any single assumption invalidates the projection.</div>
+                    <div class="output-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Document Type</div>
+                            <div class="meta-value">Investment Memorandum</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Risk Classification</div>
+                            <div class="meta-value">
+                                <span class="risk-badge">
+                                    <span>⚠️</span>
+                                    <span>Medium</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Reasoning Quality</div>
+                            <div class="meta-value">
+                                <div class="score-container">
+                                    <div class="score-value">62/100</div>
+                                    <div class="score-bar">
+                                        <div class="score-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="finding">
-                        <div><span class="severity-medium">[MEDIUM]</span> Unsupported Causality</div>
-                        <div class="finding-text">Claims market maturity will drive adoption without mechanism or precedent.</div>
-                    </div>
+                    <div class="issues-section">
+                        <div class="issues-title">Critical Issues Identified</div>
+                        
+                        <div class="issue-item">
+                            <div class="issue-header">
+                                <span class="severity-badge severity-high">High</span>
+                                <h4 class="issue-title">Inferential Chain Breakdown</h4>
+                            </div>
+                            <p class="issue-description">
+                                The conclusion depends on three sequential assumptions, each independently unverified. Failure of any single assumption invalidates the projection.
+                            </p>
+                        </div>
 
-                    <div class="finding">
-                        <div><span class="severity-medium">[MEDIUM]</span> Selective Evidence</div>
-                        <div class="finding-text">Quantitative support provided only for favorable scenarios.</div>
+                        <div class="issue-item">
+                            <div class="issue-header">
+                                <span class="severity-badge severity-medium">Medium</span>
+                                <h4 class="issue-title">Unsupported Causality</h4>
+                            </div>
+                            <p class="issue-description">
+                                Claims market maturity will drive adoption without establishing mechanism or precedent.
+                            </p>
+                        </div>
+
+                        <div class="issue-item">
+                            <div class="issue-header">
+                                <span class="severity-badge severity-medium">Medium</span>
+                                <h4 class="issue-title">Selective Evidence</h4>
+                            </div>
+                            <p class="issue-description">
+                                Quantitative support provided only for favorable scenarios. Downside risks mentioned but not quantified.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Early Access -->
-    <section class="section">
-        <div class="container">
-            <h2>Early Access</h2>
-            <p class="early-access-text">Request access for your team.</p>
-            <a href="https://validity-mvp.streamlit.app" class="cta-button">Request Access</a>
-        </div>
-    </section>
+        <section class="cta-section">
+            <div class="container">
+                <h2>Early Access</h2>
+                <p>Request access for your team.</p>
+                <a href="#" class="btn">Request Access</a>
+            </div>
+        </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <footer>
         <div class="container">
-            <p>© 2026 Validity</p>
+            © 2026 Validity
         </div>
     </footer>
 </body>
