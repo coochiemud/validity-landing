@@ -35,6 +35,24 @@
             width: 100%;
         }
 
+        .logo-link {
+            display: block;
+            width: 280px;
+            margin-bottom: 60px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-link:hover {
+            opacity: 0.8;
+        }
+
+        .logo-link img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         h1 {
             font-family: 'IBM Plex Serif', Georgia, serif;
             font-size: 64px;
@@ -214,6 +232,10 @@
                 padding: 60px 30px;
             }
 
+            .logo-link {
+                width: 200px;
+            }
+
             h1 {
                 font-size: 40px;
             }
@@ -259,7 +281,9 @@
 <!-- Slide 1: Cover -->
 <div class="slide">
     <div class="slide-content">
-        <img src="validity-logo.png" alt="Validity" style="width: 280px; margin-bottom: 60px; display: block;">
+        <a href="index.html" class="logo-link">
+            <img src="validity-logo.png" alt="Validity">
+        </a>
         <p class="tagline">Reasoning Infrastructure for High-Stakes Decisions</p>
         <p class="contact">Nick Holt, Founder & CEO<br>January 2026</p>
     </div>
