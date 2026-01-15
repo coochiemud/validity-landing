@@ -1,1 +1,851 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validity for Strategy — Logic Auditing for Strategic Decisions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-deep: #0a1628;
+            --navy-rich: #162238;
+            --navy-medium: #1e2f48;
+            --slate: #64748b;
+            --slate-light: #94a3b8;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --accent-red: #ef4444;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-blue: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--navy-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(239, 68, 68, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Noise texture */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 6rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 32px;
+        }
+        
+        .logo img {
+            height: 100%;
+            width: auto;
+        }
+
+        .nav-link {
+            color: var(--slate-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 8rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--slate-light);
+            max-width: 900px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.6;
+        }
+
+        .positioning-statement {
+            font-size: 0.95rem;
+            color: var(--slate);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-secondary {
+            font-size: 0.85rem;
+            padding: 0.85rem 1.5rem;
+            opacity: 0.8;
+        }
+
+        .btn-secondary:hover {
+            opacity: 1;
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 8rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .section-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: var(--slate-light);
+            margin-bottom: 2.5rem;
+            line-height: 1.5;
+        }
+
+        .section-note {
+            font-size: 0.9rem;
+            color: var(--slate);
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .content-block {
+            background: rgba(30, 47, 72, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-block h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .content-block p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .content-block ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .content-block li {
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .content-block li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-red);
+            font-weight: bold;
+        }
+
+        .content-block strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Three Column Grid */
+        .three-col-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .col-item {
+            background: rgba(30, 47, 72, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .col-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .col-item p {
+            color: var(--slate-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Detection Items */
+        .detection-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .detection-item {
+            background: linear-gradient(135deg, rgba(30, 47, 72, 0.3), rgba(22, 34, 56, 0.3));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 3px solid var(--accent-emerald);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .detection-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .detection-item p {
+            color: var(--slate-light);
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .detection-example {
+            background: rgba(10, 22, 40, 0.5);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--slate);
+            font-style: italic;
+        }
+
+        /* Sample Output */
+        .sample-container {
+            background: rgba(22, 34, 56, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            margin-top: 2rem;
+        }
+
+        .sample-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-amber), var(--accent-emerald));
+        }
+
+        .output-header {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--slate-light);
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .output-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .meta-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--slate);
+        }
+
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .risk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--accent-red);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            font-size: 0.95rem;
+        }
+
+        .score-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .score-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .score-bar {
+            width: 200px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-amber));
+            width: 54%;
+            border-radius: 4px;
+        }
+
+        .issues-section {
+            margin-top: 2.5rem;
+        }
+
+        .issues-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .issue-item {
+            background: rgba(10, 22, 40, 0.5);
+            border-left: 3px solid var(--issue-color);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .issue-item:nth-child(1) { --issue-color: var(--accent-red); }
+        .issue-item:nth-child(2) { --issue-color: var(--accent-red); }
+        .issue-item:nth-child(3) { --issue-color: var(--accent-amber); }
+
+        .issue-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .severity-badge {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            background: var(--badge-bg);
+            color: var(--badge-color);
+        }
+
+        .severity-high {
+            --badge-bg: rgba(239, 68, 68, 0.2);
+            --badge-color: var(--accent-red);
+        }
+
+        .severity-medium {
+            --badge-bg: rgba(245, 158, 11, 0.2);
+            --badge-color: var(--accent-amber);
+        }
+
+        .issue-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .issue-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Audience List */
+        .audience-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .audience-item {
+            background: rgba(30, 47, 72, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin-bottom: 6rem;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(30, 47, 72, 0.4), rgba(22, 34, 56, 0.4));
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-section h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--slate);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .cta-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .content-block {
+                padding: 2rem;
+            }
+
+            .three-col-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sample-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html"><img src="validity-logo.png" alt="Validity"></a>
+                </div>
+                <a href="index.html" class="nav-link">← Back to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Strategic Failure Begins<br>in the Assumptions</h1>
+                <p class="hero-subtitle">
+                    Validity audits the logic inside strategy documents before decisions are made—exposing fragile assumptions, causal overreach, and underestimated downside.
+                </p>
+                <p class="positioning-statement">
+                    Validity does not generate strategy or recommend actions. It evaluates whether strategic conclusions are logically supported by the evidence and assumptions presented.
+                </p>
+                <div class="cta-group">
+                    <a href="#" class="btn btn-primary">Request Access</a>
+                    <a href="#" class="btn btn-secondary">View Sample Analysis</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="problem-section">
+            <div class="container">
+                <h2 class="section-title">Most Strategic Errors Are Reasoning Errors</h2>
+                <p class="section-subtitle">Before a strategy fails in execution or collapses under pressure, the weaknesses usually exist in the original analysis.</p>
+                
+                <div class="content-block">
+                    <ul>
+                        <li><strong>Assumptions about markets, competitors, or behaviour treated as facts</strong></li>
+                        <li><strong>Growth or impact projections built on layered, untested premises</strong></li>
+                        <li><strong>Causal links asserted without supporting mechanisms</strong></li>
+                        <li><strong>Downside scenarios acknowledged but structurally discounted</strong></li>
+                        <li><strong>Narrative coherence prioritised over analytical integrity</strong></li>
+                    </ul>
+                    <p style="margin-top: 2rem;">These are not execution failures. They are reasoning failures. Validity is designed to surface them before commitments are made.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="what-section">
+            <div class="container">
+                <h2 class="section-title">A Logic Audit for Strategic Decisions</h2>
+                <p class="section-subtitle">Validity analyses strategy decks, investment theses, business cases, and board papers to evaluate:</p>
+                
+                <div class="content-block">
+                    <ul>
+                        <li>Whether strategic conclusions follow from the underlying analysis</li>
+                        <li>Where causal claims lack credible mechanisms or precedent</li>
+                        <li>How sensitive outcomes are to key assumptions</li>
+                        <li>Whether downside risk is fully integrated or marginalised</li>
+                        <li>Where narrative framing substitutes for analytical support</li>
+                    </ul>
+                    <p style="margin-top: 2rem;">It does not propose strategy. It does not assess market attractiveness. It evaluates whether the reasoning behind the strategy holds under scrutiny.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="workflow-section">
+            <div class="container">
+                <h2 class="section-title">Before Commitment. Before Capital. Before Consequences.</h2>
+                <p class="section-subtitle">Validity is used at three critical points:</p>
+                
+                <div class="three-col-grid">
+                    <div class="col-item">
+                        <h4>1. Pre-Decision Review</h4>
+                        <p>Stress-test the internal logic of strategic proposals before executive or board approval.</p>
+                    </div>
+                    <div class="col-item">
+                        <h4>2. External Strategy Audit</h4>
+                        <p>Evaluate consultant decks, investment theses, or partner proposals for logical gaps and assumption risk.</p>
+                    </div>
+                    <div class="col-item">
+                        <h4>3. Post-Decision Re-Evaluation</h4>
+                        <p>Re-examine strategic reasoning as conditions change or results diverge from expectations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="detects-section">
+            <div class="container">
+                <h2 class="section-title">What It Detects</h2>
+                <p class="section-subtitle">Validity flags reasoning patterns commonly associated with strategic failure:</p>
+                
+                <div class="detection-grid">
+                    <div class="detection-item">
+                        <h4>Assumption Stacking</h4>
+                        <p>Multiple interdependent assumptions required for success, none of which are independently validated.</p>
+                        <div class="detection-example">
+                            Example: Market growth, pricing power, and adoption rate all assumed simultaneously.
+                        </div>
+                    </div>
+
+                    <div class="detection-item">
+                        <h4>Causal Overreach</h4>
+                        <p>Strategic outcomes asserted without mechanisms linking action to result.</p>
+                    </div>
+
+                    <div class="detection-item">
+                        <h4>Downside Minimisation</h4>
+                        <p>Risks acknowledged narratively but excluded from core decision logic.</p>
+                    </div>
+
+                    <div class="detection-item">
+                        <h4>Base-Rate Neglect</h4>
+                        <p>Historical failure rates or comparable outcomes ignored in projections.</p>
+                    </div>
+
+                    <div class="detection-item">
+                        <h4>Narrative Substitution</h4>
+                        <p>Compelling stories used to mask analytical gaps or uncertainty.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="sample-section">
+            <div class="container">
+                <h2 class="section-title">Sample Output</h2>
+                <p class="section-note">Illustrative example of a Validity strategic audit</p>
+                <div class="sample-container">
+                    <div class="output-header">Validity Analysis — Executive Summary</div>
+                    
+                    <div class="output-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Document Type</div>
+                            <div class="meta-value">Strategy Deck</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Decision Risk</div>
+                            <div class="meta-value">
+                                <span class="risk-badge">
+                                    <span>⚠️</span>
+                                    <span>High</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Reasoning Quality</div>
+                            <div class="meta-value">
+                                <div class="score-container">
+                                    <div class="score-value">54/100</div>
+                                    <div class="score-bar">
+                                        <div class="score-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="issues-section">
+                        <div class="issues-title">Critical Issues Identified</div>
+                        
+                        <div class="issue-item">
+                            <div class="issue-header">
+                                <span class="severity-badge severity-high">High</span>
+                                <h4 class="issue-title">Assumption Stacking</h4>
+                            </div>
+                            <p class="issue-description">
+                                Projected growth depends on simultaneous success across adoption, pricing, and retention without independent validation.
+                            </p>
+                        </div>
+
+                        <div class="issue-item">
+                            <div class="issue-header">
+                                <span class="severity-badge severity-high">High</span>
+                                <h4 class="issue-title">Causal Overreach</h4>
+                            </div>
+                            <p class="issue-description">
+                                The strategy assumes market leadership will follow scale without identifying mechanisms that confer durable advantage.
+                            </p>
+                        </div>
+
+                        <div class="issue-item">
+                            <div class="issue-header">
+                                <span class="severity-badge severity-medium">Medium</span>
+                                <h4 class="issue-title">Downside Minimisation</h4>
+                            </div>
+                            <p class="issue-description">
+                                Competitive response and margin compression risks are acknowledged but excluded from decision-critical analysis.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="why-section">
+            <div class="container">
+                <h2 class="section-title">It Improves Decision Quality Under Uncertainty</h2>
+                <p class="section-subtitle">Strategy teams use Validity to:</p>
+                
+                <div class="content-block">
+                    <ul>
+                        <li>Surface hidden assumption load before capital is committed</li>
+                        <li>Identify where confidence exceeds evidentiary support</li>
+                        <li>Stress-test strategic narratives against logical failure modes</li>
+                        <li>Create defensible decision records for boards and stakeholders</li>
+                    </ul>
+                    <p style="margin-top: 2rem;">Validity does not choose your strategy. It ensures the reasoning behind it can survive contact with reality.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="audience-section">
+            <div class="container">
+                <h2 class="section-title">Who It's For</h2>
+                <div class="audience-list">
+                    <div class="audience-item">Executive Leadership Teams</div>
+                    <div class="audience-item">Corporate Strategy Units</div>
+                    <div class="audience-item">Investment Committees</div>
+                    <div class="audience-item">Boards & Advisory Councils</div>
+                    <div class="audience-item">Management Consultants</div>
+                    <div class="audience-item">Venture & Private Equity Firms</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>Better Reasoning, Before Commitment</h2>
+                <p>Request early access for your strategy team.</p>
+                <a href="#" class="btn btn-primary">Request Access</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            © 2026 Validity
+        </div>
+    </footer>
+</body>
+</html>
