@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validity Demo — Try the Logic Audit</title>
+    <title>Validity Demo — Logic Audit</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
@@ -96,16 +96,6 @@
             animation: fadeInUp 1s ease-out 0.2s both;
         }
 
-        h1 {
-            font-family: 'Sora', sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            letter-spacing: -0.03em;
-            color: var(--text-primary);
-        }
-
         .demo-subtitle {
             font-size: 1.2rem;
             color: var(--slate-light);
@@ -118,7 +108,7 @@
         .iframe-container {
             position: relative;
             width: 100%;
-            height: calc(100vh - 250px);
+            height: calc(100vh - 200px);
             min-height: 600px;
             background: rgba(30, 47, 72, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -178,16 +168,12 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
             .demo-subtitle {
                 font-size: 1rem;
             }
 
             .iframe-container {
-                height: calc(100vh - 200px);
+                height: calc(100vh - 180px);
                 min-height: 500px;
             }
         }
@@ -208,9 +194,8 @@
     <main>
         <div class="container">
             <div class="demo-intro">
-                <h1>Try Validity</h1>
                 <p class="demo-subtitle">
-                    Upload a document and see how Validity audits its logical structure.
+                    Upload a document. Validity will audit the logic and flag structural weaknesses.
                 </p>
             </div>
 
