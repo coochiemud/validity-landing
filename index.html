@@ -177,7 +177,10 @@
         /* Who It's For Section */
         .who-section {
             margin-bottom: 8rem;
-            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .who-section .who-card {
+            animation: fadeInUp 0.8s ease-out both;
         }
 
         .section-title {
@@ -191,8 +194,8 @@
 
         .who-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
         }
 
         .who-card-link {
@@ -205,10 +208,11 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 12px;
             padding: 2.5rem 2rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             cursor: pointer;
+            height: 100%;
         }
 
         .who-card::before {
@@ -219,38 +223,95 @@
             width: 4px;
             height: 100%;
             background: linear-gradient(180deg, var(--card-accent), transparent);
+            opacity: 0.3;
+            transition: opacity 0.4s ease;
+        }
+
+        .who-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, var(--card-accent), transparent);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
         }
 
         .who-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.15);
-            background: rgba(30, 47, 72, 0.6);
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(30, 47, 72, 0.7);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 0 30px rgba(var(--card-accent-rgb), 0.2);
         }
 
         .who-card:hover::before {
             opacity: 1;
         }
 
-        .who-card-link:nth-child(1) .who-card { --card-accent: var(--accent-red); }
-        .who-card-link:nth-child(2) .who-card { --card-accent: var(--accent-purple); }
-        .who-card-link:nth-child(3) .who-card { --card-accent: var(--accent-blue); }
-        .who-card-link:nth-child(4) .who-card { --card-accent: var(--accent-amber); }
-        .who-card-link:nth-child(5) .who-card { --card-accent: var(--accent-amber); }
-        .who-card-link:nth-child(6) .who-card { --card-accent: var(--accent-emerald); }
+        .who-card:hover::after {
+            opacity: 0.05;
+        }
+
+        .who-card-link:nth-child(1) .who-card { 
+            --card-accent: var(--accent-red);
+            --card-accent-rgb: 239, 68, 68;
+            animation-delay: 0.5s;
+        }
+        .who-card-link:nth-child(2) .who-card { 
+            --card-accent: var(--accent-purple);
+            --card-accent-rgb: 168, 85, 247;
+            animation-delay: 0.6s;
+        }
+        .who-card-link:nth-child(3) .who-card { 
+            --card-accent: var(--accent-blue);
+            --card-accent-rgb: 59, 130, 246;
+            animation-delay: 0.7s;
+        }
+        .who-card-link:nth-child(4) .who-card { 
+            --card-accent: var(--accent-amber);
+            --card-accent-rgb: 245, 158, 11;
+            animation-delay: 0.8s;
+        }
+        .who-card-link:nth-child(5) .who-card { 
+            --card-accent: var(--accent-amber);
+            --card-accent-rgb: 245, 158, 11;
+            animation-delay: 0.9s;
+        }
+        .who-card-link:nth-child(6) .who-card { 
+            --card-accent: var(--accent-emerald);
+            --card-accent-rgb: 16, 185, 129;
+            animation-delay: 1s;
+        }
 
         .who-card h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: var(--slate-light);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            transition: all 0.3s ease;
+        }
+
+        .who-card:hover h3 {
+            color: var(--text-primary);
+            transform: translateX(4px);
         }
 
         .who-card p {
             color: var(--text-secondary);
             font-size: 1.05rem;
-            line-height: 1.5;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .who-card:hover p {
+            color: var(--slate-light);
         }
 
         /* What It Detects Section */
