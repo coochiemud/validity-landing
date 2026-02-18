@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validity - Pitch Deck</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,6 +69,7 @@
             font-weight: 500;
             margin-bottom: 40px;
             letter-spacing: -0.5px;
+            line-height: 1.2;
         }
 
         h3 {
@@ -123,62 +125,25 @@
             font-weight: 600;
         }
 
-        .section-header {
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #4DA3FF;
-            margin-bottom: 15px;
-        }
-
-        table {
-            width: 100%;
+        .quote-box {
+            background: rgba(77, 163, 255, 0.1);
+            border-left: 4px solid #4DA3FF;
+            padding: 30px;
             margin: 40px 0;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 20px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            font-size: 18px;
-        }
-
-        th {
-            font-weight: 700;
+            font-style: italic;
+            font-size: 24px;
             color: #ffffff;
-            background: rgba(255,255,255,0.05);
+            line-height: 1.5;
         }
 
-        td {
-            color: #B8C5D6;
-        }
-
-        .metric {
-            display: inline-block;
-            margin-right: 60px;
-            margin-top: 20px;
-        }
-
-        .metric-label {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #6B85A6;
-            margin-bottom: 8px;
-        }
-
-        .metric-value {
-            font-size: 48px;
-            font-weight: 700;
-            color: #4DA3FF;
-            font-family: 'IBM Plex Serif', Georgia, serif;
-        }
-
-        .checkmark {
-            color: #4DA3FF;
-            margin-right: 10px;
+        .callout {
+            background: rgba(255, 179, 71, 0.15);
+            border-left: 4px solid #FFB347;
+            padding: 30px;
+            margin: 40px 0;
+            font-size: 22px;
+            color: #ffffff;
+            line-height: 1.5;
         }
 
         .grid-2 {
@@ -207,15 +172,58 @@
             margin: 0;
         }
 
-        .phase {
-            margin-bottom: 40px;
+        .metric {
+            display: inline-block;
+            margin-right: 60px;
+            margin-top: 20px;
         }
 
-        .phase-title {
-            font-size: 22px;
-            font-weight: 600;
+        .metric-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6B85A6;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 48px;
+            font-weight: 700;
             color: #4DA3FF;
-            margin-bottom: 15px;
+            font-family: 'IBM Plex Serif', Georgia, serif;
+        }
+
+        .checkmark {
+            color: #4DA3FF;
+            margin-right: 10px;
+        }
+
+        .crossmark {
+            color: #FF6B6B;
+            margin-right: 10px;
+        }
+
+        table {
+            width: 100%;
+            margin: 40px 0;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 18px;
+        }
+
+        th {
+            font-weight: 700;
+            color: #ffffff;
+            background: rgba(255,255,255,0.05);
+        }
+
+        td {
+            color: #B8C5D6;
         }
 
         .nav-hint {
@@ -284,295 +292,400 @@
         <a href="index.html" class="logo-link">
             <img src="validity-logo.png" alt="Validity">
         </a>
-        <p class="tagline">Reasoning Infrastructure for High-Stakes Decisions</p>
-        <p class="contact">Nick Holt, Founder & CEO<br>January 2026</p>
+        <p class="tagline">Formal Verification Infrastructure for High-Stakes Reasoning</p>
+        <p class="contact">Nick Holt, Founder & CEO<br>February 2026</p>
     </div>
 </div>
 
-<!-- Slide 2: Problem -->
+<!-- Slide 2: What We're Building -->
 <div class="slide">
     <div class="slide-content">
-        <h2>Bad Reasoning Costs Billions</h2>
-        <p>High-stakes decisions fail not from missing data, but from:</p>
-        <ul>
-            <li>Assumptions treated as facts</li>
-            <li>Causal leaps without mechanism</li>
-            <li>Risks buried in confident language</li>
-        </ul>
-        <p style="margin-top: 40px;"><span class="emphasis">Review processes reward fluency, not truth.</span></p>
+        <h2>What We're Building</h2>
+        <p style="font-size: 32px; line-height: 1.4; color: #ffffff; margin: 60px 0; text-align: center;">Formal verification infrastructure for high-stakes reasoning.</p>
+        
+        <p style="font-size: 22px; text-align: center; margin-top: 60px;">Commercial-grade mathematical verification of internal consistency in structured decision documents.</p>
+        
+        <p style="font-size: 18px; text-align: center; margin-top: 30px; color: #6B85A6; font-style: italic;">Starting with institutional finance, expanding to policy, legal, and enterprise strategy.</p>
     </div>
 </div>
 
-<!-- Slide 3: Solution -->
+<!-- Slide 3: The Missing Layer -->
+<div class="slide">
+    <div class="slide-content">
+        <h2>The Missing Layer</h2>
+
+        <div class="grid-2" style="margin-top: 50px;">
+            <div>
+                <h3 style="color: #4DA3FF; margin-bottom: 30px;">We have:</h3>
+                <ul>
+                    <li><span class="checkmark">✓</span> Blockchain to verify transactions</li>
+                    <li><span class="checkmark">✓</span> Audit firms to verify numbers</li>
+                    <li><span class="checkmark">✓</span> Law firms to verify contracts</li>
+                    <li><span class="checkmark">✓</span> Credit agencies to verify creditworthiness</li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 style="color: #FF6B6B; margin-bottom: 30px;">We don't have:</h3>
+                <ul>
+                    <li><span class="crossmark">✗</span> Infrastructure to verify reasoning</li>
+                </ul>
+            </div>
+        </div>
+
+        <p style="font-size: 26px; color: #ffffff; text-align: center; margin-top: 80px;">We can audit numbers and compliance.</p>
+        <p style="font-size: 26px; color: #ffffff; text-align: center; margin-top: 20px;">We can't audit reasoning.</p>
+    </div>
+</div>
+
+<!-- Slide 4: The Problem -->
+<div class="slide">
+    <div class="slide-content">
+        <h2>The Problem</h2>
+        
+        <p style="font-size: 24px; margin-bottom: 40px;">High-stakes decisions rely on documents whose internal logic is never formally verified.</p>
+
+        <h3>Current Review Process:</h3>
+        <ul>
+            <li>Compliance checks format and disclosure requirements</li>
+            <li>Analysts review financial models and projections</li>
+            <li>Senior leadership reviews narrative and positioning</li>
+            <li>No layer tests internal logical consistency</li>
+        </ul>
+
+        <div class="callout" style="margin-top: 60px;">
+            Documents can contain mutually inconsistent claims—and those inconsistencies escape review.
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Why This Matters -->
+<div class="slide">
+    <div class="slide-content">
+        <h2>Why This Matters</h2>
+
+        <p style="font-size: 22px; margin-bottom: 40px;">High-stakes decision documents contain verifiable claims:</p>
+
+        <ul>
+            <li>Financial projections with embedded assumptions</li>
+            <li>Risk disclosures that may contradict operational claims</li>
+            <li>Regulatory assertions that may conflict with disclaimers</li>
+            <li>Valuation methodologies that may contradict stated principles</li>
+        </ul>
+
+        <div style="margin: 60px 0;">
+            <p style="font-size: 24px; text-align: center; color: #4DA3FF;">These claims are testable.</p>
+            <p style="font-size: 24px; text-align: center; margin-top: 20px;">They are currently untested.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: The Technical Challenge -->
+<div class="slide">
+    <div class="slide-content">
+        <h2>The Technical Challenge</h2>
+
+        <p style="font-size: 22px; margin-bottom: 40px;">Why hasn't this been done?</p>
+
+        <div class="card" style="margin-bottom: 25px;">
+            <h4>Rare Expertise Combination</h4>
+            <p>Formal methods expertise is rare—and rarely paired with financial domain knowledge</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 25px;">
+            <h4>Translation Complexity</h4>
+            <p>Financial language → decidable logic fragments requires domain-specific specification</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 25px;">
+            <h4>Refusal Discipline</h4>
+            <p>System must refuse claims outside supported fragment—most systems don't enforce boundaries</p>
+        </div>
+
+        <div class="card">
+            <h4>Recent Feasibility</h4>
+            <p>Claim extraction and structured NLP have matured to enterprise-grade reliability and cost</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: The Solution (Technical) -->
 <div class="slide">
     <div class="slide-content">
         <h2>The Solution</h2>
-        <p>Validity audits the logical structure of high-stakes documents—exposing hidden reasoning flaws before they become costly decisions.</p>
-        
-        <h3>How it works:</h3>
+
+        <h3>Technical Architecture:</h3>
         <ul>
-            <li>Upload investment memo, policy brief, legal argument, or strategy document</li>
-            <li>AI analyzes reasoning structure: claims, premises, logical chain, hidden assumptions</li>
-            <li>Receive diagnostic report: reasoning score, flagged failures, actionable fixes</li>
+            <li><span class="emphasis">Logical Fragment Specification (LFS):</span> Defines decidable subset of financial claims</li>
+            <li><span class="emphasis">Translation Layer:</span> Financial language → formal logic</li>
+            <li><span class="emphasis">SMT Solver Integration:</span> Z3 (Microsoft Research) for deterministic consistency checking and counterexample artifacts</li>
+            <li><span class="emphasis">Provenance Tracking:</span> Claim → text span → proof chain</li>
+            <li><span class="emphasis">Refusal Enforcement:</span> Explicit boundaries on what can be verified</li>
         </ul>
 
-        <p style="margin-top: 40px;"><span class="emphasis">Built for:</span> Investment teams, policy units, legal groups, strategy leaders</p>
+        <p style="font-size: 22px; text-align: center; color: #6B85A6; margin-top: 60px;">This is infrastructure, not tooling.<br>Deterministic, reproducible, traceable.</p>
     </div>
 </div>
 
-<!-- Slide 4: Product Demo -->
+<!-- Slide 8: What Makes It Hard -->
 <div class="slide">
     <div class="slide-content">
-        <h2>Validity in Action</h2>
-        
-        <div style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin: 40px 0;">
-            <div class="metric">
-                <div class="metric-label">Reasoning Score</div>
-                <div class="metric-value">62/100</div>
-            </div>
-            <div class="metric">
-                <div class="metric-label">Decision Risk</div>
-                <div class="metric-value" style="color: #FFB347;">MEDIUM</div>
-            </div>
+        <h2>What Makes This Hard</h2>
+
+        <p style="font-size: 22px; margin-bottom: 40px;">Three technical constraints:</p>
+
+        <div class="card" style="margin-bottom: 25px;">
+            <h4 style="color: #4DA3FF;">1. Decidability</h4>
+            <p>Can only verify claims expressible in decidable fragments—most natural language is not</p>
         </div>
 
-        <h3>Sample Output:</h3>
+        <div class="card" style="margin-bottom: 25px;">
+            <h4 style="color: #4DA3FF;">2. Soundness</h4>
+            <p>False positives break adoption—precision must be >95% within supported domain</p>
+        </div>
+
+        <div class="card">
+            <h4 style="color: #4DA3FF;">3. Completeness Trade-off</h4>
+            <p>Early baseline: ~25% of claims are formalizable in typical documents; the system must refuse the remainder without losing utility</p>
+        </div>
+
+        <p style="font-size: 20px; text-align: center; color: #6B85A6; margin-top: 50px; font-style: italic;">These constraints are the moat.<br>This is not an LLM wrapper.</p>
+    </div>
+</div>
+
+<!-- Slide 9: Phase A - Technical Validation -->
+<div class="slide">
+    <div class="slide-content">
+        <h2>Phase A: Technical Validation</h2>
+
+        <p style="font-size: 22px; margin-bottom: 40px;">24-month program to prove this works in enterprise workflows at production reliability:</p>
+
+        <h3>Technical Milestones:</h3>
         <ul>
-            <li><span class="emphasis">Assumption Stacking</span> — Financial Projections</li>
-            <li><span class="emphasis">Unsupported Causality</span> — Go-to-Market Strategy</li>
-            <li><span class="emphasis">Selective Evidence</span> — Scenario Analysis</li>
+            <li>Production-grade translation layer (financial language → LFS)</li>
+            <li>>95% precision within defined fragment</li>
+            <li>Deterministic, reproducible proofs with provenance</li>
+            <li>High-throughput processing with predictable latency and cost</li>
+            <li>Refusal enforcement validated</li>
         </ul>
 
-        <p style="margin-top: 40px; color: #4DA3FF;">Live demo: validity.live</p>
-    </div>
-</div>
-
-<!-- Slide 5: Market -->
-<div class="slide">
-    <div class="slide-content">
-        <h2>Who Needs This</h2>
-
-        <div class="grid-2">
-            <div class="card">
-                <h4>Investment & VC</h4>
-                <p>$500B+ deployed annually on theses with unverified assumptions</p>
-            </div>
-            <div class="card">
-                <h4>Policy & Government</h4>
-                <p>Decisions affecting millions based on untested causal claims</p>
-            </div>
-            <div class="card">
-                <h4>Legal & Compliance</h4>
-                <p>Arguments worth billions built on logical structures never audited</p>
-            </div>
-            <div class="card">
-                <h4>Strategy Consulting</h4>
-                <p>Recommendations sold on fluency, not verified reasoning</p>
-            </div>
+        <div class="callout" style="margin-top: 50px;">
+            <strong>This is risk elimination, not product iteration.</strong><br>
+            Phase A proves the technical foundation before scaling.
         </div>
 
-        <p style="margin-top: 40px;"><span class="emphasis">Wedge:</span> Investment firms (urgent need, clear ROI, fast sales cycle)</p>
+        <p style="text-align: center; margin-top: 40px; font-size: 18px; color: #6B85A6;">Month 12: Go/no-go decision based on precision and performance metrics</p>
     </div>
 </div>
 
-<!-- Slide 6: Business Model -->
+<!-- Slide 10: Commercial Wedge -->
 <div class="slide">
     <div class="slide-content">
-        <h2>Business Model</h2>
+        <h2>Commercial Wedge</h2>
 
-        <h3>Pricing Tiers:</h3>
+        <p style="font-size: 22px; margin-bottom: 40px;">SaaS interface validates enterprise demand during Phase A:</p>
+
+        <h3>Current State:</h3>
+        <ul>
+            <li><span class="checkmark">✓</span> Working prototype analyzing real documents</li>
+            <li><span class="checkmark">✓</span> Detected deterministic inconsistencies in 57-page investment memorandum</li>
+            <li><span class="checkmark">✓</span> Generated verification reports with traceable solver artifacts</li>
+            <li><span class="checkmark">✓</span> ~25% claim formalizability demonstrated (acceptable baseline)</li>
+        </ul>
+
+        <div style="margin-top: 60px;">
+            <p style="font-size: 20px; color: #B8C5D6;"><span class="emphasis">Role of SaaS product:</span></p>
+            <ul style="margin-top: 20px;">
+                <li>Demonstrates commercial pull</li>
+                <li>Validates pricing and contract structures</li>
+                <li>Provides early revenue signal</li>
+                <li>Builds document corpus for prior training</li>
+            </ul>
+        </div>
+
+        <p style="font-size: 18px; text-align: center; color: #6B85A6; margin-top: 50px; font-style: italic;">The SaaS layer is the interface.<br>The formal engine is the infrastructure.</p>
+    </div>
+</div>
+
+<!-- Slide 11: Target Customers -->
+<div class="slide">
+    <div class="slide-content">
+        <h2>Initial Market</h2>
+
+        <p style="font-size: 22px; margin-bottom: 30px;">Institutional investment documents (wedge market):</p>
 
         <table>
             <tr>
-                <th>Tier</th>
-                <th>Price</th>
-                <th>Features</th>
+                <th>Customer</th>
+                <th>Use Case</th>
+                <th>Contract Value</th>
             </tr>
             <tr>
-                <td><strong>Team</strong></td>
-                <td>$2,500/month</td>
-                <td>10 users, unlimited analyses, standard turnaround</td>
+                <td><strong>Law Firms</strong></td>
+                <td>Due diligence verification</td>
+                <td>$75K–$150K/yr</td>
             </tr>
             <tr>
-                <td><strong>Enterprise</strong></td>
-                <td>$15,000/month</td>
-                <td>Unlimited users, priority processing, custom taxonomies, API access</td>
+                <td><strong>Investment Banks</strong></td>
+                <td>Prospectus pre-filing check</td>
+                <td>$150K–$500K/yr</td>
             </tr>
             <tr>
-                <td><strong>Platform</strong></td>
-                <td>Custom</td>
-                <td>White-label, on-premise deployment, workflow integration</td>
+                <td><strong>Private Equity / VC</strong></td>
+                <td>Deal document review</td>
+                <td>$50K–$200K/yr</td>
+            </tr>
+            <tr>
+                <td><strong>Regulators</strong></td>
+                <td>Compliance filing audit</td>
+                <td>$200K–$1M/yr</td>
             </tr>
         </table>
 
-        <p style="margin-top: 40px;"><span class="emphasis">Unit Economics:</span> CAC $8K | LTV $180K | Payback 3 months</p>
+        <p style="text-align: center; margin-top: 30px; color: #6B85A6;">Reduces manual review hours per transaction and increases confidence in internal consistency</p>
     </div>
 </div>
 
-<!-- Slide 7: Traction -->
+<!-- Slide 12: Capital Allocation -->
 <div class="slide">
     <div class="slide-content">
-        <h2>Traction</h2>
+        <h2>Capital Allocation</h2>
 
-        <h3>Product Status:</h3>
-        <ul>
-            <li><span class="checkmark">✓</span> Live production app at validity.live</li>
-            <li><span class="checkmark">✓</span> Full reasoning analysis pipeline operational</li>
-            <li><span class="checkmark">✓</span> 8-failure taxonomy validated</li>
-            <li><span class="checkmark">✓</span> Sub-10 second analysis turnaround</li>
-        </ul>
-
-        <p style="margin-top: 60px;"><span class="emphasis">Stage:</span> Working MVP, seeking pilot customers</p>
-        <p><span class="emphasis">Immediate Goal:</span> 5 design partners in Q1 2026</p>
-    </div>
-</div>
-
-<!-- Slide 8: Competition -->
-<div class="slide">
-    <div class="slide-content">
-        <h2>Why Validity is Different</h2>
+        <div class="metric" style="display: block; text-align: center; margin: 40px 0;">
+            <div class="metric-label">Phase A Funding</div>
+            <div class="metric-value">$2M AUD</div>
+        </div>
 
         <table>
             <tr>
-                <th>Tool Type</th>
-                <th>What They Do</th>
-                <th>What They Miss</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>%</th>
             </tr>
             <tr>
-                <td>Writing tools</td>
-                <td>Fix grammar, style</td>
-                <td>Logic, assumptions</td>
+                <td>Personnel (3 people)</td>
+                <td>$1,120,000</td>
+                <td>56%</td>
             </tr>
             <tr>
-                <td>Fact-checkers</td>
-                <td>Verify individual claims</td>
-                <td>Causal structure</td>
+                <td>Operating Costs</td>
+                <td>$460,000</td>
+                <td>23%</td>
             </tr>
             <tr>
-                <td>Research tools</td>
-                <td>Find sources</td>
-                <td>Inference quality</td>
+                <td>Specialist Support</td>
+                <td>$150,000</td>
+                <td>7.5%</td>
+            </tr>
+            <tr>
+                <td>Contingency</td>
+                <td>$270,000</td>
+                <td>13.5%</td>
             </tr>
             <tr style="background: rgba(77, 163, 255, 0.1);">
-                <td><strong>Validity</strong></td>
-                <td><strong>Audit reasoning</strong></td>
-                <td><strong>Nothing</strong></td>
+                <td><strong>TOTAL</strong></td>
+                <td><strong>$2,000,000</strong></td>
+                <td><strong>100%</strong></td>
             </tr>
         </table>
+
+        <p style="text-align: center; margin-top: 30px; color: #B8C5D6;"><span class="emphasis">Burn:</span> $80K–$90K/month | <span class="emphasis">Runway:</span> 22–25 months</p>
     </div>
 </div>
 
-<!-- Slide 9: Go-to-Market -->
+<!-- Slide 13: Defensibility -->
 <div class="slide">
     <div class="slide-content">
-        <h2>Go-to-Market Strategy</h2>
+        <h2>Defensibility</h2>
 
-        <div class="phase">
-            <div class="phase-title">Phase 1: Design Partners (Q1 2026)</div>
-            <ul>
-                <li>Target: 5 investment firms with $100M+ AUM</li>
-                <li>Approach: Direct outreach to partners/principals</li>
-                <li>Offer: Free pilot, co-develop use cases</li>
-            </ul>
+        <div class="card" style="margin-bottom: 25px;">
+            <h4>Translation Layer Complexity</h4>
+            <p>Logical Fragment Specification and financial language mapping create high replication barriers</p>
         </div>
 
-        <div class="phase">
-            <div class="phase-title">Phase 2: Wedge Expansion (Q2-Q3 2026)</div>
-            <ul>
-                <li>Convert pilots to paid ($30K-$50K contracts)</li>
-                <li>Case studies → inbound from similar firms</li>
-                <li>Expand to policy advisory and legal compliance</li>
-            </ul>
+        <div class="card" style="margin-bottom: 25px;">
+            <h4>Rare Expertise</h4>
+            <p>Formal methods + financial domain intersection is a scarce combination</p>
         </div>
 
-        <div class="phase">
-            <div class="phase-title">Phase 3: Platform Play (2027+)</div>
-            <ul>
-                <li>API access for workflow integration</li>
-                <li>White-label for consulting firms</li>
-                <li>Enterprise platform for multi-team orgs</li>
-            </ul>
+        <div class="card" style="margin-bottom: 25px;">
+            <h4>Domain Priors & Corpus Advantage</h4>
+            <p>Performance improves with curated document corpora and validated failure patterns—continuous advantage from enterprise deployment</p>
         </div>
 
-        <p style="margin-top: 40px;"><span class="emphasis">Key Insight:</span> Urgent pain + clear ROI = short sales cycle (30-60 days)</p>
+        <div class="card">
+            <h4>Regulatory Trust</h4>
+            <p>Court admissibility, legal opinions, SOC 2 certification take years to establish</p>
+        </div>
+
+        <p style="font-size: 22px; color: #4DA3FF; text-align: center; margin-top: 50px;">This is infrastructure, not a feature.</p>
     </div>
 </div>
 
-<!-- Slide 10: Team -->
+<!-- Slide 14: Why Now -->
 <div class="slide">
     <div class="slide-content">
-        <h2>Team</h2>
+        <h2>Why Now</h2>
 
-        <h3>Nick Holt — Founder & CEO</h3>
-        <ul>
-            <li>Two decades analyzing claims, reasoning, and credibility</li>
-            <li>Deep experience where language, inference, and trust matter</li>
-            <li>Founded Validity to solve a structural problem</li>
-        </ul>
+        <p style="font-size: 22px; margin-bottom: 40px;">Three factors converged in past 24 months:</p>
+
+        <div class="card" style="margin-bottom: 25px;">
+            <h4 style="color: #4DA3FF;">1. NLP Infrastructure Maturity</h4>
+            <p>Claim extraction became economically viable at commercial scale</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 25px;">
+            <h4 style="color: #4DA3FF;">2. Regulatory Pressure</h4>
+            <p>ASIC, SEC enforcement on misleading disclosure increasing liability</p>
+        </div>
+
+        <div class="card">
+            <h4 style="color: #4DA3FF;">3. Market Recognition</h4>
+            <p>Enterprise buyers increasingly accept verification as a procurement category, driven by precedent from software, aerospace, and safety-critical systems</p>
+        </div>
+
+        <p style="font-size: 22px; color: #B8C5D6; text-align: center; margin-top: 50px;">The technical foundation exists.<br>The market is ready.</p>
     </div>
 </div>
 
-<!-- Slide 11: The Ask -->
+<!-- Slide 15: The Ask -->
 <div class="slide">
     <div class="slide-content">
         <h2>The Ask</h2>
 
-        <div class="metric" style="display: block; margin-bottom: 60px;">
-            <div class="metric-label">Raising</div>
-            <div class="metric-value">$2M</div>
-            <div style="color: #6B85A6; font-size: 18px; margin-top: 10px;">Seed Round</div>
+        <div style="text-align: center; margin: 60px 0;">
+            <div class="metric" style="display: block; margin-bottom: 20px;">
+                <div class="metric-label">Phase A Capital Raise</div>
+                <div class="metric-value">$2M AUD</div>
+            </div>
+
+            <p style="font-size: 22px; color: #B8C5D6; margin: 30px 0;">24-month technical validation</p>
+            <p style="font-size: 22px; color: #B8C5D6; margin: 30px 0;">Pre-money valuation: $6M–$12M</p>
+            <p style="font-size: 22px; color: #B8C5D6; margin: 30px 0;">Target close: Q2 2026</p>
         </div>
 
-        <h3>Use of Funds:</h3>
-
-        <div class="card" style="margin-bottom: 20px;">
-            <h4>Product & Engineering — $900K</h4>
-            <p>Senior engineers, ML engineer, product manager<br>Commercial-grade deployment (security, uptime, compliance)</p>
+        <div class="callout" style="margin-top: 60px;">
+            <strong>Contained downside:</strong> Controlled wind-down if technical validation fails<br>
+            <strong>Asymmetric upside:</strong> Phase B infrastructure round if successful
         </div>
 
-        <div class="card" style="margin-bottom: 20px;">
-            <h4>Sales & Marketing — $700K</h4>
-            <p>VP Sales, 2 AEs, Marketing lead, Customer success<br>Close first 50 customers, build pipeline</p>
-        </div>
-
-        <div class="card">
-            <h4>Operations — $400K</h4>
-            <p>18-month runway, legal, compliance, admin</p>
-        </div>
-
-        <p style="margin-top: 40px;"><span class="emphasis">Milestones:</span> 10 design partners (Q1) → $2M ARR by end of 2026 → Series A-ready</p>
+        <p style="font-size: 24px; color: #ffffff; text-align: center; margin-top: 60px;">We are building the verification layer for reasoning.</p>
     </div>
 </div>
 
-<!-- Slide 12: Vision -->
+<!-- Slide 16: Contact -->
 <div class="slide">
-    <div class="slide-content">
-        <h2>Vision</h2>
+    <div class="slide-content" style="text-align: center;">
+        <a href="index.html" class="logo-link" style="margin: 0 auto 40px;">
+            <img src="validity-logo.png" alt="Validity">
+        </a>
+        
+        <p class="tagline">Formal Verification Infrastructure for High-Stakes Reasoning</p>
 
-        <div class="phase">
-            <div class="phase-title">Near-term (2026-2027)</div>
-            <p>Reasoning infrastructure for investment, policy, and legal decisions</p>
+        <div style="margin-top: 80px;">
+            <p style="font-size: 24px; color: #ffffff; margin-bottom: 20px;">Nick Holt</p>
+            <p style="font-size: 18px; color: #6B85A6;">nick@validity.live</p>
         </div>
-
-        <div class="phase">
-            <div class="phase-title">Medium-term (2028-2030)</div>
-            <p>Platform layer for enterprise decision-making</p>
-            <ul>
-                <li>Integrate with deal flow systems, policy platforms, legal workflows</li>
-                <li>Real-time reasoning verification as decisions are drafted</li>
-            </ul>
-        </div>
-
-        <div class="phase">
-            <div class="phase-title">Long-term</div>
-            <p>The standard for epistemic quality control</p>
-            <ul>
-                <li>Every high-stakes decision passes through reasoning verification</li>
-                <li>Reduce systematic decision failures across institutions</li>
-            </ul>
-        </div>
-
-        <p style="margin-top: 60px; font-size: 24px; color: #ffffff;"><strong>Mission:</strong> Make good reasoning the default, not the exception.</p>
     </div>
 </div>
 
