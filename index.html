@@ -29,6 +29,7 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 0 60px;
+            position: relative;
         }
 
         header {
@@ -48,11 +49,31 @@
             padding: 120px 0;
             border-bottom: 1px solid rgba(255,255,255,0.04);
             opacity: 0;
-            animation: fadeIn 1.5s ease forwards;
+            animation: fadeInScale 1.5s ease forwards;
+            position: relative;
         }
 
         section:last-of-type {
             border-bottom: none;
+        }
+
+        section::before {
+            content: attr(data-number);
+            position: absolute;
+            top: 80px;
+            right: 60px;
+            font-size: 180px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.08);
+            font-family: 'IBM Plex Serif', Georgia, serif;
+            line-height: 1;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        section .container {
+            position: relative;
+            z-index: 1;
         }
 
         section:nth-child(2) { animation-delay: 0.15s; }
@@ -62,7 +83,6 @@
         section:nth-child(6) { animation-delay: 0.35s; }
         section:nth-child(7) { animation-delay: 0.4s; }
         section:nth-child(8) { animation-delay: 0.45s; }
-        section:nth-child(9) { animation-delay: 0.5s; }
 
         @keyframes fadeIn {
             from { 
@@ -72,6 +92,17 @@
             to { 
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from { 
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -102,13 +133,12 @@
             font-weight: 400;
         }
 
-        .subheadline {
-            font-size: 24px;
-            color: #6B7280;
-            margin-bottom: 60px;
-            line-height: 1.7;
-            font-weight: 400;
-            max-width: 700px;
+        .gradient-text {
+            background: linear-gradient(135deg, #E8F4FF 0%, #6B9FD8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
         }
 
         .cta-group {
@@ -116,6 +146,7 @@
             display: flex;
             gap: 20px;
             align-items: center;
+            justify-content: center;
         }
 
         .cta-primary {
@@ -136,8 +167,8 @@
         .cta-primary:hover {
             border-color: rgba(255,255,255,0.24);
             background: rgba(255,255,255,0.08);
-            transform: translateY(-1px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
         }
 
         .cta-secondary {
@@ -157,89 +188,61 @@
             color: #9BA3AF;
             border-color: rgba(255,255,255,0.12);
             background: rgba(255,255,255,0.02);
+            transform: translateY(-1px);
         }
 
-        .problem-list {
-            list-style: none;
-            margin-top: 40px;
-            padding-left: 0;
+        .timing-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 36px;
+            border-radius: 8px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
         }
 
-        .problem-list li {
-            font-size: 19px;
-            color: #6B7280;
-            margin-bottom: 16px;
-            padding-left: 28px;
-            position: relative;
-            line-height: 1.8;
+        .timing-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.25);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.4);
         }
 
-        .problem-list li:before {
-            content: "—";
-            position: absolute;
-            left: 0;
-            color: rgba(255,255,255,0.15);
-            font-weight: 300;
-        }
-
-        .drivers {
-            margin-top: 50px;
-            display: grid;
-            gap: 40px;
-        }
-
-        .driver {
-            padding: 32px 0;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .driver:first-child {
-            border-top: none;
-            padding-top: 0;
-        }
-
-        .driver h3 {
-            font-size: 19px;
+        .timing-card h3 {
+            font-size: 21px;
             font-weight: 500;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             color: #FFFFFF;
-            letter-spacing: -0.2px;
+            letter-spacing: -0.3px;
         }
 
-        .driver p {
+        .timing-card p {
             font-size: 17px;
             color: #6B7280;
             margin: 0;
             line-height: 1.7;
         }
 
-        .founders {
-            margin-top: 50px;
+        .section-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #6B85A6;
+            margin-bottom: 40px;
+            font-weight: 600;
+            display: block;
         }
 
-        .founder {
-            margin-bottom: 32px;
-            padding: 32px 0;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .founder:first-child {
-            border-top: none;
-            padding-top: 0;
-        }
-
-        .founder-name {
-            font-size: 21px;
-            font-weight: 500;
+        .pull-quote {
+            font-size: 28px;
+            line-height: 1.5;
             color: #FFFFFF;
-            margin-bottom: 10px;
-            letter-spacing: -0.3px;
-        }
-
-        .founder-bio {
-            font-size: 17px;
-            color: #6B7280;
-            line-height: 1.7;
+            font-weight: 400;
+            font-style: italic;
+            margin: 60px 0;
+            padding-left: 40px;
+            border-left: 3px solid rgba(255,255,255,0.1);
+            max-width: 800px;
         }
 
         .raise-box {
@@ -250,6 +253,12 @@
             text-align: center;
             margin-top: 60px;
             backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
+        }
+
+        .raise-box:hover {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(255,255,255,0.12);
         }
 
         .raise-box h2 {
@@ -278,7 +287,6 @@
             color: #4B5563;
         }
 
-        /* Subtle grain texture overlay */
         body::before {
             content: '';
             position: fixed;
@@ -289,6 +297,7 @@
             opacity: 0.03;
             pointer-events: none;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            z-index: 1000;
         }
 
         @media (max-width: 768px) {
@@ -304,6 +313,12 @@
                 padding: 80px 0;
             }
 
+            section::before {
+                font-size: 100px;
+                top: 40px;
+                right: 20px;
+            }
+
             h1 {
                 font-size: 44px;
                 letter-spacing: -0.8px;
@@ -313,8 +328,9 @@
                 font-size: 30px;
             }
 
-            .subheadline {
-                font-size: 20px;
+            .pull-quote {
+                font-size: 22px;
+                padding-left: 24px;
             }
 
             .cta-group {
@@ -331,6 +347,11 @@
             .raise-box {
                 padding: 50px 30px;
             }
+
+            .timing-grid {
+                grid-template-columns: 1fr !important;
+                gap: 24px !important;
+            }
         }
     </style>
 </head>
@@ -342,69 +363,59 @@
     </div>
 </header>
 
-<!-- Hero -->
 <section>
     <div class="container" style="text-align: center;">
-        <h1 style="font-size: 68px; color: #FFFFFF; margin-bottom: 50px;">Formal Verification for Structured Finance</h1>
+        <h1>Formal Verification for Structured Finance</h1>
         <div class="cta-group">
-            <a href="/cdn-cgi/l/email-protection#fb95929890bb8d9a97929f928f82d597928d9e" class="cta-primary">Request Investor Briefing</a>
-            <a href="/cdn-cgi/l/email-protection#f896919b93b88e9994919c918c81d694918e9dc78b8d9a929d9b8cc5a88a918e998c9dd8a88a9d8e919d8fd8b4918b8c" class="cta-secondary">Join the Private Preview List</a>
+            <a href="mailto:nick@validity.live" class="cta-primary">Request Investor Briefing</a>
+            <a href="mailto:nick@validity.live?subject=Private Preview List" class="cta-secondary">Join the Private Preview List</a>
         </div>
     </div>
 </section>
 
-<!-- The Problem -->
-<section>
+<section data-number="01">
     <div class="container">
-        <h2>Structured Finance Has a Hidden Systems Problem</h2>
-        <p>Modern financial agreements behave as interdependent logical systems. Yet they are drafted and reviewed as static documents.</p>
-        <p>This gap creates silent structural risk.</p>
-        <ul class="problem-list">
-            <li>Undetected internal contradictions</li>
-            <li>Edge-case misallocations</li>
-            <li>Cross-document logical divergence</li>
-        </ul>
+        <p class="section-label">The Gap</p>
+        <h2 style="font-size: 42px; max-width: 800px; line-height: 1.3;">Modern financial agreements behave as interdependent logical systems. Yet they are drafted and reviewed as static documents.</h2>
+        <p style="font-size: 21px; color: #6B7280; margin-top: 40px; max-width: 700px;">This gap creates silent structural risk.</p>
     </div>
 </section>
 
-<!-- Big Statement -->
-<section>
+<section data-number="02">
     <div class="container">
-        <h1 style="margin-bottom: 30px;">The Verification Layer for Structured Finance</h1>
-        <p class="subheadline" style="margin-bottom: 0;">Building formal consistency infrastructure for complex capital structures.</p>
+        <h1>The <span class="gradient-text">Verification Layer</span> for Structured Finance</h1>
     </div>
 </section>
 
-<!-- The Insight -->
-<section>
+<section data-number="03">
     <div class="container">
-        <h2>Verification Is Inevitable</h2>
-        <p>As financial instruments increase in complexity, human review alone cannot guarantee structural coherence. The next layer of financial infrastructure will not be advisory — it will be formal.</p>
+        <p class="section-label">Inevitability</p>
+        <h2 style="font-size: 42px; max-width: 850px; line-height: 1.3;">As financial instruments increase in complexity, human review alone cannot guarantee structural coherence.</h2>
+        <p style="font-size: 21px; color: #6B7280; margin-top: 40px; max-width: 750px;">The next infrastructure layer will not be advisory — it will be deterministic.</p>
     </div>
 </section>
 
-<!-- What We're Building -->
-<section>
+<section data-number="04">
     <div class="container">
-        <h2>A Structural Verification Engine</h2>
-        <p>Validity is developing a formal consistency layer for complex investment agreements — designed to detect system-level contradictions before capital is deployed.</p>
+        <p class="section-label">The Engine</p>
+        <h2 style="font-size: 42px; max-width: 800px; line-height: 1.3;">Validity is developing a consistency engine for structured investment agreements.</h2>
+        <p style="font-size: 21px; color: #6B7280; margin-top: 40px; max-width: 700px;">Designed to detect system-level contradictions before capital deploys.</p>
     </div>
 </section>
 
-<!-- Why Now -->
-<section>
+<section data-number="05">
     <div class="container">
-        <h2>Why This Moment</h2>
-        <div class="drivers">
-            <div class="driver">
+        <p class="section-label">Timing</p>
+        <div class="timing-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px;">
+            <div class="timing-card">
                 <h3>Complexity is compounding</h3>
                 <p>Structured products and private credit have grown materially in complexity.</p>
             </div>
-            <div class="driver">
+            <div class="timing-card">
                 <h3>Regulatory scrutiny is increasing</h3>
                 <p>Documentation integrity is under greater examination.</p>
             </div>
-            <div class="driver">
+            <div class="timing-card">
                 <h3>AI is insufficient</h3>
                 <p>Summarization is not verification.</p>
             </div>
@@ -412,30 +423,15 @@
     </div>
 </section>
 
-<!-- The Vision -->
-<section>
+<section data-number="06">
     <div class="container">
-        <h2>Verification as Financial Infrastructure</h2>
-        <p>Over time, structural verification will become a standard pre-deployment requirement for complex capital structures — much like code review in software.</p>
-        <p>Validity is building that layer.</p>
+        <p class="section-label">Vision</p>
+        <h2 style="font-size: 42px; max-width: 850px; line-height: 1.3;">Over time, structural verification will become a standard pre-deployment requirement — much like code review in software.</h2>
+        <p class="pull-quote">Validity is building that infrastructure.</p>
     </div>
 </section>
 
-<!-- Founders -->
-<section>
-    <div class="container">
-        <h2>Team</h2>
-        <div class="founders">
-            <div class="founder">
-                <div class="founder-name">Nick Holt, Founder</div>
-                <div class="founder-bio">Formal methods, structured finance</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Capital Raise -->
-<section>
+<section data-number="07">
     <div class="container">
         <div class="raise-box">
             <h2>Currently Raising Seed Capital</h2>
@@ -444,4 +440,13 @@
             <p class="confidential">Confidential materials available upon request</p>
         </div>
     </div>
-</sectio
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Validity</p>
+    </div>
+</footer>
+
+</body>
+</html>
