@@ -1,1 +1,936 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validity — Pipeline Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/vin8syh.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:         #0A0E1A;
+            --bg2:        #0D1117;
+            --surface:    #111827;
+            --surface2:   #1a2235;
+            --border:     rgba(255,255,255,0.07);
+            --border2:    rgba(255,255,255,0.12);
+            --text:       #E8E8E8;
+            --text-mid:   #9CA3AF;
+            --text-dim:   #4B5563;
+            --accent:     #3B82F6;
+            --accent-dim: rgba(59,130,246,0.15);
+            --sat:        #10B981;
+            --sat-dim:    rgba(16,185,129,0.12);
+            --undet:      #F59E0B;
+            --undet-dim:  rgba(245,158,11,0.12);
+            --pass:       #10B981;
+            --mono:       'IBM Plex Mono', monospace;
+            --serif:      'gt-super', Georgia, serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--serif);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* noise overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            z-index: 1000;
+        }
+
+        /* ── Header ───────────────────────────────────────────────── */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 32px 48px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(10,14,26,0.92);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+
+        .header-logo {
+            font-family: var(--serif);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.3px;
+        }
+
+        .header-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-dim);
+        }
+
+        /* ── Hero ─────────────────────────────────────────────────── */
+        .hero {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 96px 48px 72px;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.2s;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 500;
+            line-height: 1.15;
+            color: var(--text);
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--text-mid);
+            max-width: 640px;
+        }
+
+        .document-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 40px;
+            padding: 12px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 6px;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-mid);
+        }
+
+        .document-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--sat);
+            box-shadow: 0 0 6px var(--sat);
+        }
+
+        /* ── Pipeline ─────────────────────────────────────────────── */
+        .pipeline {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 48px 96px;
+        }
+
+        .stage {
+            margin-bottom: 4px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .stage:nth-child(1) { animation-delay: 0.4s; }
+        .stage:nth-child(2) { animation-delay: 0.55s; }
+        .stage:nth-child(3) { animation-delay: 0.7s; }
+        .stage:nth-child(4) { animation-delay: 0.85s; }
+        .stage:nth-child(5) { animation-delay: 1.0s; }
+
+        .stage-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 28px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .stage-header:hover { background: var(--surface2); }
+
+        .stage-header.collapsed {
+            border-radius: 8px;
+            margin-bottom: 4px;
+        }
+
+        .stage-num {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-dim);
+            min-width: 24px;
+        }
+
+        .stage-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            flex: 1;
+            letter-spacing: 0.2px;
+        }
+
+        .stage-badge {
+            font-family: var(--mono);
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 3px;
+            background: rgba(16,185,129,0.12);
+            color: var(--sat);
+            border: 1px solid rgba(16,185,129,0.2);
+        }
+
+        .stage-badge.undet {
+            background: var(--undet-dim);
+            color: var(--undet);
+            border-color: rgba(245,158,11,0.2);
+        }
+
+        .stage-chevron {
+            color: var(--text-dim);
+            font-size: 12px;
+            transition: transform 0.25s;
+        }
+
+        .stage-header.collapsed .stage-chevron { transform: rotate(-90deg); }
+
+        .stage-body {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            max-height: 2000px;
+            opacity: 1;
+            margin-bottom: 4px;
+        }
+
+        .stage-body.hidden {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        .stage-inner {
+            padding: 28px;
+        }
+
+        /* ── Commitment table ──────────────────────────────────────── */
+        .commitment-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+        }
+
+        .commitment-table th {
+            text-align: left;
+            padding: 8px 12px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            border-bottom: 1px solid var(--border);
+            font-weight: 500;
+        }
+
+        .commitment-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            color: var(--text-mid);
+            line-height: 1.5;
+        }
+
+        .commitment-table tr:last-child td { border-bottom: none; }
+        .commitment-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+        .cid {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        .ctype {
+            font-family: var(--mono);
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 3px;
+            background: var(--accent-dim);
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        .ctype.trigger {
+            background: rgba(245,158,11,0.1);
+            color: var(--undet);
+        }
+
+        .ctype.threshold {
+            background: rgba(139,92,246,0.1);
+            color: #A78BFA;
+        }
+
+        /* ── TOA block ─────────────────────────────────────────────── */
+        .toa-block {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px 24px;
+            margin-bottom: 12px;
+            font-family: var(--mono);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .toa-block:last-child { margin-bottom: 0; }
+
+        .toa-field { display: flex; gap: 16px; margin-bottom: 4px; }
+        .toa-key { color: var(--text-dim); min-width: 120px; flex-shrink: 0; }
+        .toa-val { color: var(--text-mid); }
+        .toa-val.formula { color: #93C5FD; }
+        .toa-val.assertion { color: var(--accent); }
+        .toa-val.conf-high { color: var(--sat); }
+
+        /* ── LFS pass table ────────────────────────────────────────── */
+        .lfs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .lfs-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-mid);
+        }
+
+        .lfs-check { color: var(--sat); font-size: 13px; }
+
+        /* ── Solver output ─────────────────────────────────────────── */
+        .code-block {
+            background: #070B12;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 24px;
+            font-family: var(--mono);
+            font-size: 12px;
+            line-height: 1.8;
+            color: #94A3B8;
+            overflow-x: auto;
+            margin-bottom: 24px;
+        }
+
+        .code-block .kw  { color: #7DD3FC; }
+        .code-block .fn  { color: #C084FC; }
+        .code-block .str { color: #86EFAC; }
+        .code-block .cmt { color: #374151; font-style: italic; }
+        .code-block .var { color: #FDE68A; }
+        .code-block .aname { color: var(--accent); }
+
+        .finding {
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .finding-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 20px;
+        }
+
+        .finding-header.consistent { border-left: 3px solid var(--sat); }
+        .finding-header.undet      { border-left: 3px solid var(--undet); }
+        .finding-header.notable    { border-left: 3px solid #60A5FA; }
+
+        .finding-verdict {
+            font-family: var(--mono);
+            font-size: 10px;
+            padding: 3px 9px;
+            border-radius: 3px;
+            white-space: nowrap;
+            margin-top: 1px;
+        }
+
+        .verdict-sat   { background: var(--sat-dim);   color: var(--sat);  border: 1px solid rgba(16,185,129,0.2); }
+        .verdict-undet { background: var(--undet-dim); color: var(--undet); border: 1px solid rgba(245,158,11,0.2); }
+        .verdict-notable { background: rgba(96,165,250,0.1); color: #60A5FA; border: 1px solid rgba(96,165,250,0.2); }
+
+        .finding-content { flex: 1; }
+        .finding-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        .finding-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        .finding-cids {
+            display: flex;
+            gap: 6px;
+            padding: 10px 20px;
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── Proof object ──────────────────────────────────────────── */
+        .proof-card {
+            background: var(--bg2);
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .proof-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .proof-outcome {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .outcome-pill {
+            font-family: var(--mono);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 16px;
+            border-radius: 4px;
+            background: var(--sat-dim);
+            color: var(--sat);
+            border: 1px solid rgba(16,185,129,0.25);
+            letter-spacing: 1px;
+        }
+
+        .proof-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--text-mid);
+        }
+
+        .proof-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .proof-field {
+            padding: 14px 24px;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+
+        .proof-field:nth-child(even) { border-right: none; }
+        .proof-field:nth-last-child(-n+2) { border-bottom: none; }
+
+        .proof-field-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-dim);
+            margin-bottom: 4px;
+        }
+
+        .proof-field-value {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-mid);
+            word-break: break-all;
+        }
+
+        .proof-field-value.hash { color: #60A5FA; font-size: 11px; }
+        .proof-field-value.sat  { color: var(--sat); }
+
+        .underdetermined-list {
+            padding: 20px 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .ud-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+        }
+
+        .ud-item {
+            display: flex;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--undet-dim);
+            border: 1px solid rgba(245,158,11,0.15);
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+
+        .ud-item:last-child { margin-bottom: 0; }
+
+        .ud-severity {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--undet);
+            padding: 2px 8px;
+            border: 1px solid rgba(245,158,11,0.3);
+            border-radius: 3px;
+            height: fit-content;
+            white-space: nowrap;
+            margin-top: 1px;
+        }
+
+        .ud-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        .cert-footer {
+            padding: 24px;
+            border-top: 1px solid var(--border);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--text-mid);
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        /* ── Section divider ───────────────────────────────────────── */
+        .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            padding-top: 48px;
+        }
+
+        /* ── Footer ────────────────────────────────────────────────── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 100%;
+        }
+
+        .footer-note {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        .back-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: var(--text); }
+
+        /* ── Animations ────────────────────────────────────────────── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Responsive ────────────────────────────────────────────── */
+        @media (max-width: 640px) {
+            header { padding: 24px; }
+            .hero, .pipeline { padding-left: 24px; padding-right: 24px; }
+            .lfs-grid { grid-template-columns: 1fr 1fr; }
+            .proof-meta { grid-template-columns: 1fr; }
+            .proof-field { border-right: none; }
+            .proof-field:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+            .proof-field:last-child { border-bottom: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="/" class="header-logo">Validity</a>
+        <span class="header-label">Pipeline Demo</span>
+    </header>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-eyebrow">Live Pipeline Execution</div>
+        <h1>Formal verification against a real document</h1>
+        <p>The five-stage Validity pipeline — extraction, formalisation, LFS validation, SMT solving, and proof object construction — executed against the Freddie Mac MSCR 2024-MN9 Private Placement Memorandum.</p>
+
+        <div class="document-badge">
+            <span class="dot"></span>
+            Freddie Mac MSCR Trust MN9 &nbsp;·&nbsp; $205,018,000 &nbsp;·&nbsp; SHA-256: 428b3e2a…989c3
+        </div>
+    </div>
+
+    <!-- Pipeline Stages -->
+    <div class="pipeline">
+
+        <!-- Stage 1 -->
+        <div class="stage">
+            <div class="stage-header" onclick="toggleStage(this)">
+                <span class="stage-num">01</span>
+                <span class="stage-title">Commitment Extraction</span>
+                <span class="stage-badge">15 extracted</span>
+                <span class="stage-chevron">▾</span>
+            </div>
+            <div class="stage-body">
+                <div class="stage-inner">
+                    <p style="font-family:'Inter',sans-serif;font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:20px;">
+                        The extraction engine identifies every clause that constitutes a verifiable commitment — obligations, thresholds, conditional triggers, and definition bindings. Each is assigned a stable ID and anchored to its source location.
+                    </p>
+                    <table class="commitment-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Commitment</th>
+                                <th>Section</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="cid">C0001</td><td><span class="ctype">OBLIGATION</span></td><td>Return Amount paid first; interest and principal second on each Payment Date</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Priority of Payments</td></tr>
+                            <tr><td class="cid">C0002</td><td><span class="ctype">OBLIGATION</span></td><td>Trust uses Distribution Account funds: Return Amount first, then Interest Payment Amount</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Interest</td></tr>
+                            <tr><td class="cid">C0003</td><td><span class="ctype">OBLIGATION</span></td><td>On Maturity Date, Trust will pay 100% of outstanding Class Principal Balance</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Principal</td></tr>
+                            <tr><td class="cid">C0004</td><td><span class="ctype">OBLIGATION</span></td><td>On non-Maturity Payment Dates, principal equals Senior/Subordinate Reduction Amounts</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Principal</td></tr>
+                            <tr><td class="cid">C0005</td><td><span class="ctype">OBLIGATION</span></td><td>Tranche Write-down reduces Class Principal Balance without any corresponding payment</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Write-down Amounts</td></tr>
+                            <tr><td class="cid">C0006</td><td><span class="ctype">OBLIGATION</span></td><td>Write-down allocated bottom-up: B-2H → B-1 → M-2 → M-1 → A-H</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Allocation of Write-down</td></tr>
+                            <tr><td class="cid">C0007</td><td><span class="ctype">OBLIGATION</span></td><td>Write-up allocated top-down: A-H → M-1 → M-2 → B-1 → B-2H</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Allocation of Write-up</td></tr>
+                            <tr><td class="cid">C0008</td><td><span class="ctype threshold">THRESHOLD</span></td><td>M-1 senior to M-2; M-2 senior to B-1 in right of payment</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Status and Subordination</td></tr>
+                            <tr><td class="cid">C0009</td><td><span class="ctype">OBLIGATION</span></td><td>Return Amount paid before any amounts owed on Notes</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Status and Subordination</td></tr>
+                            <tr><td class="cid">C0010</td><td><span class="ctype trigger">TRIGGER</span></td><td>Mandatory redemption upon termination of Collateral Administration Agreement</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Principal</td></tr>
+                            <tr><td class="cid">C0011</td><td><span class="ctype trigger">TRIGGER</span></td><td>Acceleration at any time upon Indenture Event of Default</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Principal</td></tr>
+                            <tr><td class="cid">C0012</td><td><span class="ctype">OBLIGATION</span></td><td>Notes cease to bear interest after Early Redemption Date, unless EOD has occurred</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Early Redemption Date</td></tr>
+                            <tr><td class="cid">C0013</td><td><span class="ctype threshold">THRESHOLD</span></td><td>M-1H represents no less than 5% of combined M-1 and M-1H Class Notional Amount</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Risk Retention</td></tr>
+                            <tr><td class="cid">C0014</td><td><span class="ctype">OBLIGATION</span></td><td>Write-down reduces future interest payable on that Class of Notes</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Write-down Amounts</td></tr>
+                            <tr><td class="cid">C0015</td><td><span class="ctype trigger">TRIGGER</span></td><td>Benchmark Transition Event triggers Administrator to determine alternative Benchmark</td><td style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Benchmark Replacement</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="stage">
+            <div class="stage-header" onclick="toggleStage(this)">
+                <span class="stage-num">02</span>
+                <span class="stage-title">Formalisation — Translation Output Artifacts</span>
+                <span class="stage-badge">15 TOAs</span>
+                <span class="stage-chevron">▾</span>
+            </div>
+            <div class="stage-body">
+                <div class="stage-inner">
+                    <p style="font-family:'Inter',sans-serif;font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:20px;">
+                        Each commitment is translated into a logical formula within the LFS v1.0 fragment. Every step is recorded in a Translation Output Artifact — the derivation from natural language to formal logic is explicit, versioned, and auditable.
+                    </p>
+
+                    <div class="toa-block">
+                        <div class="toa-field"><span class="toa-key">commitment_id</span><span class="toa-val">C0001</span></div>
+                        <div class="toa-field"><span class="toa-key">pattern_id</span><span class="toa-val">P-OBL-WATERFALL-01</span></div>
+                        <div class="toa-field"><span class="toa-key">pre_nnf</span><span class="toa-val">Obligated(PaymentDate → ReturnAmount first, THEN Interest, THEN Principal)</span></div>
+                        <div class="toa-field"><span class="toa-key">formula</span><span class="toa-val formula">Obligated(At(payment_date, And(LT(priority_return, priority_interest), LT(priority_return, priority_principal))))</span></div>
+                        <div class="toa-field"><span class="toa-key">assertion</span><span class="toa-val assertion">A::428b3e2a::1_0_0::C0001</span></div>
+                        <div class="toa-field"><span class="toa-key">confidence</span><span class="toa-val conf-high">0.95</span></div>
+                    </div>
+
+                    <div class="toa-block">
+                        <div class="toa-field"><span class="toa-key">commitment_id</span><span class="toa-val">C0006</span></div>
+                        <div class="toa-field"><span class="toa-key">pattern_id</span><span class="toa-val">P-OBL-WRITEDOWN-ORDER-01</span></div>
+                        <div class="toa-field"><span class="toa-key">pre_nnf</span><span class="toa-val">Obligated(WritedownAllocation: B2H(1) &lt; B1(2) &lt; M2(3) &lt; M1(4) &lt; AH(5))</span></div>
+                        <div class="toa-field"><span class="toa-key">formula</span><span class="toa-val formula">Obligated(And(EQ(wd_order_b2h,1), EQ(wd_order_b1,2), EQ(wd_order_m2,3), EQ(wd_order_m1,4), EQ(wd_order_ah,5)))</span></div>
+                        <div class="toa-field"><span class="toa-key">assertion</span><span class="toa-val assertion">A::428b3e2a::1_0_0::C0006</span></div>
+                        <div class="toa-field"><span class="toa-key">confidence</span><span class="toa-val conf-high">0.97</span></div>
+                    </div>
+
+                    <div class="toa-block">
+                        <div class="toa-field"><span class="toa-key">commitment_id</span><span class="toa-val">C0013</span></div>
+                        <div class="toa-field"><span class="toa-key">pattern_id</span><span class="toa-val">P-THRESHOLD-RETENTION-01</span></div>
+                        <div class="toa-field"><span class="toa-key">pre_nnf</span><span class="toa-val">ClassNotionalAmount(M1H) &gt;= 0.05 × (ClassNotionalAmount(M1) + ClassNotionalAmount(M1H))</span></div>
+                        <div class="toa-field"><span class="toa-key">formula</span><span class="toa-val formula">GTE(notional_m1h, Mul(0.05, Add(notional_m1, notional_m1h)))</span></div>
+                        <div class="toa-field"><span class="toa-key">assertion</span><span class="toa-val assertion">A::428b3e2a::1_0_0::C0013</span></div>
+                        <div class="toa-field"><span class="toa-key">confidence</span><span class="toa-val conf-high">0.94</span></div>
+                    </div>
+
+                    <p style="font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-top:16px;">+ 12 additional TOAs generated. All 15 commitments formalised.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage 3 -->
+        <div class="stage">
+            <div class="stage-header" onclick="toggleStage(this)">
+                <span class="stage-num">03</span>
+                <span class="stage-title">LFS Fragment Validation</span>
+                <span class="stage-badge">15 / 15 passed</span>
+                <span class="stage-chevron">▾</span>
+            </div>
+            <div class="stage-body">
+                <div class="stage-inner">
+                    <p style="font-family:'Inter',sans-serif;font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:20px;">
+                        Every formula is validated against the Logical Fragment Specification v1.0. Formulas containing unbounded quantifiers, higher-order predicates, probabilistic operators, or recursive self-reference are refused rather than approximated.
+                    </p>
+                    <div class="lfs-grid">
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0001</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0002</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0003</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0004</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0005</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0006</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0007</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0008</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0009</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0010</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0011</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0012</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0013</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0014</div>
+                        <div class="lfs-item"><span class="lfs-check">✓</span> C0015</div>
+                    </div>
+                    <p style="font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-top:16px;">Refused: 0 &nbsp;·&nbsp; Accepted: 15 &nbsp;·&nbsp; LFS version: 1.0.0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage 4 -->
+        <div class="stage">
+            <div class="stage-header" onclick="toggleStage(this)">
+                <span class="stage-num">04</span>
+                <span class="stage-title">SMT Encoding + Solver</span>
+                <span class="stage-badge undet">2 underdetermined</span>
+                <span class="stage-chevron">▾</span>
+            </div>
+            <div class="stage-body">
+                <div class="stage-inner">
+                    <p style="font-family:'Inter',sans-serif;font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:20px;">
+                        Formulas are encoded as named constraints in Z3 using <code style="font-family:var(--mono);color:#93C5FD;font-size:12px">assert_and_track</code> — never <code style="font-family:var(--mono);color:#94A3B8;font-size:12px">solver.add</code>. Named tracking enables the solver to return a minimal infeasible core that maps directly back to document locations.
+                    </p>
+
+                    <div class="code-block"><span class="kw">from</span> z3 <span class="kw">import</span> *
+solver = <span class="fn">Solver</span>()
+solver.<span class="fn">set</span>(<span class="str">"unsat_core"</span>, <span class="kw">True</span>)
+
+<span class="cmt"># Variables</span>
+<span class="var">priority_return</span>   = <span class="fn">Int</span>(<span class="str">'priority_return'</span>)
+<span class="var">priority_interest</span> = <span class="fn">Int</span>(<span class="str">'priority_interest'</span>)
+<span class="var">rank_m1</span> = <span class="fn">Int</span>(<span class="str">'rank_m1'</span>); <span class="var">rank_m2</span> = <span class="fn">Int</span>(<span class="str">'rank_m2'</span>); <span class="var">rank_b1</span> = <span class="fn">Int</span>(<span class="str">'rank_b1'</span>)
+<span class="var">wd_order_b2h</span> = <span class="fn">Int</span>(<span class="str">'wd_order_b2h'</span>)  <span class="cmt"># ... + 14 more variables</span>
+
+<span class="cmt"># Named assertions — assert_and_track throughout</span>
+solver.<span class="fn">assert_and_track</span>(
+    <span class="fn">Implies</span>(payment_date, <span class="fn">And</span>(priority_return &lt; priority_interest,
+                              priority_return &lt; priority_principal)),
+    <span class="fn">Bool</span>(<span class="aname">'A::428b3e2a::1_0_0::C0001'</span>))
+
+solver.<span class="fn">assert_and_track</span>(
+    <span class="fn">And</span>(rank_m1 &lt; rank_m2, rank_m2 &lt; rank_b1),
+    <span class="fn">Bool</span>(<span class="aname">'A::428b3e2a::1_0_0::C0008'</span>))
+
+<span class="cmt"># ... 13 additional named assertions</span>
+
+result = solver.<span class="fn">check</span>()  <span class="cmt"># → sat</span></div>
+
+                    <div class="section-label" style="padding-top:0;margin-bottom:16px;">Findings</div>
+
+                    <div class="finding">
+                        <div class="finding-header consistent">
+                            <span class="finding-verdict verdict-sat">SAT</span>
+                            <div class="finding-content">
+                                <div class="finding-title">Payment waterfall — three consistent statements</div>
+                                <div class="finding-desc">C0001, C0002, and C0009 each state payment priority from different sections of the document. All three are mutually satisfiable. C0002 instantiates C0001 with concrete ordinal values. No conflict.</div>
+                            </div>
+                        </div>
+                        <div class="finding-cids"><span class="cid">C0001</span><span class="cid">C0002</span><span class="cid">C0009</span></div>
+                    </div>
+
+                    <div class="finding">
+                        <div class="finding-header notable">
+                            <span class="finding-verdict verdict-notable">NOTABLE</span>
+                            <div class="finding-content">
+                                <div class="finding-title">Write-down / write-up structural asymmetry</div>
+                                <div class="finding-desc">Write-down allocations are bottom-up (junior tranches absorb losses first). Write-up allocations are top-down (senior tranches recover first). These are inverse orderings — deliberate structural asymmetry, not a contradiction. B-1 Notes absorb losses before M-2 and M-1, but recover after them.</div>
+                            </div>
+                        </div>
+                        <div class="finding-cids"><span class="cid">C0006</span><span class="cid">C0007</span></div>
+                    </div>
+
+                    <div class="finding">
+                        <div class="finding-header undet">
+                            <span class="finding-verdict verdict-undet">UNDERDETERMINED</span>
+                            <div class="finding-content">
+                                <div class="finding-title">EOD interest accrual path</div>
+                                <div class="finding-desc">C0011: EOD triggers early redemption. C0012: notes cease to bear interest after early redemption, unless EOD has occurred. Combined: an EOD-triggered redemption leaves notes continuing to accrue interest. The document does not specify whether the Trust has sufficient assets to pay that continuing interest or where it ranks in the waterfall on a post-EOD payment date.</div>
+                            </div>
+                        </div>
+                        <div class="finding-cids"><span class="cid">C0011</span><span class="cid">C0012</span></div>
+                    </div>
+
+                    <div class="finding">
+                        <div class="finding-header undet">
+                            <span class="finding-verdict verdict-undet">UNDERDETERMINED</span>
+                            <div class="finding-content">
+                                <div class="finding-title">Maturity principal obligation vs Return Amount priority — material gap</div>
+                                <div class="finding-desc">C0003 states the Trust "will pay" 100% of outstanding principal at maturity — absolute language. C0009 states Return Amount is paid before any amounts owed on Notes. Under stress conditions where Eligible Investments are insufficient to cover both, these obligations compete. The document does not contain an explicit provision resolving this competition.</div>
+                            </div>
+                        </div>
+                        <div class="finding-cids"><span class="cid">C0003</span><span class="cid">C0009</span></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage 5 -->
+        <div class="stage">
+            <div class="stage-header" onclick="toggleStage(this)">
+                <span class="stage-num">05</span>
+                <span class="stage-title">Proof Object</span>
+                <span class="stage-badge">SAT — consistency certificate</span>
+                <span class="stage-chevron">▾</span>
+            </div>
+            <div class="stage-body">
+                <div class="stage-inner">
+                    <p style="font-family:'Inter',sans-serif;font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:24px;">
+                        The proof object seals the entire run — document hash, all version bindings, outcome, underdetermined regions, and the assertion index that maps every named constraint back to its source commitment. In production this object is cryptographically signed.
+                    </p>
+
+                    <div class="proof-card">
+                        <div class="proof-header">
+                            <div class="proof-outcome">
+                                <span class="outcome-pill">SAT</span>
+                                <span class="proof-title">No logical contradictions proved within extracted commitments</span>
+                            </div>
+                        </div>
+
+                        <div class="proof-meta">
+                            <div class="proof-field">
+                                <div class="proof-field-label">Proof ID</div>
+                                <div class="proof-field-value hash">00ec5bea-d62f-49b8-bf1e-5acbbb5a256e</div>
+                            </div>
+                            <div class="proof-field">
+                                <div class="proof-field-label">Document Hash</div>
+                                <div class="proof-field-value hash">428b3e2a89b7c0f3…989c3</div>
+                            </div>
+                            <div class="proof-field">
+                                <div class="proof-field-label">Outcome</div>
+                                <div class="proof-field-value sat">SAT</div>
+                            </div>
+                            <div class="proof-field">
+                                <div class="proof-field-label">Assurance Class</div>
+                                <div class="proof-field-value">MACHINE</div>
+                            </div>
+                            <div class="proof-field">
+                                <div class="proof-field-label">LFS Version</div>
+                                <div class="proof-field-value">1.0.0</div>
+                            </div>
+                            <div class="proof-field">
+                                <div class="proof-field-label">Solver</div>
+                                <div class="proof-field-value">Z3 · 4.12.x</div>
+                            </div>
+                            <div class="proof-field">
+                                <div class="proof-field-label">Extraction Version</div>
+                                <div class="proof-field-value">1.0.0</div>
+                            </div>
+                            <div class="proof-field">
+                                <div class="proof-field-label">Translation Policy</div>
+                                <div class="proof-field-value">1.0.0</div>
+                            </div>
+                        </div>
+
+                        <div class="underdetermined-list">
+                            <div class="ud-title">Underdetermined Regions</div>
+                            <div class="ud-item">
+                                <span class="ud-severity">NOTABLE</span>
+                                <div class="ud-desc"><strong style="color:var(--text);font-family:'Inter',sans-serif;">UD-001 · C0011, C0012</strong><br>Interaction between EOD-triggered acceleration and interest cessation exception. Trust payment capacity under this path is unresolved in the document.</div>
+                            </div>
+                            <div class="ud-item">
+                                <span class="ud-severity">MATERIAL</span>
+                                <div class="ud-desc"><strong style="color:var(--text);font-family:'Inter',sans-serif;">UD-002 · C0003, C0009</strong><br>Absolute obligation to pay 100% of principal at maturity conflicts with Return Amount priority under insufficient Trust assets. Document does not resolve this competition explicitly.</div>
+                            </div>
+                        </div>
+
+                        <div class="cert-footer">
+                            The extracted commitments of this document are internally consistent within the Validity LFS v1.0.0 fragment. No provable contradiction was found. Two underdetermined regions were identified where the document does not provide sufficient explicit commitment to resolve competing obligations under stress conditions. This certificate covers logical consistency of extracted commitments only and does not constitute an opinion on creditworthiness, suitability, or legal enforceability.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <span class="footer-note">validity.live &nbsp;·&nbsp; Pipeline execution against Freddie Mac MSCR 2024-MN9</span>
+        <a href="/" class="back-link">← Back</a>
+    </footer>
+
+    <script>
+        function toggleStage(header) {
+            const body = header.nextElementSibling;
+            header.classList.toggle('collapsed');
+            body.classList.toggle('hidden');
+        }
+    </script>
+
+</body>
+</html>
