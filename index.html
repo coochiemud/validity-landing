@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validity</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/vin8syh.css">
-
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'gt-super', Georgia, serif;
             background: linear-gradient(180deg, #0A0E1A 0%, #0D1117 100%);
@@ -24,7 +21,6 @@
             justify-content: center;
             -webkit-font-smoothing: antialiased;
         }
-
         .logo {
             width: 260px;
             opacity: 0;
@@ -32,7 +28,6 @@
             filter: brightness(1.1);
             margin-bottom: 48px;
         }
-
         .label {
             font-size: 13px;
             text-transform: uppercase;
@@ -40,13 +35,30 @@
             color: #4B5563;
             opacity: 0;
             animation: fadeIn 1.5s ease forwards 0.4s;
+            margin-bottom: 40px;
         }
-
+        .demo-btn {
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.8s;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #4B5563;
+            text-decoration: none;
+            border: 1px solid #1F2937;
+            padding: 10px 24px;
+            border-radius: 3px;
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+        .demo-btn:hover {
+            color: #9CA3AF;
+            border-color: #374151;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to   { opacity: 1; transform: translateY(0); }
         }
-
         body::before {
             content: '';
             position: fixed;
@@ -61,5 +73,6 @@
 <body>
     <img src="validity-logo.png" alt="Validity" class="logo">
     <span class="label">Under Construction</span>
+    <a href="/demo" class="demo-btn">View Demo</a>
 </body>
 </html>
