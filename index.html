@@ -9,74 +9,378 @@ permalink: /
     <title>Validity</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/vin8syh.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:      #0A0E1A;
+            --surface: #111827;
+            --surface2:#1a2235;
+            --border:  rgba(255,255,255,0.07);
+            --border2: rgba(255,255,255,0.12);
+            --text:    #E8E8E8;
+            --text-mid:#9CA3AF;
+            --text-dim:#4B5563;
+            --accent:  #3B82F6;
+            --mono:    'IBM Plex Mono', monospace;
+            --serif:   'gt-super', 'IBM Plex Serif', Georgia, serif;
+            --sans:    'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'gt-super', Georgia, serif;
-            background: linear-gradient(180deg, #0A0E1A 0%, #0D1117 100%);
-            color: #E8E8E8;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            font-family: var(--serif);
+            background: #0A0E1A;
+            color: var(--text);
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
-        .logo {
-            width: 260px;
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards;
-            filter: brightness(1.1);
-            margin-bottom: 48px;
-        }
-        .label {
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            color: #E8E8E8;
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards 0.4s;
-            margin-bottom: 40px;
-        }
-        .demo-btn {
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards 0.8s;
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 400;
-            letter-spacing: 0.3px;
-            color: #E8E8E8;
-            text-decoration: none;
-            border: 1px solid #1F2937;
-            padding: 10px 24px;
-            border-radius: 3px;
-            transition: color 0.3s ease, border-color 0.3s ease;
-        }
-        .demo-btn:hover {
-            color: #9CA3AF;
-            border-color: #374151;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+
         body::before {
             content: '';
             position: fixed;
             inset: 0;
             opacity: 0.03;
             pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            z-index: 1000;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            z-index: 999;
+        }
+
+        /* ── Hero ─────────────────────────────────────────────── */
+        .hero {
+            min-height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 48px 80px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 260px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards;
+            filter: brightness(1.1);
+            margin-bottom: 32px;
+        }
+
+        .hero-tagline {
+            font-family: var(--sans);
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            color: var(--text-mid);
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.3s;
+            margin-bottom: 14px;
+            max-width: 480px;
+            line-height: 1.7;
+        }
+
+        .hero-sub {
+            font-family: var(--sans);
+            font-size: 13px;
+            color: var(--text-dim);
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.5s;
+            margin-bottom: 40px;
+            max-width: 440px;
+            line-height: 1.75;
+        }
+
+        .demo-btn {
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.8s;
+            font-family: var(--sans);
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            color: var(--text);
+            text-decoration: none;
+            border: 1px solid #1F2937;
+            padding: 10px 24px;
+            border-radius: 3px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .demo-btn:hover { color: var(--text-mid); border-color: #374151; }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards 1.6s;
+        }
+
+        /* ── Divider ──────────────────────────────────────────── */
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: var(--border2);
+            margin: 0 auto 64px;
+        }
+
+        /* ── Sections ─────────────────────────────────────────── */
+        section {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 96px 48px;
+            border-top: 1px solid var(--border);
+        }
+
+        section:first-of-type { border-top: none; }
+
+        .section-label {
+            font-family: var(--sans);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-dim);
+            margin-bottom: 24px;
+        }
+
+        .section-heading {
+            font-family: var(--serif);
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1.2;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            margin-bottom: 24px;
+        }
+
+        .section-intro {
+            font-family: var(--sans);
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-mid);
+            margin-bottom: 32px;
+        }
+
+        .section-body {
+            font-family: var(--sans);
+            font-size: 14px;
+            line-height: 1.85;
+            color: var(--text-dim);
+        }
+
+        .section-body p { margin-bottom: 16px; }
+        .section-body p:last-child { margin-bottom: 0; }
+
+        /* ── Issue list ───────────────────────────────────────── */
+        .issue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin: 28px 0;
+        }
+
+        .issue-item {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            padding: 12px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+        }
+
+        .issue-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .issue-text {
+            font-family: var(--sans);
+            font-size: 13px;
+            color: var(--text-mid);
+        }
+
+        /* ── Sector grid ──────────────────────────────────────── */
+        .sector-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            margin-top: 40px;
+        }
+
+        .sector-row {
+            display: flex;
+            align-items: baseline;
+            gap: 40px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sector-row:first-child { border-top: 1px solid var(--border); }
+
+        .sector-name {
+            font-family: var(--sans);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            min-width: 220px;
+            flex-shrink: 0;
+        }
+
+        .sector-desc {
+            font-family: var(--sans);
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* ── Contact ──────────────────────────────────────────── */
+        .contact-section {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 96px 48px 120px;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-link {
+            display: inline-block;
+            margin-top: 24px;
+            font-family: var(--sans);
+            font-size: 13px;
+            color: var(--text-dim);
+            text-decoration: none;
+            border: 1px solid var(--border2);
+            padding: 10px 22px;
+            border-radius: 4px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .contact-link:hover { color: var(--text-mid); border-color: rgba(255,255,255,0.2); }
+
+        /* ── Footer ───────────────────────────────────────────── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 28px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 100%;
+        }
+
+        .footer-note {
+            font-family: var(--sans);
+            font-size: 11px;
+            color: var(--text-dim);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 640px) {
+            .hero { padding: 32px 24px; }
+            section, .contact-section { padding: 64px 24px; }
+            footer { padding: 24px; }
+            .sector-row { flex-direction: column; gap: 6px; }
+            .sector-name { min-width: unset; }
         }
     </style>
 </head>
 <body>
-    <img src="validity-logo.png" alt="Validity" class="logo">
-    <span class="label">Formal Verification For Structured Finance</span>
-    <a href="/demo" class="demo-btn">View Demo</a>
+
+    <!-- Hero -->
+    <div class="hero">
+        <img src="validity-logo.png" alt="Validity" class="logo">
+        <p class="hero-tagline">Formal verification for complex agreements</p>
+        <p class="hero-sub">Validity verifies the internal logic of complex agreements. Contractual language is converted into formal logic to detect contradictions, hidden dependencies, and structural inconsistencies before execution.</p>
+        <a href="/demo" class="demo-btn">View Demo</a>
+        
+    </div>
+
+    <!-- The Problem -->
+    <section>
+        <div class="section-label">The Problem</div>
+        <h2 class="section-heading">Complex agreements behave like systems</h2>
+        <p class="section-intro">Modern financial and legal agreements contain hundreds of defined terms and conditional clauses. These clauses interact to determine rights, obligations, and financial outcomes. Yet their logical structure is rarely tested.</p>
+        <div class="section-body">
+            <p>Contradictions, circular dependencies, and impossible conditions can remain hidden until a dispute, audit, or financial loss exposes them.</p>
+            <p>Traditional document review focuses on interpretation. It does not test whether the system itself works.</p>
+        </div>
+    </section>
+
+    <!-- The Solution -->
+    <section>
+        <div class="section-label">The Solution</div>
+        <h2 class="section-heading">Validity verifies the logic inside agreements</h2>
+        <p class="section-intro">Validity converts structured legal language into formal logic and evaluates whether the rules inside a document are internally consistent.</p>
+        <div class="section-body">
+            <p>The system identifies issues such as:</p>
+        </div>
+        <div class="issue-list">
+            <div class="issue-item"><span class="issue-dot"></span><span class="issue-text">Contradictory conditions</span></div>
+            <div class="issue-item"><span class="issue-dot"></span><span class="issue-text">Circular dependencies</span></div>
+            <div class="issue-item"><span class="issue-dot"></span><span class="issue-text">Undefined or inconsistent references</span></div>
+            <div class="issue-item"><span class="issue-dot"></span><span class="issue-text">Incompatible thresholds or triggers</span></div>
+            <div class="issue-item"><span class="issue-dot"></span><span class="issue-text">Clauses that cannot be satisfied simultaneously</span></div>
+        </div>
+        <div class="section-body">
+            <p>These issues often arise from interactions across multiple clauses and are difficult to detect through manual review. Validity exposes those interactions.</p>
+        </div>
+    </section>
+
+    <!-- Who It's For -->
+    <section>
+        <div class="section-label">Who It's For</div>
+        <h2 class="section-heading">Built for organisations that rely on complex agreements</h2>
+
+        <div class="sector-grid">
+            <div class="sector-row">
+                <span class="sector-name">Investment banks</span>
+                <span class="sector-desc">Structured finance transactions and credit documentation.</span>
+            </div>
+            <div class="sector-row">
+                <span class="sector-name">Private equity and venture capital</span>
+                <span class="sector-desc">Limited partnership agreements and distribution waterfalls.</span>
+            </div>
+            <div class="sector-row">
+                <span class="sector-name">Law firms</span>
+                <span class="sector-desc">Drafting and reviewing complex contractual structures.</span>
+            </div>
+            <div class="sector-row">
+                <span class="sector-name">Commercial real estate firms</span>
+                <span class="sector-desc">Long-term lease agreements with layered conditional terms.</span>
+            </div>
+            <div class="sector-row">
+                <span class="sector-name">Infrastructure and project finance</span>
+                <span class="sector-desc">Multi-party procurement and financing agreements.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <div class="contact-section">
+        <div class="section-label">Contact</div>
+        <h2 class="section-heading">Get in touch</h2>
+        <p class="section-intro">To arrange a demonstration or discuss how Validity applies to your document workflows, reach out directly.</p>
+        <a href="mailto:hello@validity.live" class="contact-link">hello@validity.live</a>
+    </div>
+
+    <footer>
+        <span class="footer-note">validity.live</span>
+        <span class="footer-note">© 2025 Validity</span>
+    </footer>
+
 </body>
 </html>
