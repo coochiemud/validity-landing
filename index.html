@@ -81,15 +81,19 @@ permalink: /
             line-height: 1.7;
         }
 
-        .hero-sub {
-            font-family: var(--sans);
-            font-size: 17px;
-            color: var(--text-dim);
+        .hero-card {
             opacity: 0;
             animation: fadeIn 1.5s ease forwards 0.5s;
-            margin-bottom: 40px;
-            max-width: 440px;
-            line-height: 1.75;
+            margin: 20px 0 36px;
+            max-width: 480px;
+        }
+
+        .hero-card p {
+            font-family: var(--sans);
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFFFF;
+            line-height: 1.7;
         }
 
         .demo-btn {
@@ -148,16 +152,18 @@ permalink: /
             letter-spacing: 4px;
             color: var(--text-dim);
             margin-bottom: 24px;
+            text-align: center;
         }
 
         .section-heading {
             font-family: var(--serif);
-            font-size: 22px;
+            font-size: clamp(28px, 4vw, 42px);
             font-weight: 500;
             line-height: 1.2;
             color: var(--text);
             letter-spacing: -0.3px;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
+            text-align: center;
         }
 
         .section-intro {
@@ -172,7 +178,7 @@ permalink: /
             font-family: var(--sans);
             font-size: 16px;
             line-height: 1.85;
-            color: var(--text-dim);
+            color: var(--text-mid);
         }
 
         .section-body p { margin-bottom: 16px; }
@@ -217,10 +223,12 @@ permalink: /
             flex-direction: column;
             gap: 1px;
             margin-top: 40px;
+            text-align: left;
         }
 
         .sector-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: 240px 1fr;
             align-items: baseline;
             gap: 40px;
             padding: 20px 0;
@@ -234,14 +242,12 @@ permalink: /
             font-size: 16px;
             font-weight: 600;
             color: var(--text);
-            min-width: 220px;
-            flex-shrink: 0;
         }
 
         .sector-desc {
             font-family: var(--sans);
-            font-size: 17px;
-            color: var(--text-dim);
+            font-size: 16px;
+            color: var(--text-mid);
             line-height: 1.6;
         }
 
@@ -304,8 +310,8 @@ permalink: /
     <div class="hero">
         <img src="validity-logo.png" alt="Validity" class="logo">
         <p class="hero-tagline">Formal verification for complex agreements</p>
-        <p class="hero-sub">Validity verifies the internal logic of complex agreements. Contractual language is converted into formal logic to detect contradictions, hidden dependencies, and structural inconsistencies before execution.</p>
-        <a href="/demo" class="demo-btn">View Demo</a>
+        <div class="hero-card"><p>Verify the internal logic of complex agreements before capital is committed.</p></div>
+        <a href="/demo" class="demo-btn">See the Analysis</a>
         
     </div>
 
@@ -371,10 +377,7 @@ permalink: /
 
     <!-- Contact -->
     <div class="contact-section">
-        <div class="section-label">Contact</div>
-        <h2 class="section-heading">Get in touch</h2>
-        <p class="section-intro">To arrange a demonstration or discuss how Validity applies to your document workflows, reach out directly.</p>
-        <a href="mailto:hello@validity.live" class="contact-link">hello@validity.live</a>
+        <a href="mailto:info@validity.live" class="section-label" style="text-decoration:none;letter-spacing:4px;text-transform:uppercase;font-size:12px;color:var(--text-dim);transition:color 0.2s;" onmouseover="this.style.color='var(--text-mid)'" onmouseout="this.style.color='var(--text-dim)'">Contact</a>
     </div>
 
     <footer>
