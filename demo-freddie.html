@@ -6,7 +6,7 @@ permalink: /demo-freddie
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validity — Structured Finance Demo</title>
+    <title>Validity — Verification Report</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -18,219 +18,566 @@ permalink: /demo-freddie
             --text:#E8E8E8;--text-mid:#9CA3AF;--text-dim:#4B5563;
             --accent:#3B82F6;--accent-dim:rgba(59,130,246,0.12);
             --sat:#10B981;--sat-dim:rgba(16,185,129,0.10);
+            --unsat:#EF4444;--unsat-dim:rgba(239,68,68,0.10);
             --undet:#F59E0B;--undet-dim:rgba(245,158,11,0.10);
-            --notable:#60A5FA;--notable-dim:rgba(96,165,250,0.10);
             --mono:'IBM Plex Mono',monospace;--serif:'IBM Plex Serif',Georgia,serif;--sans:'Inter',sans-serif;
         }
-        html{scroll-behavior:smooth;}
-        body{font-family:var(--serif);background:#0A0E1A;color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-        body::before{content:'';position:fixed;inset:0;opacity:0.03;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");z-index:999;}
-        header{display:flex;align-items:center;justify-content:space-between;padding:28px 48px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,14,26,0.94);backdrop-filter:blur(14px);z-index:100;}
-        .header-logo img{height:28px;filter:brightness(1.1);}
-        .header-label{font-family:var(--sans);font-size:11px;text-transform:uppercase;letter-spacing:4px;color:var(--text-dim);}
-        main{max-width:820px;margin:0 auto;padding:80px 48px 120px;}
-        .doc-eyebrow{font-family:var(--sans);font-size:11px;text-transform:uppercase;letter-spacing:4px;color:var(--accent);margin-bottom:20px;opacity:0;animation:fadeUp 0.8s ease forwards 0.1s;}
-        .doc-title{font-family:var(--serif);font-size:clamp(26px,4vw,42px);font-weight:500;line-height:1.2;color:var(--text);letter-spacing:-0.3px;margin-bottom:28px;opacity:0;animation:fadeUp 0.8s ease forwards 0.2s;}
-        .doc-meta{display:flex;flex-wrap:wrap;gap:28px;margin-bottom:32px;opacity:0;animation:fadeUp 0.8s ease forwards 0.3s;}
-        .doc-meta-item{display:flex;flex-direction:column;gap:5px;}
-        .doc-meta-label{font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);}
-        .doc-meta-value{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--text-mid);}
-        .doc-summary{font-family:var(--sans);font-size:15px;line-height:1.75;color:var(--text-mid);padding:24px 28px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--border2);border-radius:6px;margin-bottom:64px;opacity:0;animation:fadeUp 0.8s ease forwards 0.4s;}
-        .section-heading{font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:4px;color:var(--text-dim);margin-bottom:20px;opacity:0;animation:fadeUp 0.8s ease forwards 0.5s;}
-        .findings{display:flex;flex-direction:column;gap:10px;margin-bottom:64px;opacity:0;animation:fadeUp 0.8s ease forwards 0.6s;}
-        .finding{border-radius:8px;overflow:hidden;border:1px solid var(--border);}
-        .finding-sat{border-left:3px solid var(--sat);}.finding-notable{border-left:3px solid var(--notable);}.finding-undet{border-left:3px solid var(--undet);}
-        .finding-body{display:flex;gap:20px;padding:22px 24px;align-items:flex-start;}
-        .finding-left{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:130px;}
-        .verdict{font-family:var(--mono);font-size:10px;font-weight:500;padding:4px 10px;border-radius:3px;letter-spacing:0.5px;white-space:nowrap;}
-        .verdict-sat{background:var(--sat-dim);color:var(--sat);border:1px solid rgba(16,185,129,0.2);}
-        .verdict-notable{background:var(--notable-dim);color:var(--notable);border:1px solid rgba(96,165,250,0.2);}
-        .verdict-undet{background:var(--undet-dim);color:var(--undet);border:1px solid rgba(245,158,11,0.2);}
-        .finding-cids{display:flex;flex-wrap:wrap;gap:5px;}
-        .cid{font-family:var(--mono);font-size:10px;color:var(--text-dim);background:var(--bg2);border:1px solid var(--border);padding:2px 7px;border-radius:3px;}
-        .finding-right{flex:1;}
-        .finding-title{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.4;}
-        .finding-desc{font-family:var(--sans);font-size:13px;color:var(--text-mid);line-height:1.75;}
-        .cert-section-heading{font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:4px;color:var(--text-dim);margin-bottom:20px;opacity:0;animation:fadeUp 0.8s ease forwards 0.65s;}
-        .certificate{border:1px solid var(--border2);border-radius:10px;overflow:hidden;margin-bottom:48px;opacity:0;animation:fadeUp 0.8s ease forwards 0.7s;}
-        .cert-header{display:flex;align-items:center;gap:16px;padding:22px 28px;background:var(--surface);border-bottom:1px solid var(--border);}
-        .outcome-pill{font-family:var(--mono);font-size:12px;font-weight:500;padding:6px 16px;border-radius:4px;background:var(--sat-dim);color:var(--sat);border:1px solid rgba(16,185,129,0.25);letter-spacing:1px;}
-        .cert-headline{font-family:var(--sans);font-size:14px;color:var(--text-mid);}
-        .cert-grid{display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--surface);}
-        .cert-field{padding:16px 24px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
-        .cert-field:nth-child(3n){border-right:none;}.cert-field:nth-last-child(-n+3){border-bottom:none;}
-        .cert-field-label{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:5px;}
-        .cert-field-value{font-family:var(--mono);font-size:12px;color:var(--text-mid);word-break:break-all;}
-        .cert-field-value.sat{color:var(--sat);}.cert-field-value.hash{color:#60A5FA;font-size:11px;}
-        .cert-ud{padding:20px 28px;background:var(--surface);border-top:1px solid var(--border);}
-        .cert-ud-label{font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:3px;color:var(--text-dim);margin-bottom:14px;}
-        .ud-row{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:var(--undet-dim);border:1px solid rgba(245,158,11,0.15);border-radius:6px;margin-bottom:8px;}
-        .ud-row:last-child{margin-bottom:0;}
-        .ud-severity{font-family:var(--mono);font-size:9px;color:var(--undet);padding:3px 8px;border:1px solid rgba(245,158,11,0.3);border-radius:3px;white-space:nowrap;margin-top:2px;}
-        .ud-text{font-family:var(--sans);font-size:13px;color:var(--text-mid);line-height:1.6;}
-        .ud-text strong{color:var(--text);font-weight:600;}
-        .cert-statement{padding:20px 28px;border-top:1px solid var(--border);background:var(--surface);font-family:var(--sans);font-size:13px;color:var(--text-mid);line-height:1.75;}
-        .tech-row{display:flex;align-items:center;gap:16px;opacity:0;animation:fadeUp 0.8s ease forwards 0.85s;}
-        .tech-btn{font-family:var(--sans);font-size:12px;color:var(--text-dim);background:none;border:1px solid var(--border2);padding:9px 18px;border-radius:4px;cursor:pointer;transition:color 0.2s,border-color 0.2s;display:flex;align-items:center;gap:8px;}
-        .tech-btn:hover{color:var(--text-mid);border-color:rgba(255,255,255,0.2);}
-        .tech-chevron{font-size:10px;transition:transform 0.25s;display:inline-block;}
-        .tech-chevron.open{transform:rotate(180deg);}
-        .tech-note{font-family:var(--sans);font-size:13px;color:var(--text-mid);}
-        .tech-panel{margin-top:24px;overflow:hidden;max-height:0;transition:max-height 0.5s ease;}
-        .tech-panel.open{max-height:9000px;}
-        .stage{margin-bottom:4px;}
-        .stage-header{display:flex;align-items:center;gap:16px;padding:16px 24px;background:var(--surface);border:1px solid var(--border);border-radius:6px 6px 0 0;cursor:pointer;user-select:none;transition:background 0.2s;}
-        .stage-header:hover{background:var(--surface2);}
-        .stage-header.collapsed{border-radius:6px;margin-bottom:4px;}
-        .stage-num{font-family:var(--mono);font-size:10px;color:var(--text-dim);min-width:20px;}
-        .stage-title{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--text);flex:1;}
-        .stage-badge{font-family:var(--mono);font-size:10px;padding:2px 9px;border-radius:3px;background:var(--sat-dim);color:var(--sat);border:1px solid rgba(16,185,129,0.2);}
-        .stage-badge.amber{background:var(--undet-dim);color:var(--undet);border-color:rgba(245,158,11,0.2);}
-        .stage-chevron{color:var(--text-dim);font-size:10px;transition:transform 0.25s;}
-        .stage-header.collapsed .stage-chevron{transform:rotate(-90deg);}
-        .stage-body{background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 6px 6px;overflow:hidden;max-height:3000px;transition:max-height 0.4s ease;margin-bottom:4px;}
-        .stage-body.hidden{max-height:0;}
-        .stage-inner{padding:24px;}
-        .stage-desc{font-family:var(--sans);font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:20px;}
-        .ctable{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:12px;}
-        .ctable th{text-align:left;padding:7px 10px;font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);border-bottom:1px solid var(--border);font-weight:500;}
-        .ctable td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text-mid);line-height:1.5;}
-        .ctable tr:last-child td{border-bottom:none;}.ctable tr:hover td{background:rgba(255,255,255,0.015);}
-        .tcid{font-family:var(--mono);font-size:10px;color:var(--accent);white-space:nowrap;}
-        .ctype{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;white-space:nowrap;background:var(--accent-dim);color:var(--accent);}
-        .ctype.trigger{background:rgba(245,158,11,0.1);color:var(--undet);}
-        .ctype.threshold{background:rgba(139,92,246,0.1);color:#A78BFA;}
-        .toa{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:18px 20px;margin-bottom:10px;font-family:var(--mono);font-size:11px;line-height:1.8;}
-        .toa:last-of-type{margin-bottom:0;}
-        .toa-row{display:flex;gap:14px;}
-        .toa-k{color:var(--text-dim);min-width:110px;flex-shrink:0;}
-        .toa-v{color:var(--text-mid);}
-        .toa-v.formula{color:#93C5FD;}.toa-v.assertion{color:var(--accent);}.toa-v.conf{color:var(--sat);}
-        .lfs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
-        .lfs-item{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:4px;font-family:var(--mono);font-size:11px;color:var(--text-mid);}
-        .lfs-check{color:var(--sat);}
-        .code-block{background:#070B12;border:1px solid var(--border);border-radius:6px;padding:20px 22px;font-family:var(--mono);font-size:11px;line-height:1.9;color:#94A3B8;overflow-x:auto;margin-bottom:20px;white-space:pre;}
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--sans); background: #0A0E1A; color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        body::before { content:''; position:fixed; inset:0; opacity:0.03; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); z-index:999; }
+
+        header { display:flex; align-items:center; justify-content:space-between; padding:28px 48px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(10,14,26,0.94); backdrop-filter:blur(14px); z-index:100; }
+        .header-logo img { height:28px; filter:brightness(1.1); }
+        .header-label { font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:4px; color:var(--text-dim); }
+
+        main { max-width:740px; margin:0 auto; padding:80px 48px 120px; }
+
+        /* ── Report header ─────────────────────────────────── */
+        .report-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-dim);
+            margin-bottom: 32px;
+            display: block;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.1s;
+        }
+
+        .report-title {
+            font-family: var(--serif);
+            font-size: clamp(24px, 3.5vw, 36px);
+            font-weight: 500;
+            line-height: 1.2;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.15s;
+        }
+
+        /* ── Meta table ────────────────────────────────────── */
+        .meta-table {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            border-top: 1px solid var(--border);
+            margin-bottom: 56px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.2s;
+        }
+
+        .meta-row {
+            display: contents;
+        }
+
+        .meta-key {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-dim);
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .meta-val {
+            font-family: var(--sans);
+            font-size: 13px;
+            color: var(--text-mid);
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* ── Section ───────────────────────────────────────── */
+        .report-section {
+            margin-bottom: 48px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.25s;
+        }
+
+        .report-section + .report-section { animation-delay: 0.3s; }
+        .report-section:nth-child(4) { animation-delay: 0.35s; }
+        .report-section:nth-child(5) { animation-delay: 0.4s; }
+        .report-section:nth-child(6) { animation-delay: 0.45s; }
+        .report-section:nth-child(7) { animation-delay: 0.5s; }
+        .report-section:nth-child(8) { animation-delay: 0.55s; }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: var(--serif);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 16px;
+            letter-spacing: -0.2px;
+        }
+
+        .body-text {
+            font-size: 14px;
+            line-height: 1.85;
+            color: var(--text-mid);
+        }
+
+        .body-text p { margin-bottom: 14px; }
+        .body-text p:last-child { margin-bottom: 0; }
+
+        /* ── Finding ───────────────────────────────────────── */
+        .finding {
+            margin-bottom: 36px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .finding:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+        .finding-num {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .finding-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .finding-system {
+            font-size: 13px;
+            color: var(--text-mid);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .finding-issue {
+            font-size: 13px;
+            color: var(--text-mid);
+            line-height: 1.8;
+            padding: 14px 18px;
+            background: var(--surface);
+            border-left: 2px solid var(--border2);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .finding-issue-label {
+            font-family: var(--mono);
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* ── Bullet list ───────────────────────────────────── */
+        .bullet-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .bullet-item {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        .bullet-dot {
+            color: var(--text-dim);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ── Closing line ──────────────────────────────────── */
+        .closing {
+            font-family: var(--serif);
+            font-size: 17px;
+            font-style: italic;
+            color: var(--text-mid);
+            line-height: 1.7;
+            padding: 28px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 56px;
+        }
+
+        /* ── Certificate ───────────────────────────────────── */
+        .cert-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .certificate {
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 48px;
+        }
+
+        .cert-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .outcome-pill {
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 500;
+            padding: 5px 14px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+        }
+
+        .outcome-sat {
+            background: var(--sat-dim);
+            color: var(--sat);
+            border: 1px solid rgba(16,185,129,0.25);
+        }
+
+        .cert-headline {
+            font-size: 13px;
+            color: var(--text-mid);
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            background: var(--surface);
+        }
+
+        .cert-field {
+            padding: 14px 20px;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cert-field:nth-child(3n) { border-right: none; }
+        .cert-field:nth-last-child(-n+3) { border-bottom: none; }
+
+        .cert-field-label {
+            font-family: var(--mono);
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-dim);
+            margin-bottom: 5px;
+        }
+
+        .cert-field-value {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-mid);
+            word-break: break-all;
+        }
+
+        .cert-field-value.sat { color: var(--sat); }
+        .cert-field-value.hash { color: #60A5FA; }
+
+        .cert-ud {
+            padding: 18px 24px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+        }
+
+        .cert-ud-label {
+            font-family: var(--mono);
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .ud-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 12px 14px;
+            background: var(--undet-dim);
+            border: 1px solid rgba(245,158,11,0.15);
+            border-radius: 5px;
+            margin-bottom: 6px;
+        }
+
+        .ud-item:last-child { margin-bottom: 0; }
+
+        .ud-tag {
+            font-family: var(--mono);
+            font-size: 9px;
+            color: var(--undet);
+            border: 1px solid rgba(245,158,11,0.3);
+            padding: 2px 7px;
+            border-radius: 3px;
+            white-space: nowrap;
+            margin-top: 1px;
+        }
+
+        .ud-text {
+            font-size: 12px;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        .ud-text strong { color: var(--text); font-weight: 600; }
+
+        .cert-statement {
+            padding: 18px 24px;
+            border-top: 1px solid var(--border);
+            background: var(--surface);
+            font-size: 12px;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        /* ── Tech toggle ───────────────────────────────────── */
+        .tech-row { display: flex; align-items: center; gap: 16px; }
+
+        .tech-btn { font-family: var(--sans); font-size: 12px; color: var(--text-dim); background: none; border: 1px solid var(--border2); padding: 9px 18px; border-radius: 4px; cursor: pointer; transition: color 0.2s, border-color 0.2s; display: flex; align-items: center; gap: 8px; }
+        .tech-btn:hover { color: var(--text-mid); border-color: rgba(255,255,255,0.2); }
+        .tech-chevron { font-size: 10px; transition: transform 0.25s; display: inline-block; }
+        .tech-chevron.open { transform: rotate(180deg); }
+        .tech-note { font-size: 13px; color: var(--text-dim); }
+
+        .tech-panel { margin-top: 24px; overflow: hidden; max-height: 0; transition: max-height 0.5s ease; }
+        .tech-panel.open { max-height: 9000px; }
+
+        /* ── Stage ─────────────────────────────────────────── */
+        .stage { margin-bottom: 4px; }
+        .stage-header { display:flex; align-items:center; gap:16px; padding:14px 20px; background:var(--surface); border:1px solid var(--border); border-radius:6px 6px 0 0; cursor:pointer; user-select:none; transition:background 0.2s; }
+        .stage-header:hover { background: var(--surface2); }
+        .stage-header.collapsed { border-radius: 6px; margin-bottom: 4px; }
+        .stage-num { font-family:var(--mono); font-size:10px; color:var(--text-dim); min-width:20px; }
+        .stage-title { font-size:12px; font-weight:600; color:var(--text); flex:1; }
+        .stage-badge { font-family:var(--mono); font-size:10px; padding:2px 9px; border-radius:3px; background:var(--sat-dim); color:var(--sat); border:1px solid rgba(16,185,129,0.2); }
+        .stage-badge.amber { background:var(--undet-dim); color:var(--undet); border-color:rgba(245,158,11,0.2); }
+        .stage-chevron { color:var(--text-dim); font-size:10px; transition:transform 0.25s; }
+        .stage-header.collapsed .stage-chevron { transform: rotate(-90deg); }
+        .stage-body { background:var(--surface); border:1px solid var(--border); border-top:none; border-radius:0 0 6px 6px; overflow:hidden; max-height:3000px; transition:max-height 0.4s ease; margin-bottom:4px; }
+        .stage-body.hidden { max-height: 0; }
+        .stage-inner { padding: 20px 24px; }
+        .stage-desc { font-size:13px; color:var(--text-mid); line-height:1.7; margin-bottom:18px; }
+
+        .ctable { width:100%; border-collapse:collapse; font-size:12px; }
+        .ctable th { text-align:left; padding:6px 10px; font-size:9px; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); border-bottom:1px solid var(--border); font-weight:500; }
+        .ctable td { padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top; color:var(--text-mid); line-height:1.5; }
+        .ctable tr:last-child td { border-bottom: none; }
+        .tcid { font-family:var(--mono); font-size:10px; color:var(--accent); white-space:nowrap; }
+        .ctype { font-family:var(--mono); font-size:9px; padding:2px 6px; border-radius:3px; white-space:nowrap; background:var(--accent-dim); color:var(--accent); }
+        .ctype.trigger { background:rgba(245,158,11,0.1); color:var(--undet); }
+        .ctype.threshold { background:rgba(139,92,246,0.1); color:#A78BFA; }
+
+        .code-block { background:#070B12; border:1px solid var(--border); border-radius:6px; padding:18px 20px; font-family:var(--mono); font-size:11px; line-height:1.9; color:#94A3B8; overflow-x:auto; margin-bottom:16px; white-space:pre; }
         .kw{color:#7DD3FC;}.fn{color:#C084FC;}.str{color:#86EFAC;}.cmt{color:#374151;font-style:italic;}.vr{color:#FDE68A;}.an{color:var(--accent);}
-        .tech-finding{border:1px solid var(--border);border-radius:6px;margin-bottom:8px;overflow:hidden;}
-        .tech-finding.sat-f{border-left:3px solid var(--sat);}.tech-finding.notable-f{border-left:3px solid var(--notable);}.tech-finding.undet-f{border-left:3px solid var(--undet);}
-        .tech-finding-body{display:flex;gap:14px;padding:14px 18px;align-items:flex-start;}
-        .tf-title{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--text);margin-bottom:5px;}
-        .tf-desc{font-family:var(--sans);font-size:12px;color:var(--text-mid);line-height:1.6;}
-        .tf-cids{display:flex;gap:5px;padding:8px 18px;background:var(--bg2);border-top:1px solid var(--border);}
-        footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;align-items:center;justify-content:space-between;}
-        .footer-note{font-family:var(--sans);font-size:11px;color:var(--text-dim);}
-        .back-link{font-family:var(--sans);font-size:11px;color:var(--text-dim);text-decoration:none;transition:color 0.2s;}
-        .back-link:hover{color:var(--text-mid);}
-        @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-        @media(max-width:640px){header,footer{padding:20px 24px;}main{padding:48px 24px 80px;}
-        .finding-body{flex-direction:column;gap:12px;}.finding-left{flex-direction:row;align-items:center;min-width:unset;}
-        .cert-grid{grid-template-columns:1fr 1fr;}.lfs-grid{grid-template-columns:repeat(3,1fr);}}
+
+        .lfs-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:6px; }
+        .lfs-item { display:flex; align-items:center; gap:8px; padding:8px 12px; background:var(--bg2); border:1px solid var(--border); border-radius:4px; font-family:var(--mono); font-size:11px; color:var(--text-mid); }
+        .lfs-check { color: var(--sat); }
+
+        footer { border-top:1px solid var(--border); padding:28px 48px; display:flex; align-items:center; justify-content:space-between; }
+        .footer-note { font-size:11px; color:var(--text-dim); }
+        .back-link { font-size:11px; color:var(--text-dim); text-decoration:none; transition:color 0.2s; }
+        .back-link:hover { color: var(--text-mid); }
+
+        @keyframes fadeUp { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+
+        @media(max-width:640px) {
+            header,footer{padding:20px 24px;}
+            main{padding:48px 24px 80px;}
+            .cert-grid{grid-template-columns:1fr 1fr;}
+            .lfs-grid{grid-template-columns:repeat(3,1fr);}
+        }
     </style>
 </head>
 <body>
 
     <header>
         <a href="/"><img src="validity-logo.png" alt="Validity" style="height:28px;filter:brightness(1.1);" /></a>
-        <span class="header-label">Structured Finance</span>
+        <span class="header-label">Verification Report</span>
     </header>
 
     <main>
-        <div class="doc-eyebrow">Document Under Analysis</div>
-        <h1 class="doc-title">Freddie Mac Multifamily Structured Credit Risk Notes, Series 2024-MN9</h1>
 
-        <div class="doc-meta">
-            <div class="doc-meta-item"><span class="doc-meta-label">Issuer</span><span class="doc-meta-value">Freddie Mac MSCR Trust MN9</span></div>
-            <div class="doc-meta-item"><span class="doc-meta-label">Offering Size</span><span class="doc-meta-value">$205,018,000</span></div>
-            <div class="doc-meta-item"><span class="doc-meta-label">Closing Date</span><span class="doc-meta-value">October 16, 2024</span></div>
-            <div class="doc-meta-item"><span class="doc-meta-label">Note Classes</span><span class="doc-meta-value">M-1 · M-2 · B-1</span></div>
-            <div class="doc-meta-item"><span class="doc-meta-label">Scheduled Maturity</span><span class="doc-meta-value">October 2044</span></div>
+        <span class="report-label">Verification Report</span>
+        <h1 class="report-title">Freddie Mac Multifamily Structured Credit Risk Notes, Series 2024-MN9</h1>
+
+        <!-- Meta -->
+        <div class="meta-table">
+            <div class="meta-row"><span class="meta-key">Document type</span><span class="meta-val">Structured finance prospectus</span></div>
+            <div class="meta-row"><span class="meta-key">Issuer</span><span class="meta-val">Freddie Mac MSCR Trust MN9</span></div>
+            <div class="meta-row"><span class="meta-key">Offering size</span><span class="meta-val">$205,018,000</span></div>
+            <div class="meta-row"><span class="meta-key">Note classes</span><span class="meta-val">M-1 · M-2 · B-1</span></div>
+            <div class="meta-row"><span class="meta-key">Closing date</span><span class="meta-val">October 16, 2024</span></div>
+            <div class="meta-row"><span class="meta-key">Method</span><span class="meta-val">Contractual language converted into formal logic and analysed for internal consistency</span></div>
         </div>
 
-        <div class="doc-summary">
-            This is a $205 million structured credit risk transfer transaction. Freddie Mac issues three classes of notes — M-1, M-2, and B-1 — linked to the performance of a reference pool of multifamily mortgage loans. Investors bear credit risk through a system of write-downs, write-ups, and interest reductions tied to credit events on the underlying loans.<br><br>
-            The document runs to over 200 pages and contains a layered set of interdependent payment obligations, loss allocation rules, subordination mechanics, and trigger conditions — each individually reasonable, but collectively subject to logical interaction under stress.<br><br>
-            Validity read the entire document, extracted every binding commitment, and checked whether those commitments are simultaneously satisfiable. The results are below.<br><br>
-            <a href="https://mf.freddiemac.com/docs/MSCR_2024-MN9_private_placement_memorandum.pdf" target="_blank" rel="noopener" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3B82F6;text-decoration:none;opacity:0.8;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">↗ View source document — MSCR_2024-MN9_private_placement_memorandum.pdf</a>
-        </div>
-
-        <div class="section-heading">What Validity Found</div>
-
-        <div class="findings">
-            <div class="finding finding-sat">
-                <div class="finding-body">
-                    <div class="finding-left"><span class="verdict verdict-sat">CONSISTENT</span><div class="finding-cids"><span class="cid">C0001</span><span class="cid">C0002</span><span class="cid">C0009</span></div></div>
-                    <div class="finding-right">
-                        <div class="finding-title">Payment waterfall is internally consistent</div>
-                        <div class="finding-desc">The document states payment priority in three separate sections — Priority of Payments, Interest, and Status and Subordination. All three are logically consistent with each other. The waterfall (Return Amount first, then interest, then principal) is unambiguous and satisfiable across every statement of it in the document.</div>
-                    </div>
-                </div>
+        <!-- Summary -->
+        <div class="report-section">
+            <span class="section-label">Verification Summary</span>
+            <div class="body-text">
+                <p>This prospectus governs a $205 million credit risk transfer transaction. Freddie Mac issues three classes of notes linked to the performance of a reference pool of multifamily mortgage loans. Investors bear credit risk through a system of write-downs, write-ups, and interest reductions tied to credit events on the underlying loans.</p>
+                <p>The document operates as a system of interdependent rule sets governing cash flow distribution, risk allocation, and conditional protections across more than 200 pages of layered obligations.</p>
             </div>
-
-            <div class="finding finding-notable">
-                <div class="finding-body">
-                    <div class="finding-left"><span class="verdict verdict-notable">NOTABLE</span><div class="finding-cids"><span class="cid">C0006</span><span class="cid">C0007</span></div></div>
-                    <div class="finding-right">
-                        <div class="finding-title">Write-down and write-up orders are deliberately asymmetric</div>
-                        <div class="finding-desc">Losses are absorbed bottom-up — B-1 Notes are written down before M-2, and M-2 before M-1. Recoveries are restored top-down — M-1 recovers before M-2, and M-2 before B-1. This is not a contradiction; it is a deliberate structural feature of the transaction. The practical consequence is that B-1 Note holders absorb losses first and recover last — a disproportionate risk profile that is consistent in the document but material to any investment decision.</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="finding finding-undet">
-                <div class="finding-body">
-                    <div class="finding-left"><span class="verdict verdict-undet">UNRESOLVED</span><div class="finding-cids"><span class="cid">C0011</span><span class="cid">C0012</span></div></div>
-                    <div class="finding-right">
-                        <div class="finding-title">Notes continue to accrue interest after an EOD-triggered redemption</div>
-                        <div class="finding-desc">The document states that notes cease to bear interest after the Early Redemption Date — but carves out an exception when an Indenture Event of Default has occurred. Since an EOD also triggers early redemption, notes redeemed via an EOD continue accruing interest indefinitely. The document does not specify whether the Trust holds sufficient assets to pay that interest, or where it ranks in the payment waterfall on subsequent payment dates. This path is unresolved and requires legal review.</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="finding finding-undet">
-                <div class="finding-body">
-                    <div class="finding-left"><span class="verdict verdict-undet">UNRESOLVED</span><div class="finding-cids"><span class="cid">C0003</span><span class="cid">C0009</span></div></div>
-                    <div class="finding-right">
-                        <div class="finding-title">Maturity principal obligation and Return Amount priority compete under stress — material gap</div>
-                        <div class="finding-desc">The document states in absolute terms that the Trust "will pay" 100% of the outstanding principal balance at maturity. It also states that the Return Amount is paid before any amounts owed on the Notes. Under stress — where Eligible Investments have been depleted and a Return Amount is simultaneously owed — both obligations cannot be fully satisfied. The document contains no provision that explicitly resolves this competition. This is a material gap.</div>
-                    </div>
-                </div>
+            <div class="bullet-list" style="margin-top:20px;">
+                <div class="bullet-item"><span class="bullet-dot">·</span><span>Payment waterfall and priority structure are internally consistent</span></div>
+                <div class="bullet-item"><span class="bullet-dot">·</span><span>Write-down and write-up mechanics are asymmetric by design — not a contradiction</span></div>
+                <div class="bullet-item"><span class="bullet-dot">·</span><span>Two unresolved regions identified where the document does not resolve competing obligations under stress conditions</span></div>
             </div>
         </div>
 
-        <div class="cert-section-heading">Consistency Certificate</div>
+        <!-- Document Structure -->
+        <div class="report-section">
+            <span class="section-label">Document Structure</span>
+            <div class="body-text">
+                <p>The prospectus operates as a system of interdependent rule sets governing:</p>
+            </div>
+            <div class="bullet-list" style="margin-top:12px;">
+                <div class="bullet-item"><span class="bullet-dot">·</span><span>Cash flow distribution across note classes (waterfall structure)</span></div>
+                <div class="bullet-item"><span class="bullet-dot">·</span><span>Priority of payments and subordination mechanics</span></div>
+                <div class="bullet-item"><span class="bullet-dot">·</span><span>Write-down and write-up allocation by tranche</span></div>
+                <div class="bullet-item"><span class="bullet-dot">·</span><span>Event of Default triggers and acceleration conditions</span></div>
+                <div class="bullet-item"><span class="bullet-dot">·</span><span>Early redemption mechanics and interest cessation rules</span></div>
+                <div class="bullet-item"><span class="bullet-dot">·</span><span>Maturity obligations and Return Amount priority</span></div>
+            </div>
+            <div class="body-text" style="margin-top:14px;">
+                <p>Each component is logically defined but dependent on others through shared conditions and cross-referenced definitions.</p>
+            </div>
+        </div>
 
+        <!-- Analysis -->
+        <div class="report-section">
+            <span class="section-label">Analysis</span>
+
+            <div class="finding">
+                <span class="finding-num">01</span>
+                <div class="finding-title">Payment waterfall — three consistent statements</div>
+                <div class="finding-system">The document states payment priority in three separate sections: Priority of Payments, Interest, and Status and Subordination. Each specifies that the Return Amount is paid before any amounts owed on the Notes. All three statements are logically consistent with each other.</div>
+                <div class="finding-issue">
+                    <span class="finding-issue-label">Assessment</span>
+                    No conflict identified. The waterfall is unambiguous across all three statements of it in the document. This is an area of structural strength.
+                </div>
+            </div>
+
+            <div class="finding">
+                <span class="finding-num">02</span>
+                <div class="finding-title">Write-down and write-up mechanics — deliberate asymmetry</div>
+                <div class="finding-system">Losses are absorbed bottom-up — B-1 Notes are written down before M-2, and M-2 before M-1. Recoveries are restored top-down — M-1 recovers before M-2, and M-2 before B-1. The ordering is inverse.</div>
+                <div class="finding-issue">
+                    <span class="finding-issue-label">Assessment</span>
+                    This asymmetry is a deliberate structural feature of the transaction, not a contradiction. The practical consequence is that B-1 Note holders absorb losses first and recover last — a risk profile that is internally consistent but material to any investment decision.
+                </div>
+            </div>
+
+            <div class="finding">
+                <span class="finding-num">03</span>
+                <div class="finding-title">EOD-triggered acceleration and interest cessation — unresolved interaction</div>
+                <div class="finding-system">The document states that Notes cease to bear interest after the Early Redemption Date. It then carves out an exception: if an Indenture Event of Default has occurred, interest continues to accrue. An EOD also triggers acceleration and early redemption. The two rules interact on the same factual path.</div>
+                <div class="finding-issue">
+                    <span class="finding-issue-label">Potential issue</span>
+                    Notes redeemed via an EOD-triggered acceleration continue accruing interest under the carve-out. The document does not specify whether the Trust holds sufficient assets to pay that accruing interest, or where it ranks in the payment waterfall on subsequent payment dates. This path is not resolved in the document.
+                </div>
+            </div>
+
+            <div class="finding">
+                <span class="finding-num">04</span>
+                <div class="finding-title">Maturity principal obligation and Return Amount priority — competing obligations under stress</div>
+                <div class="finding-system">The document states in absolute terms that the Trust will pay 100% of the outstanding Class Principal Balance at maturity. It also states that the Return Amount is paid before any amounts owed on the Notes. These rules interact when Trust assets are insufficient to satisfy both.</div>
+                <div class="finding-issue">
+                    <span class="finding-issue-label">Potential issue</span>
+                    Under stress conditions where Eligible Investments have been depleted and a Return Amount is simultaneously owed, both obligations cannot be fully satisfied. The document contains no provision that explicitly resolves this competition. This is a material gap for any scenario involving simultaneous maturity and a Return Amount obligation.
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Conclusion -->
+        <div class="report-section">
+            <span class="section-label">Conclusion</span>
+            <div class="body-text">
+                <p>The Freddie Mac MSCR Trust MN9 prospectus operates as a rule-based system governing cash flow distribution, risk allocation, and conditional protections across three note classes. The core payment waterfall and write-down mechanics are internally consistent.</p>
+                <p>Two unresolved regions were identified where the document does not provide sufficient explicit commitment to resolve competing obligations under stress conditions. These issues are not evident from individual clauses. They emerge from how the rules interact across the document.</p>
+            </div>
+        </div>
+
+        <!-- Method -->
+        <div class="report-section">
+            <span class="section-label">Method</span>
+            <div class="body-text">
+                <p>Contractual language was converted into structured logical representations. Clauses were analysed as conditional rules with dependencies across definitions, triggers, thresholds, timing conditions, and payment sequences. The analysis focuses on whether these rules can operate together without contradiction.</p>
+            </div>
+        </div>
+
+        <!-- Closing line -->
+        <div class="closing">
+            Structured finance documents are not static disclosures. They are systems governing cash flow, risk, and priority under defined conditions. Validity verifies the internal logic of those systems.
+        </div>
+
+        <!-- Certificate -->
+        <span class="cert-label">Consistency Certificate</span>
         <div class="certificate">
             <div class="cert-header">
-                <span class="outcome-pill">SAT</span>
+                <span class="outcome-pill outcome-sat">SAT</span>
                 <span class="cert-headline">No logical contradictions proved within extracted commitments</span>
             </div>
             <div class="cert-grid">
                 <div class="cert-field"><div class="cert-field-label">Proof ID</div><div class="cert-field-value hash">00ec5bea-d62f…256e</div></div>
                 <div class="cert-field"><div class="cert-field-label">Document Hash</div><div class="cert-field-value hash">428b3e2a…989c3</div></div>
                 <div class="cert-field"><div class="cert-field-label">Outcome</div><div class="cert-field-value sat">SAT</div></div>
-                <div class="cert-field"><div class="cert-field-label">Assurance Class</div><div class="cert-field-value">MACHINE</div></div>
+                <div class="cert-field"><div class="cert-field-label">Commitments</div><div class="cert-field-value">15 extracted</div></div>
                 <div class="cert-field"><div class="cert-field-label">Solver</div><div class="cert-field-value">Z3 · 4.12.x</div></div>
                 <div class="cert-field"><div class="cert-field-label">LFS Version</div><div class="cert-field-value">1.0.0</div></div>
             </div>
             <div class="cert-ud">
-                <div class="cert-ud-label">Unresolved Regions</div>
-                <div class="ud-row"><span class="ud-severity">NOTABLE</span><div class="ud-text"><strong>UD-001 · C0011, C0012</strong> — EOD-triggered acceleration and interest cessation exception interact. Trust payment capacity on this path is not addressed in the document.</div></div>
-                <div class="ud-row"><span class="ud-severity">MATERIAL</span><div class="ud-text"><strong>UD-002 · C0003, C0009</strong> — Absolute maturity principal obligation and Return Amount priority compete under insufficient Trust assets. No explicit resolution provided.</div></div>
+                <span class="cert-ud-label">Unresolved Regions</span>
+                <div class="ud-item">
+                    <span class="ud-tag">NOTABLE</span>
+                    <div class="ud-text"><strong>UD-001</strong> — EOD-triggered acceleration and interest cessation exception interact. Trust payment capacity on this path is not addressed in the document.</div>
+                </div>
+                <div class="ud-item">
+                    <span class="ud-tag">MATERIAL</span>
+                    <div class="ud-text"><strong>UD-002</strong> — Absolute maturity principal obligation and Return Amount priority compete under insufficient Trust assets. No explicit resolution provided.</div>
+                </div>
             </div>
             <div class="cert-statement">
-                The extracted commitments of this document are internally consistent within the Validity LFS v1.0.0 fragment. No provable contradiction was found. Two unresolved regions were identified where the document does not provide sufficient explicit commitment to resolve competing obligations under stress conditions. This certificate covers logical consistency of extracted commitments only and does not constitute an opinion on creditworthiness, suitability, or legal enforceability.
+                This certificate covers logical consistency of extracted commitments only. It does not constitute an opinion on creditworthiness, suitability, or legal enforceability. Source document: <a href="https://mf.freddiemac.com/docs/MSCR_2024-MN9_private_placement_memorandum.pdf" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">MSCR_2024-MN9_private_placement_memorandum.pdf ↗</a>
             </div>
         </div>
 
+        <!-- Technical detail -->
         <div class="tech-row">
             <button class="tech-btn" id="techBtn" onclick="toggleTech()">
-                <span id="techBtnLabel">View technical detail</span>
+                <span id="techBtnLabel">View pipeline detail</span>
                 <span class="tech-chevron" id="techChevron">▾</span>
             </button>
             <span class="tech-note">Extraction · Formalisation · LFS validation · SMT encoding</span>
         </div>
 
         <div class="tech-panel" id="techPanel">
+
             <div class="stage" style="margin-top:20px;">
                 <div class="stage-header" onclick="toggleStage(this)">
                     <span class="stage-num">01</span><span class="stage-title">Commitment Extraction</span>
@@ -238,7 +585,7 @@ permalink: /demo-freddie
                 </div>
                 <div class="stage-body">
                     <div class="stage-inner">
-                        <p class="stage-desc">The extraction engine identifies every clause that constitutes a verifiable commitment — obligations, thresholds, conditional triggers, and definition bindings. Each is assigned a stable ID and anchored to its source location in the document.</p>
+                        <p class="stage-desc">Every binding commitment extracted and anchored to its source location in the document.</p>
                         <table class="ctable">
                             <thead><tr><th>ID</th><th>Type</th><th>Commitment</th><th>Section</th></tr></thead>
                             <tbody>
@@ -265,28 +612,12 @@ permalink: /demo-freddie
 
             <div class="stage">
                 <div class="stage-header collapsed" onclick="toggleStage(this)">
-                    <span class="stage-num">02</span><span class="stage-title">Formalisation — Translation Output Artifacts</span>
-                    <span class="stage-badge">15 TOAs</span><span class="stage-chevron">▾</span>
-                </div>
-                <div class="stage-body hidden">
-                    <div class="stage-inner">
-                        <p class="stage-desc">Each commitment is translated into a logical formula within the LFS v1.0 fragment. Every step is recorded in a Translation Output Artifact — the derivation from natural language to formal logic is explicit, versioned, and auditable. If a finding is disputed, the full derivation can be inspected and challenged.</p>
-                        <div class="toa"><div class="toa-row"><span class="toa-k">commitment_id</span><span class="toa-v">C0001</span></div><div class="toa-row"><span class="toa-k">pattern_id</span><span class="toa-v">P-OBL-WATERFALL-01</span></div><div class="toa-row"><span class="toa-k">pre_nnf</span><span class="toa-v">Obligated(PaymentDate → ReturnAmount first, THEN Interest, THEN Principal)</span></div><div class="toa-row"><span class="toa-k">formula</span><span class="toa-v formula">Obligated(At(payment_date, And(LT(priority_return, priority_interest), LT(priority_return, priority_principal))))</span></div><div class="toa-row"><span class="toa-k">assertion</span><span class="toa-v assertion">A::428b3e2a::1_0_0::C0001</span></div><div class="toa-row"><span class="toa-k">confidence</span><span class="toa-v conf">0.95</span></div></div>
-                        <div class="toa"><div class="toa-row"><span class="toa-k">commitment_id</span><span class="toa-v">C0006</span></div><div class="toa-row"><span class="toa-k">pattern_id</span><span class="toa-v">P-OBL-WRITEDOWN-ORDER-01</span></div><div class="toa-row"><span class="toa-k">pre_nnf</span><span class="toa-v">Obligated(WritedownAllocation: B2H(1) &lt; B1(2) &lt; M2(3) &lt; M1(4) &lt; AH(5))</span></div><div class="toa-row"><span class="toa-k">formula</span><span class="toa-v formula">Obligated(And(EQ(wd_order_b2h,1), EQ(wd_order_b1,2), EQ(wd_order_m2,3), EQ(wd_order_m1,4), EQ(wd_order_ah,5)))</span></div><div class="toa-row"><span class="toa-k">assertion</span><span class="toa-v assertion">A::428b3e2a::1_0_0::C0006</span></div><div class="toa-row"><span class="toa-k">confidence</span><span class="toa-v conf">0.97</span></div></div>
-                        <div class="toa"><div class="toa-row"><span class="toa-k">commitment_id</span><span class="toa-v">C0013</span></div><div class="toa-row"><span class="toa-k">pattern_id</span><span class="toa-v">P-THRESHOLD-RETENTION-01</span></div><div class="toa-row"><span class="toa-k">pre_nnf</span><span class="toa-v">ClassNotionalAmount(M1H) &gt;= 0.05 × (ClassNotionalAmount(M1) + ClassNotionalAmount(M1H))</span></div><div class="toa-row"><span class="toa-k">formula</span><span class="toa-v formula">GTE(notional_m1h, Mul(0.05, Add(notional_m1, notional_m1h)))</span></div><div class="toa-row"><span class="toa-k">assertion</span><span class="toa-v assertion">A::428b3e2a::1_0_0::C0013</span></div><div class="toa-row"><span class="toa-k">confidence</span><span class="toa-v conf">0.94</span></div></div>
-                        <p style="font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:14px;">+ 12 additional TOAs generated. All 15 commitments formalised.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="stage">
-                <div class="stage-header collapsed" onclick="toggleStage(this)">
-                    <span class="stage-num">03</span><span class="stage-title">LFS Fragment Validation</span>
+                    <span class="stage-num">02</span><span class="stage-title">LFS Fragment Validation</span>
                     <span class="stage-badge">15 / 15 passed</span><span class="stage-chevron">▾</span>
                 </div>
                 <div class="stage-body hidden">
                     <div class="stage-inner">
-                        <p class="stage-desc">Every formula validated against LFS v1.0. Zero refused. Validity only operates within a decidable fragment — formulas outside it are refused rather than approximated.</p>
+                        <p class="stage-desc">All 15 commitments validated within the LFS v1.0 decidable fragment. Zero refused.</p>
                         <div class="lfs-grid">
                             <div class="lfs-item"><span class="lfs-check">✓</span> C0001</div><div class="lfs-item"><span class="lfs-check">✓</span> C0002</div><div class="lfs-item"><span class="lfs-check">✓</span> C0003</div><div class="lfs-item"><span class="lfs-check">✓</span> C0004</div><div class="lfs-item"><span class="lfs-check">✓</span> C0005</div><div class="lfs-item"><span class="lfs-check">✓</span> C0006</div><div class="lfs-item"><span class="lfs-check">✓</span> C0007</div><div class="lfs-item"><span class="lfs-check">✓</span> C0008</div><div class="lfs-item"><span class="lfs-check">✓</span> C0009</div><div class="lfs-item"><span class="lfs-check">✓</span> C0010</div><div class="lfs-item"><span class="lfs-check">✓</span> C0011</div><div class="lfs-item"><span class="lfs-check">✓</span> C0012</div><div class="lfs-item"><span class="lfs-check">✓</span> C0013</div><div class="lfs-item"><span class="lfs-check">✓</span> C0014</div><div class="lfs-item"><span class="lfs-check">✓</span> C0015</div>
                         </div>
@@ -297,12 +628,12 @@ permalink: /demo-freddie
 
             <div class="stage">
                 <div class="stage-header collapsed" onclick="toggleStage(this)">
-                    <span class="stage-num">04</span><span class="stage-title">SMT Encoding + Solver</span>
-                    <span class="stage-badge amber">2 unresolved</span><span class="stage-chevron">▾</span>
+                    <span class="stage-num">03</span><span class="stage-title">SMT Encoding + Solver</span>
+                    <span class="stage-badge amber">2 unresolved regions</span><span class="stage-chevron">▾</span>
                 </div>
                 <div class="stage-body hidden">
                     <div class="stage-inner">
-                        <p class="stage-desc">Formulas encoded as named constraints using <code style="font-family:var(--mono);color:#93C5FD;font-size:11px">assert_and_track</code> throughout. Named tracking allows the solver to return a minimal infeasible core mapped directly to document clauses.</p>
+                        <p class="stage-desc">All commitments encoded as named assertions via <code style="font-family:var(--mono);color:#93C5FD;font-size:11px">assert_and_track</code>. Solver returned SAT. Named tracking identifies which assertions produce underdetermined outcomes under stress scenarios.</p>
                         <div class="code-block"><span class="kw">from</span> z3 <span class="kw">import</span> *
 solver = <span class="fn">Solver</span>()
 solver.<span class="fn">set</span>(<span class="str">"unsat_core"</span>, <span class="kw">True</span>)
@@ -314,33 +645,30 @@ solver.<span class="fn">set</span>(<span class="str">"unsat_core"</span>, <span 
 solver.<span class="fn">assert_and_track</span>(
     <span class="fn">Implies</span>(payment_date, <span class="fn">And</span>(priority_return &lt; priority_interest,
                               priority_return &lt; priority_principal)),
-    <span class="fn">Bool</span>(<span class="an">'A::428b3e2a::1_0_0::C0001'</span>))
+    <span class="fn">Bool</span>(<span class="an">'A::428b3e::1_0_0::C0001'</span>))
 
 solver.<span class="fn">assert_and_track</span>(
     <span class="fn">And</span>(rank_m1 &lt; rank_m2, rank_m2 &lt; rank_b1),
-    <span class="fn">Bool</span>(<span class="an">'A::428b3e2a::1_0_0::C0008'</span>))
+    <span class="fn">Bool</span>(<span class="an">'A::428b3e::1_0_0::C0008'</span>))
 
 <span class="cmt"># ... 13 additional named assertions</span>
 
 result = solver.<span class="fn">check</span>()  <span class="cmt"># → sat</span></div>
-
-                        <div class="tech-finding sat-f"><div class="tech-finding-body"><span class="verdict verdict-sat" style="white-space:nowrap;margin-top:1px;">SAT</span><div><div class="tf-title">Payment waterfall — three consistent statements</div><div class="tf-desc">C0001, C0002, and C0009 each state payment priority from different sections. All three are mutually satisfiable.</div></div></div><div class="tf-cids"><span class="cid">C0001</span><span class="cid">C0002</span><span class="cid">C0009</span></div></div>
-                        <div class="tech-finding notable-f"><div class="tech-finding-body"><span class="verdict verdict-notable" style="white-space:nowrap;margin-top:1px;">NOTABLE</span><div><div class="tf-title">Write-down / write-up structural asymmetry</div><div class="tf-desc">Inverse orderings on same tranches. Deliberate structural asymmetry — not a contradiction.</div></div></div><div class="tf-cids"><span class="cid">C0006</span><span class="cid">C0007</span></div></div>
-                        <div class="tech-finding undet-f"><div class="tech-finding-body"><span class="verdict verdict-undet" style="white-space:nowrap;margin-top:1px;">UNDERDETERMINED</span><div><div class="tf-title">EOD interest accrual path — UD-001</div><div class="tf-desc">C0011 triggers redemption on EOD. C0012 suppresses interest cessation when EOD present. Trust payment capacity on this path unresolved.</div></div></div><div class="tf-cids"><span class="cid">C0011</span><span class="cid">C0012</span></div></div>
-                        <div class="tech-finding undet-f"><div class="tech-finding-body"><span class="verdict verdict-undet" style="white-space:nowrap;margin-top:1px;">UNDERDETERMINED</span><div><div class="tf-title">Maturity principal vs Return Amount — UD-002</div><div class="tf-desc">C0003 absolute obligation competes with C0009 priority under insufficient assets. No explicit resolution. Classified MATERIAL.</div></div></div><div class="tf-cids"><span class="cid">C0003</span><span class="cid">C0009</span></div></div>
                     </div>
                 </div>
             </div>
+
         </div>
+
     </main>
 
     <footer>
-        <span class="footer-note">validity.live &nbsp;·&nbsp; Freddie Mac MSCR Trust MN9 &nbsp;·&nbsp; October 2024</span>
-        <a href="/demo" class="back-link">← All demos</a>
+        <span class="footer-note">validity.live &nbsp;·&nbsp; Freddie Mac MSCR Trust 2024-MN9</span>
+        <a href="/demo" class="back-link">← All analyses</a>
     </footer>
 
     <script>
-        function toggleTech(){const p=document.getElementById('techPanel'),c=document.getElementById('techChevron'),l=document.getElementById('techBtnLabel'),o=p.classList.toggle('open');c.classList.toggle('open',o);l.textContent=o?'Hide technical detail':'View technical detail';}
+        function toggleTech(){const p=document.getElementById('techPanel'),c=document.getElementById('techChevron'),l=document.getElementById('techBtnLabel'),o=p.classList.toggle('open');c.classList.toggle('open',o);l.textContent=o?'Hide pipeline detail':'View pipeline detail';}
         function toggleStage(h){const b=h.nextElementSibling;h.classList.toggle('collapsed');b.classList.toggle('hidden');}
     </script>
 </body>
