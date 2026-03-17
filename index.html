@@ -84,16 +84,17 @@ permalink: /
         .hero-card {
             opacity: 0;
             animation: fadeIn 1.5s ease forwards 0.5s;
-            margin: 20px 0 36px;
-            max-width: 480px;
+            margin: 40px 0 36px;
+            max-width: 560px;
         }
 
         .hero-card p {
-            font-family: var(--sans);
-            font-size: 16px;
-            font-weight: 600;
-            color: #FFFFFF;
-            line-height: 1.7;
+            font-family: var(--serif);
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.2;
+            letter-spacing: -0.3px;
         }
 
         .demo-btn {
@@ -309,8 +310,8 @@ permalink: /
     <!-- Hero -->
     <div class="hero">
         <img src="validity-logo.png" alt="Validity" class="logo">
-        <p class="hero-tagline">Verify the internal logic of complex agreements before capital is committed.</p>
-        <div class="hero-card"><p></p></div>
+        <p class="hero-tagline">Formal verification for complex agreements</p>
+        <div class="hero-card"><p>Verify the internal logic of complex agreements before capital is committed.</p></div>
         <a href="/demo" class="demo-btn">See the Analysis</a>
         
     </div>
