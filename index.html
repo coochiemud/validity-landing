@@ -231,38 +231,7 @@ permalink: /
         }
 
         /* ── Sector grid ──────────────────────────────────────── */
-        .sector-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
-            margin-top: 40px;
-            text-align: left;
-        }
 
-        .sector-row {
-            display: grid;
-            grid-template-columns: 240px 1fr;
-            align-items: baseline;
-            gap: 40px;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .sector-row:first-child { border-top: 1px solid var(--border); }
-
-        .sector-name {
-            font-family: var(--sans);
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .sector-desc {
-            font-family: var(--sans);
-            font-size: 16px;
-            color: var(--text-mid);
-            line-height: 1.6;
-        }
 
         /* ── Contact ──────────────────────────────────────────── */
         .contact-section {
@@ -303,6 +272,34 @@ permalink: /
             color: var(--text-dim);
         }
 
+        .hero-cards {
+            display: flex;
+            gap: 12px;
+            margin-top: 40px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.8s;
+        }
+
+        .hero-card-btn {
+            font-family: var(--sans);
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            padding: 18px 28px;
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .hero-card-btn:hover {
+            color: #ffffff;
+            background: var(--surface2);
+            border-color: rgba(255,255,255,0.22);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to   { opacity: 1; transform: translateY(0); }
@@ -312,8 +309,8 @@ permalink: /
             .hero { padding: 32px 24px; }
             section, .contact-section { padding: 64px 24px; }
             footer { padding: 24px; }
-            .sector-row { flex-direction: column; gap: 6px; }
-            .sector-name { min-width: unset; }
+            .sector-tab { grid-template-columns: 1fr; gap: 10px; }
+            
         }
     </style>
 </head>
@@ -324,8 +321,10 @@ permalink: /
         <img src="validity-logo.png" alt="Validity" class="logo">
         <p class="hero-tagline">Formal verification for complex agreements</p>
         <div class="hero-card"><p>Verify the internal logic of complex agreements before capital is committed.</p></div>
-        <a href="/demo" class="demo-btn">See the Analysis</a>
-        
+        <div class="hero-cards">
+            <a href="/structured-finance" class="hero-card-btn">Validity for Structured Finance</a>
+            <a href="/law-firms" class="hero-card-btn">Validity for Law Firms</a>
+        </div>
     </div>
 
     <!-- The Problem -->
@@ -356,35 +355,6 @@ permalink: /
         </div>
         <div class="section-body">
             <p>These issues often arise from interactions across multiple clauses and are difficult to detect through manual review. Validity exposes those interactions.</p>
-        </div>
-    </section>
-
-    <!-- Who It's For -->
-    <section>
-        <div class="section-label">Who It's For</div>
-        <h2 class="section-heading">Built for organisations that rely on complex agreements</h2>
-
-        <div class="sector-grid">
-            <div class="sector-row">
-                <span class="sector-name">Investment banks</span>
-                <span class="sector-desc">Structured finance transactions and credit documentation.</span>
-            </div>
-            <div class="sector-row">
-                <span class="sector-name">Private equity and venture capital</span>
-                <span class="sector-desc">Limited partnership agreements and distribution waterfalls.</span>
-            </div>
-            <div class="sector-row">
-                <span class="sector-name">Law firms</span>
-                <span class="sector-desc">Drafting and reviewing complex contractual structures.</span>
-            </div>
-            <div class="sector-row">
-                <span class="sector-name">Commercial real estate firms</span>
-                <span class="sector-desc">Long-term lease agreements with layered conditional terms.</span>
-            </div>
-            <div class="sector-row">
-                <span class="sector-name">Infrastructure and project finance</span>
-                <span class="sector-desc">Multi-party procurement and financing agreements.</span>
-            </div>
         </div>
     </section>
 
