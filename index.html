@@ -77,18 +77,18 @@ permalink: /
             opacity: 0;
             animation: fadeIn 1.5s ease forwards;
             filter: brightness(1.1);
-            margin-bottom: 32px;
+            margin-bottom: 16px;
         }
 
         .hero-tagline {
             font-family: var(--sans);
-            font-size: 16px;
+            font-size: 11px;
             font-weight: 400;
-            letter-spacing: 0.3px;
-            color: var(--text-mid);
+            letter-spacing: 1px;
+            color: var(--text-dim);
             opacity: 0;
             animation: fadeIn 1.5s ease forwards 0.3s;
-            margin-bottom: 14px;
+            margin-bottom: 0;
             max-width: 480px;
             line-height: 1.7;
         }
@@ -148,54 +148,7 @@ permalink: /
             margin: 0 auto 64px;
         }
 
-        /* ── Sections ─────────────────────────────────────────── */
-        section {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 96px 48px;
-            border-top: 1px solid var(--border);
-        }
 
-        section:first-of-type { border-top: none; }
-
-        .section-label {
-            font-family: var(--sans);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: var(--text-dim);
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        .section-heading {
-            font-family: var(--serif);
-            font-size: clamp(28px, 4vw, 42px);
-            font-weight: 500;
-            line-height: 1.2;
-            color: var(--text);
-            letter-spacing: -0.3px;
-            margin-bottom: 28px;
-            text-align: center;
-        }
-
-        .section-intro {
-            font-family: var(--sans);
-            font-size: 17px;
-            line-height: 1.8;
-            color: var(--text-mid);
-            margin-bottom: 32px;
-        }
-
-        .section-body {
-            font-family: var(--sans);
-            font-size: 16px;
-            line-height: 1.85;
-            color: var(--text-mid);
-        }
-
-        .section-body p { margin-bottom: 16px; }
-        .section-body p:last-child { margin-bottom: 0; }
 
         /* ── Issue list ───────────────────────────────────────── */
         .issue-list {
@@ -319,44 +272,13 @@ permalink: /
     <!-- Hero -->
     <div class="hero">
         <img src="validity-logo.png" alt="Validity" class="logo">
-        <p class="hero-tagline">Formal verification for complex agreements</p>
+        <p class="hero-tagline">Formal verification for complex agreements.</p>
         <div class="hero-card"><p>Verify the internal logic of complex agreements before capital is committed.</p></div>
         <div class="hero-cards">
             <a href="/structured-finance" class="hero-card-btn">Validity for Structured Finance</a>
             <a href="/law-firms" class="hero-card-btn">Validity for Law Firms</a>
         </div>
     </div>
-
-    <!-- The Problem -->
-    <section>
-        <div class="section-label">The Problem</div>
-        <h2 class="section-heading">Complex agreements behave like systems</h2>
-        <p class="section-intro">Modern financial and legal agreements contain hundreds of defined terms and conditional clauses. These clauses interact to determine rights, obligations, and financial outcomes. Yet their logical structure is rarely tested.</p>
-        <div class="section-body">
-            <p>Contradictions, circular dependencies, and impossible conditions can remain hidden until a dispute, audit, or financial loss exposes them.</p>
-            <p>Traditional document review focuses on interpretation. It does not test whether the system itself works.</p>
-        </div>
-    </section>
-
-    <!-- The Solution -->
-    <section>
-        <div class="section-label">The Solution</div>
-        <h2 class="section-heading">Validity verifies the logic inside agreements</h2>
-        <p class="section-intro">Validity converts structured legal language into formal logic and evaluates whether the rules inside a document are internally consistent.</p>
-        <div class="section-body">
-            <p>The system identifies issues such as:</p>
-        </div>
-        <div class="issue-list">
-            <div class="issue-item"><span class="issue-dot"></span><span class="issue-text">Contradictory conditions</span></div>
-            <div class="issue-item"><span class="issue-dot"></span><span class="issue-text">Circular dependencies</span></div>
-            <div class="issue-item"><span class="issue-dot"></span><span class="issue-text">Undefined or inconsistent references</span></div>
-            <div class="issue-item"><span class="issue-dot"></span><span class="issue-text">Incompatible thresholds or triggers</span></div>
-            <div class="issue-item"><span class="issue-dot"></span><span class="issue-text">Clauses that cannot be satisfied simultaneously</span></div>
-        </div>
-        <div class="section-body">
-            <p>These issues often arise from interactions across multiple clauses and are difficult to detect through manual review. Validity exposes those interactions.</p>
-        </div>
-    </section>
 
     <!-- Contact -->
     <div class="contact-section">
