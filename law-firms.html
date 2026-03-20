@@ -1,1 +1,513 @@
 
+---
+permalink: /law-firms
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validity for Law Firms</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/vin8syh.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:      #0A0E1A;
+            --surface: #111827;
+            --surface2:#1a2235;
+            --border:  rgba(255,255,255,0.07);
+            --border2: rgba(255,255,255,0.12);
+            --text:    #E8E8E8;
+            --text-mid:#9CA3AF;
+            --text-dim:#9CA3AF;
+            --accent:  #3B82F6;
+            --mono:    'IBM Plex Mono', monospace;
+            --serif:   'gt-super', 'IBM Plex Serif', Georgia, serif;
+            --sans:    'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--serif);
+            background: #0A0E1A;
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            z-index: 999;
+        }
+
+        /* ── Header ───────────────────────────────────────────── */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 48px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(10,14,26,0.94);
+            backdrop-filter: blur(14px);
+            z-index: 100;
+        }
+
+        .header-logo img { height: 28px; filter: brightness(1.1); }
+
+        .header-nav {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .header-nav a {
+            font-family: var(--sans);
+            font-size: 12px;
+            color: var(--text-dim);
+            text-decoration: none;
+            letter-spacing: 0.2px;
+            transition: color 0.2s;
+        }
+
+        .header-nav a:hover { color: var(--text); }
+        .header-nav a.active { color: var(--text); }
+
+        /* ── Hero ─────────────────────────────────────────────── */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 48px 80px;
+            text-align: center;
+        }
+
+        .hero-label {
+            font-family: var(--sans);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-dim);
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.1s;
+        }
+
+        .hero-headline {
+            font-family: var(--serif);
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 500;
+            line-height: 1.1;
+            color: var(--text);
+            letter-spacing: -0.5px;
+            max-width: 720px;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.2s;
+        }
+
+        .hero-subhead {
+            font-family: var(--sans);
+            font-size: 17px;
+            line-height: 1.75;
+            color: var(--text-mid);
+            max-width: 580px;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.35s;
+        }
+
+        .hero-body {
+            font-family: var(--sans);
+            font-size: 15px;
+            line-height: 1.85;
+            color: var(--text-dim);
+            max-width: 560px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.5s;
+        }
+
+        /* ── Sections ─────────────────────────────────────────── */
+        section {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 88px 48px;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-label {
+            font-family: var(--sans);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+
+        .section-heading {
+            font-family: var(--serif);
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 500;
+            line-height: 1.2;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            margin-bottom: 28px;
+        }
+
+        .section-intro {
+            font-family: var(--sans);
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-mid);
+            margin-bottom: 20px;
+        }
+
+        .section-body {
+            font-family: var(--sans);
+            font-size: 15px;
+            line-height: 1.85;
+            color: var(--text-mid);
+        }
+
+        .section-body p { margin-bottom: 16px; }
+        .section-body p:last-child { margin-bottom: 0; }
+
+        /* ── Pipeline steps ───────────────────────────────────── */
+        .pipeline {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin: 32px 0;
+        }
+
+        .pipeline-step {
+            display: flex;
+            align-items: baseline;
+            gap: 20px;
+            padding: 16px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+        }
+
+        .pipeline-num {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--accent);
+            min-width: 20px;
+            flex-shrink: 0;
+        }
+
+        .pipeline-text {
+            font-family: var(--sans);
+            font-size: 15px;
+            color: var(--text-mid);
+        }
+
+        /* ── Proof items ──────────────────────────────────────── */
+        .proof-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin: 32px 0;
+        }
+
+        .proof-item {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            padding: 14px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 2px solid var(--accent);
+            border-radius: 5px;
+        }
+
+        .proof-item-text {
+            font-family: var(--sans);
+            font-size: 15px;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        /* ── Detection grid ───────────────────────────────────── */
+        .detection-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            margin: 32px 0;
+        }
+
+        .detection-item {
+            padding: 16px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+        }
+
+        .detection-title {
+            font-family: var(--sans);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .detection-desc {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-dim);
+        }
+
+        /* ── Closing ──────────────────────────────────────────── */
+        .closing {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 88px 48px 120px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .closing-statement {
+            font-family: var(--serif);
+            font-size: clamp(22px, 3vw, 32px);
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--text);
+            letter-spacing: -0.2px;
+            max-width: 560px;
+            margin: 0 auto 48px;
+        }
+
+        .contact-btn {
+            font-family: var(--sans);
+            font-size: 13px;
+            color: var(--text-dim);
+            text-decoration: none;
+            border: 1px solid var(--border2);
+            padding: 10px 24px;
+            border-radius: 4px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .contact-btn:hover { color: var(--text-mid); border-color: rgba(255,255,255,0.2); }
+
+        /* ── Footer ───────────────────────────────────────────── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 28px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-note {
+            font-family: var(--sans);
+            font-size: 11px;
+            color: var(--text-dim);
+        }
+
+        .back-link {
+            font-family: var(--sans);
+            font-size: 11px;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover { color: var(--text-mid); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 640px) {
+            header { padding: 20px 24px; }
+            .hero { padding: 72px 24px 56px; }
+            section, .closing { padding: 64px 24px; }
+            footer { padding: 24px; }
+            .detection-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="/"><img src="validity-logo.png" alt="Validity" style="height:28px;filter:brightness(1.1);" /></a>
+        <nav class="header-nav">
+            <a href="/structured-finance">Structured Finance</a>
+            <a href="/law-firms" class="active">Law Firms</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-label">Validity for Law Firms</div>
+        <h1 class="hero-headline">Formal Verification for Legal Documents</h1>
+        <p class="hero-subhead">Validity proves whether a document's commitments can logically coexist — producing cryptographically verifiable proof of consistency or contradiction.</p>
+        <p class="hero-body">Validity transforms legal documents from interpretive text into formally testable systems. By extracting commitments, encoding them within a constrained logical framework, and solving them using deterministic methods, Validity delivers a definitive outcome: consistent, contradictory, or formally indeterminate.</p>
+    </div>
+
+    <!-- The Problem -->
+    <section>
+        <div class="section-label">The Problem</div>
+        <h2 class="section-heading">Legal certainty remains interpretive</h2>
+        <p class="section-intro">Even the most sophisticated legal documents are evaluated through review, not verification. Inconsistencies are identified through human interpretation, and assurance is conveyed through opinion.</p>
+        <div class="section-body">
+            <p>This model does not scale with complexity.</p>
+            <p>As documents grow in length, structure, and conditionality, the risk of internal contradiction increases — while the ability to conclusively detect it does not.</p>
+        </div>
+    </section>
+
+    <!-- The Validity Approach -->
+    <section>
+        <div class="section-label">The Validity Approach</div>
+        <h2 class="section-heading">A deterministic pipeline for logical verification</h2>
+        <p class="section-intro">Validity applies a four-stage pipeline:</p>
+
+        <div class="pipeline">
+            <div class="pipeline-step"><span class="pipeline-num">01</span><span class="pipeline-text">Extraction of explicit commitments from source text</span></div>
+            <div class="pipeline-step"><span class="pipeline-num">02</span><span class="pipeline-text">Formalization into a constrained logical fragment</span></div>
+            <div class="pipeline-step"><span class="pipeline-num">03</span><span class="pipeline-text">Encoding into a satisfiability model</span></div>
+            <div class="pipeline-step"><span class="pipeline-num">04</span><span class="pipeline-text">Solver-based proof generation</span></div>
+        </div>
+
+        <div class="section-body">
+            <p>Each stage is fully specified, versioned, and deterministic. Identical inputs under identical configurations produce identical outputs.</p>
+            <p>Where a commitment cannot be formally represented, Validity does not approximate. It refuses with a structured indeterminacy.</p>
+        </div>
+    </section>
+
+    <!-- Proof, Not Opinion -->
+    <section>
+        <div class="section-label">Proof, Not Opinion</div>
+        <h2 class="section-heading">From legal interpretation to machine-verifiable proof</h2>
+        <p class="section-intro">Validity produces a cryptographically signed Proof Object containing:</p>
+
+        <div class="proof-list">
+            <div class="proof-item"><span class="proof-item-text">All formalized commitments</span></div>
+            <div class="proof-item"><span class="proof-item-text">The logical assertions submitted to the solver</span></div>
+            <div class="proof-item"><span class="proof-item-text">The satisfiability outcome</span></div>
+            <div class="proof-item"><span class="proof-item-text">The minimal unsatisfiable core, where contradictions exist</span></div>
+        </div>
+
+        <p class="section-intro">Every reported contradiction is traceable to:</p>
+
+        <div class="proof-list">
+            <div class="proof-item"><span class="proof-item-text">Exact source text</span></div>
+            <div class="proof-item"><span class="proof-item-text">Precise logical representation</span></div>
+            <div class="proof-item"><span class="proof-item-text">Solver-verified conflict</span></div>
+        </div>
+
+        <div class="section-body" style="margin-top:28px;">
+            <p>This enables independent verification without reliance on the originating party.</p>
+        </div>
+    </section>
+
+    <!-- What Validity Detects -->
+    <section>
+        <div class="section-label">What Validity Detects</div>
+        <h2 class="section-heading">Provable logical failures</h2>
+        <p class="section-intro">Within its defined logical fragment, Validity detects:</p>
+
+        <div class="detection-grid">
+            <div class="detection-item">
+                <div class="detection-title">Direct contradictions</div>
+                <div class="detection-desc">φ ∧ ¬φ</div>
+            </div>
+            <div class="detection-item">
+                <div class="detection-title">Deontic conflicts</div>
+                <div class="detection-desc">Obligated(φ) ∧ Forbidden(φ)</div>
+            </div>
+            <div class="detection-item">
+                <div class="detection-title">Threshold inconsistencies</div>
+                <div class="detection-desc">x ≥ A ∧ x ≤ B, where A > B</div>
+            </div>
+            <div class="detection-item">
+                <div class="detection-title">Temporal conflicts</div>
+                <div class="detection-desc">Incompatible time-bound obligations</div>
+            </div>
+            <div class="detection-item">
+                <div class="detection-title">Quantifier clashes</div>
+                <div class="detection-desc">Universal vs existential conflicts</div>
+            </div>
+            <div class="detection-item">
+                <div class="detection-title">Conditional loops</div>
+                <div class="detection-desc">Circular dependency chains</div>
+            </div>
+        </div>
+
+        <div class="section-body">
+            <p>These are not heuristics. Each is established through formal proof.</p>
+        </div>
+    </section>
+
+    <!-- Defined Scope -->
+    <section>
+        <div class="section-label">Defined Scope, Explicit Boundaries</div>
+        <h2 class="section-heading">Clarity through constraint</h2>
+        <p class="section-intro">Validity does not assess factual truth, regulatory compliance, or commercial reasonableness.</p>
+        <div class="section-body">
+            <p>It evaluates only whether the commitments within a document can simultaneously hold within a defined logical system.</p>
+            <p>Where a claim falls outside this system, it is explicitly classified as UNDERDETERMINED, with a structured explanation. No approximation. No silent omission.</p>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section>
+        <div class="section-label">Institutional Use Cases</div>
+        <h2 class="section-heading">Designed for high-stakes documents</h2>
+        <p class="section-intro">Validity v1 is optimized for investment fund offering documents, where dense conditional structures and investor commitments demand internal consistency.</p>
+
+        <div class="pipeline">
+            <div class="pipeline-step"><span class="pipeline-num">→</span><span class="pipeline-text">Pre-issuance verification of offering materials</span></div>
+            <div class="pipeline-step"><span class="pipeline-num">→</span><span class="pipeline-text">Independent diligence by institutional investors</span></div>
+            <div class="pipeline-step"><span class="pipeline-num">→</span><span class="pipeline-text">Internal quality control within legal drafting processes</span></div>
+            <div class="pipeline-step"><span class="pipeline-num">→</span><span class="pipeline-text">Audit and regulatory review support</span></div>
+        </div>
+    </section>
+
+    <!-- Versioned -->
+    <section>
+        <div class="section-label">Versioned, Reproducible, Verifiable</div>
+        <h2 class="section-heading">A new standard of legal assurance</h2>
+        <p class="section-intro">Every Validity output is bound to:</p>
+
+        <div class="proof-list">
+            <div class="proof-item"><span class="proof-item-text">A specific document hash</span></div>
+            <div class="proof-item"><span class="proof-item-text">A defined logical fragment version</span></div>
+            <div class="proof-item"><span class="proof-item-text">A fixed translation policy</span></div>
+            <div class="proof-item"><span class="proof-item-text">A pinned solver configuration</span></div>
+        </div>
+
+        <div class="section-body" style="margin-top:28px;">
+            <p>Proofs are reproducible, comparable across versions, and subject to lifecycle status management — VALID, SUPERSEDED, or REVOKED.</p>
+        </div>
+    </section>
+
+    <!-- Closing -->
+    <div class="closing">
+        <p class="closing-statement">Validity does not interpret what a document means. It proves what it permits.</p>
+        <a href="mailto:info@validity.live" class="contact-btn">Contact</a>
+    </div>
+
+    <footer>
+        <span class="footer-note">validity.live &nbsp;·&nbsp; Law Firms</span>
+        <a href="/" class="back-link">← Back</a>
+    </footer>
+
+</body>
+</html>
