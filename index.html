@@ -1,288 +1,253 @@
----
-permalink: /
----
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validity</title>
-    <meta name="description" content="Validity verifies the internal logic of complex agreements. Formal verification for structured finance, private equity, and commercial contracts.">
+    <meta name="description" content="Validity verifies the internal logic of complex agreements. Formal verification for structured finance and law firms.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://validity.live/">
     <meta property="og:title" content="Validity">
     <meta property="og:description" content="Verify the internal logic of complex agreements before capital is committed.">
     <meta property="og:image" content="https://validity.live/validity-og.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Validity">
     <meta name="twitter:description" content="Verify the internal logic of complex agreements before capital is committed.">
     <meta name="twitter:image" content="https://validity.live/validity-og.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/vin8syh.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg:      #0A0E1A;
-            --surface: #111827;
-            --surface2:#1a2235;
-            --border:  rgba(255,255,255,0.07);
-            --border2: rgba(255,255,255,0.12);
-            --text:    #E8E8E8;
-            --text-mid:#9CA3AF;
-            --text-dim:#9CA3AF;
-            --accent:  #3B82F6;
-            --mono:    'IBM Plex Mono', monospace;
-            --serif:   'gt-super', 'IBM Plex Serif', Georgia, serif;
-            --sans:    'Inter', sans-serif;
+            /* Colours */
+            --bg:        #0A0E1A;
+            --surface:   #0f1623;
+            --surface2:  #161e2e;
+            --border:    rgba(255,255,255,0.06);
+            --border2:   rgba(255,255,255,0.11);
+            --border3:   rgba(255,255,255,0.18);
+            --text:      #E8E8E8;
+            --text-mid:  #9CA3AF;
+            --text-dim:  #6B7280;
+            --accent:    #3B82F6;
+
+            /* Type */
+            --mono:   'IBM Plex Mono', monospace;
+            --serif:  'gt-super', 'IBM Plex Serif', Georgia, serif;
+            --sans:   'Inter', sans-serif;
+
+            /* Scale — 1.25 ratio */
+            --t-xs:   11px;
+            --t-sm:   13px;
+            --t-base: 15px;
+            --t-md:   17px;
+            --t-lg:   22px;
+            --t-xl:   clamp(28px, 4vw, 42px);
+
+            /* Grid — 8pt */
+            --sp-1: 8px;
+            --sp-2: 16px;
+            --sp-3: 24px;
+            --sp-4: 32px;
+            --sp-5: 40px;
+            --sp-6: 48px;
+            --sp-8: 64px;
+            --sp-10: 80px;
         }
 
         html { scroll-behavior: smooth; }
 
         body {
             font-family: var(--serif);
-            background: #0A0E1A;
+            background: var(--bg);
             color: var(--text);
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
             overflow-x: hidden;
         }
 
+        /* ── Background layers ─────────────────────────────────── */
+
+        /* Layer 1: grain */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
-            opacity: 0.03;
+            opacity: 0.018;
             pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            z-index: 999;
+            z-index: 998;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
         }
 
-        /* ── Hero ─────────────────────────────────────────────── */
+        /* Layer 2: radial depth */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 70% 50% at 50% -5%, rgba(59,130,246,0.055) 0%, transparent 65%),
+                radial-gradient(ellipse 50% 35% at 85% 90%, rgba(139,92,246,0.03) 0%, transparent 55%);
+        }
+
+        /* ── Hero ──────────────────────────────────────────────── */
         .hero {
-            min-height: auto;
+            position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 120px 48px 80px;
+            padding: 96px var(--sp-6) var(--sp-10);
             text-align: center;
         }
 
+        /* 1 — Brand */
         .logo {
-            width: 260px;
+            width: 240px;
             opacity: 0;
-            animation: fadeIn 1.5s ease forwards;
-            filter: brightness(1.1);
-            margin-bottom: 16px;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+            filter: brightness(1.08);
+            margin-bottom: var(--sp-2);
         }
 
-        .hero-tagline {
+        /* 2 — Definition */
+        .hero-definition {
             font-family: var(--sans);
-            font-size: 11px;
-            font-weight: 400;
-            letter-spacing: 1px;
-            color: var(--text-dim);
+            font-size: var(--t-base);
+            font-weight: 300;
+            letter-spacing: 0.065em;
+            color: rgba(232,232,232,0.72);
+            line-height: 1;
             opacity: 0;
-            animation: fadeIn 1.5s ease forwards 0.3s;
-            margin-bottom: 0;
-            max-width: 480px;
-            line-height: 1.7;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.15s;
+            margin-bottom: var(--sp-5);  /* larger gap below = drop into importance */
         }
 
-        .hero-card {
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards 0.5s;
-            margin: 40px 0 36px;
-            max-width: 560px;
-        }
-
-        .hero-card p {
+        /* 3 — Promise / headline */
+        .hero-headline {
             font-family: var(--serif);
-            font-size: clamp(28px, 4vw, 42px);
+            font-size: var(--t-xl);
             font-weight: 500;
             color: var(--text);
-            line-height: 1.2;
-            letter-spacing: -0.3px;
-        }
-
-        .demo-btn {
+            line-height: 1.13;
+            letter-spacing: -0.025em;
+            max-width: 540px;
             opacity: 0;
-            animation: fadeIn 1.5s ease forwards 0.8s;
-            font-family: var(--sans);
-            font-size: 17px;
-            font-weight: 400;
-            letter-spacing: 0.3px;
-            color: var(--text);
-            text-decoration: none;
-            border: 1px solid #1F2937;
-            padding: 10px 24px;
-            border-radius: 3px;
-            transition: color 0.3s, border-color 0.3s;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.28s;
+            margin-bottom: var(--sp-8);
         }
 
-        .demo-btn:hover { color: var(--text-mid); border-color: #374151; }
-
-        .hero-scroll {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: var(--mono);
-            font-size: 12px;
-            color: var(--text-dim);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0;
-            animation: fadeIn 2s ease forwards 1.6s;
-        }
-
-        /* ── Divider ──────────────────────────────────────────── */
-        .divider {
-            width: 40px;
-            height: 1px;
-            background: var(--border2);
-            margin: 0 auto 64px;
-        }
-
-
-
-        /* ── Issue list ───────────────────────────────────────── */
-        .issue-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin: 28px 0;
-        }
-
-        .issue-item {
-            display: flex;
-            align-items: baseline;
-            gap: 14px;
-            padding: 12px 16px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 5px;
-        }
-
-        .issue-dot {
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: var(--accent);
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .issue-text {
-            font-family: var(--sans);
-            font-size: 17px;
-            color: var(--text-mid);
-        }
-
-        /* ── Sector grid ──────────────────────────────────────── */
-
-
-        /* ── Contact ──────────────────────────────────────────── */
-        .contact-section {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 96px 48px 120px;
-            border-top: 1px solid var(--border);
-        }
-
-        .contact-link {
-            display: inline-block;
-            margin-top: 24px;
-            font-family: var(--sans);
-            font-size: 17px;
-            color: var(--text-dim);
-            text-decoration: none;
-            border: 1px solid var(--border2);
-            padding: 10px 22px;
-            border-radius: 4px;
-            transition: color 0.2s, border-color 0.2s;
-        }
-
-        .contact-link:hover { color: var(--text-mid); border-color: rgba(255,255,255,0.2); }
-
-        /* ── Footer ───────────────────────────────────────────── */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 28px 48px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 100%;
-        }
-
-        .footer-note {
-            font-family: var(--sans);
-            font-size: 12px;
-            color: var(--text-dim);
-        }
-
+        /* ── Entry buttons ─────────────────────────────────────── */
         .hero-cards {
             display: flex;
-            gap: 12px;
-            margin-top: 40px;
+            gap: var(--sp-2);
             opacity: 0;
-            animation: fadeIn 1.5s ease forwards 0.8s;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.42s;
         }
 
         .hero-card-btn {
             font-family: var(--sans);
-            font-size: 15px;
+            font-size: var(--t-sm);
             font-weight: 500;
-            letter-spacing: 0.2px;
-            color: rgba(255,255,255,0.85);
+            letter-spacing: 0.02em;
+            color: rgba(232,232,232,0.82);
             text-decoration: none;
             background: var(--surface);
             border: 1px solid var(--border2);
-            border-radius: 8px;
-            padding: 18px 28px;
-            transition: color 0.2s, border-color 0.2s, background 0.2s;
+            border-radius: 4px;
+            padding: 14px 28px;
+            position: relative;
+            transition: color 0.15s, border-color 0.15s, background 0.15s;
+            /* subtle inner top highlight */
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
         }
 
         .hero-card-btn:hover {
-            color: #ffffff;
+            color: #fff;
             background: var(--surface2);
-            border-color: rgba(255,255,255,0.22);
+            border-color: var(--border3);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.07);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+        /* ── Contact ───────────────────────────────────────────── */
+        .contact-section {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            padding: var(--sp-10) var(--sp-6) var(--sp-10);
+        }
+
+        .contact-link {
+            font-family: var(--sans);
+            font-size: var(--t-xs);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .contact-link:hover { color: var(--text-mid); }
+
+        /* ── Footer ────────────────────────────────────────────── */
+        footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--border);
+            padding: var(--sp-3) var(--sp-6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-note {
+            font-family: var(--sans);
+            font-size: var(--t-xs);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            color: var(--text-dim);
+            opacity: 0.6;
+        }
+
+        /* ── Animation ─────────────────────────────────────────── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(6px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 640px) {
-            .hero { padding: 32px 24px; }
-            section, .contact-section { padding: 64px 24px; }
-            footer { padding: 24px; }
-            .sector-tab { grid-template-columns: 1fr; gap: 10px; }
-            
+        /* ── Responsive ────────────────────────────────────────── */
+        @media (max-width: 600px) {
+            .hero { padding: 72px var(--sp-3) var(--sp-8); }
+            .hero-cards { flex-direction: column; width: 100%; }
+            .hero-card-btn { text-align: center; }
+            footer, .contact-section { padding-left: var(--sp-3); padding-right: var(--sp-3); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Hero -->
     <div class="hero">
         <img src="validity-logo.png" alt="Validity" class="logo">
-        <p class="hero-tagline">Formal verification for complex agreements.</p>
-        <div class="hero-card"><p>Verify the internal logic of complex agreements before capital is committed.</p></div>
+        <p class="hero-definition">Formal verification for complex agreements.</p>
+        <p class="hero-headline">Verify the internal logic of complex agreements before capital is committed.</p>
         <div class="hero-cards">
             <a href="/structured-finance" class="hero-card-btn">Validity for Structured Finance</a>
             <a href="/law-firms" class="hero-card-btn">Validity for Law Firms</a>
         </div>
     </div>
 
-    <!-- Contact -->
     <div class="contact-section">
-        <a href="mailto:info@validity.live" class="section-label" style="text-decoration:none;letter-spacing:4px;text-transform:uppercase;font-size:12px;color:var(--text-dim);transition:color 0.2s;" onmouseover="this.style.color='var(--text-mid)'" onmouseout="this.style.color='var(--text-dim)'">Contact</a>
+        <a href="mailto:info@validity.live" class="contact-link">Contact</a>
     </div>
 
     <footer>
