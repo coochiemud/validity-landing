@@ -108,47 +108,70 @@ permalink: /
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 96px var(--sp-6) var(--sp-10);
+            min-height: 100vh;
+            padding: 0 var(--sp-6);
+            padding-top: 0;
             text-align: center;
         }
 
-        /* ── Layer 1: Brand block (logo + tagline as one unit) ── */
-        .hero-brand {
+        /* ── Hero inner — sits slightly above vertical center ── */
+        .hero-inner {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0;
+            max-width: 720px;
+            width: 100%;
+            margin-top: -5vh;
+        }
+
+        /* ── Logo ───────────────────────────────────────────────── */
+        .logo {
+            width: 320px;
             opacity: 0;
             animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
-            margin-bottom: 96px;
-        }
-
-        .logo {
-            width: 360px;
             filter: brightness(1.1) drop-shadow(0 0 18px rgba(59,130,246,0.08));
+            margin-bottom: 64px;
         }
 
-        .hero-definition {
-            font-family: var(--sans);
-            font-size: var(--t-base);
+        /* ── Proof line — matches sub line ─────────────────────── */
+        .hero-proof {
+            font-family: var(--serif);
+            font-size: clamp(16px, 2vw, 22px);
             font-weight: 400;
-            letter-spacing: 0.1em;
-            color: rgba(232,232,232,0.82);
-            line-height: 1;
+            letter-spacing: -0.01em;
+            color: rgba(232,232,232,0.72);
+            line-height: 1.45;
+            opacity: 0;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.12s;
+            margin-bottom: 28px;
         }
 
-        /* ── Layer 2: Headline ──────────────────────────────────── */
+        /* ── Hero line — dominant ───────────────────────────────── */
         .hero-headline {
             font-family: var(--serif);
-            font-size: var(--t-xl);
+            font-size: clamp(32px, 4.5vw, 52px);
             font-weight: 500;
-            color: var(--text);
-            line-height: 1.06;
-            letter-spacing: -0.03em;
-            max-width: 520px;
+            color: rgba(232,232,232,0.97);
+            line-height: 1.12;
+            letter-spacing: -0.025em;
+            max-width: 680px;
             opacity: 0;
-            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.2s;
-            margin-bottom: 96px;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.24s;
+            margin-bottom: 28px;
+        }
+
+        /* ── Sub line — outcome ─────────────────────────────────── */
+        .hero-sub {
+            font-family: var(--serif);
+            font-size: clamp(16px, 2vw, 22px);
+            font-weight: 400;
+            color: rgba(232,232,232,0.72);
+            line-height: 1.45;
+            letter-spacing: -0.01em;
+            max-width: 560px;
+            opacity: 0;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.36s;
+            margin-bottom: 64px;
         }
 
         /* ── Layer 3: CTA buttons ───────────────────────────────── */
@@ -156,7 +179,7 @@ permalink: /
             display: flex;
             gap: var(--sp-2);
             opacity: 0;
-            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.38s;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.48s;
         }
 
         .hero-card-btn {
@@ -242,11 +265,12 @@ permalink: /
 <body>
 
     <div class="hero">
-        <div class="hero-brand">
+        <div class="hero-inner">
             <img src="validity-logo.png" alt="Validity" class="logo">
-        </div>
-        <p class="hero-headline">Verify the internal logic of complex documents before capital is committed.</p>
-        <div class="hero-cards">
+            <p class="hero-proof">Built for high-stakes capital allocation decisions</p>
+            <p class="hero-headline">Formal verification infrastructure for high-stakes documents</p>
+            <p class="hero-sub">Verify commitments before capital is deployed</p>
+            <div class="hero-cards">
             <a href="/structured-finance" class="hero-card-btn">Validity for Structured Finance</a>
             <a href="/legal-agreements" class="hero-card-btn">Validity for Legal Agreements</a>
         </div>
