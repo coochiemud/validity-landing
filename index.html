@@ -25,7 +25,6 @@ permalink: /
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            /* Colours */
             --bg:        #0A0E1A;
             --surface:   #0f1623;
             --surface2:  #161e2e;
@@ -36,29 +35,17 @@ permalink: /
             --text-mid:  #9CA3AF;
             --text-dim:  #6B7280;
             --accent:    #3B82F6;
-
-            /* Type */
             --mono:   'IBM Plex Mono', monospace;
             --serif:  'gt-super', 'IBM Plex Serif', Georgia, serif;
             --sans:   'Inter', sans-serif;
-
-            /* Scale — 1.25 ratio */
             --t-xs:   11px;
             --t-sm:   13px;
             --t-base: 15px;
             --t-md:   17px;
             --t-lg:   22px;
             --t-xl:   clamp(28px, 4vw, 42px);
-
-            /* Grid — 8pt */
-            --sp-1: 8px;
-            --sp-2: 16px;
-            --sp-3: 24px;
-            --sp-4: 32px;
-            --sp-5: 40px;
-            --sp-6: 48px;
-            --sp-8: 64px;
-            --sp-10: 80px;
+            --sp-1: 8px; --sp-2: 16px; --sp-3: 24px; --sp-4: 32px;
+            --sp-5: 40px; --sp-6: 48px; --sp-8: 64px; --sp-10: 80px;
         }
 
         html { scroll-behavior: smooth; }
@@ -73,9 +60,6 @@ permalink: /
             overflow-x: hidden;
         }
 
-        /* ── Background layers ─────────────────────────────────── */
-
-        /* Layer 1: grain */
         body::before {
             content: '';
             position: fixed;
@@ -87,7 +71,6 @@ permalink: /
             background-size: 150px 150px;
         }
 
-        /* Layer 2: radial depth — ambient + focused headline glow */
         body::after {
             content: '';
             position: fixed;
@@ -100,7 +83,6 @@ permalink: /
                 radial-gradient(ellipse 45% 30% at 85% 92%, rgba(139,92,246,0.025) 0%, transparent 55%);
         }
 
-        /* ── Hero ──────────────────────────────────────────────── */
         .hero {
             position: relative;
             z-index: 1;
@@ -110,11 +92,9 @@ permalink: /
             justify-content: center;
             min-height: 100vh;
             padding: 0 var(--sp-6);
-            padding-top: 0;
             text-align: center;
         }
 
-        /* ── Hero inner — sits slightly above vertical center ── */
         .hero-inner {
             display: flex;
             flex-direction: column;
@@ -124,7 +104,6 @@ permalink: /
             margin-top: -5vh;
         }
 
-        /* ── Logo ───────────────────────────────────────────────── */
         .logo {
             width: 220px;
             display: block;
@@ -136,7 +115,6 @@ permalink: /
             filter: brightness(1.1) drop-shadow(0 0 18px rgba(59,130,246,0.08));
         }
 
-        /* ── Hero line — anchor, dominant ──────────────────────── */
         .hero-headline {
             font-family: var(--serif);
             font-size: clamp(40px, 5.5vw, 68px);
@@ -148,30 +126,27 @@ permalink: /
             width: 100%;
             opacity: 0;
             animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.12s;
-            margin-bottom: 72px;
+            margin-bottom: 40px;
         }
 
-        /* ── Sub line ───────────────────────────────────────────── */
         .hero-sub {
-            font-family: var(--sans);
-            font-size: clamp(14px, 1.6vw, 16px);
-            font-weight: 400;
-            color: rgba(255,255,255,0.80);
-            line-height: 1.7;
-            letter-spacing: 0.01em;
-            max-width: 560px;
+            font-family: var(--serif);
+            font-size: clamp(18px, 2.2vw, 26px);
+            font-weight: 500;
+            color: rgba(180,200,230,0.85);
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+            max-width: 600px;
             opacity: 0;
-            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.55s;
-            margin-top: 64px;
-            margin-bottom: 0;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.24s;
+            margin-bottom: 48px;
         }
 
-        /* ── Layer 3: CTA buttons ───────────────────────────────── */
         .hero-cards {
             display: flex;
             gap: var(--sp-2);
             opacity: 0;
-            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.48s;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.38s;
         }
 
         .hero-card-btn {
@@ -185,7 +160,6 @@ permalink: /
             border: 1px solid rgba(255,255,255,0.18);
             border-radius: 3px;
             padding: 16px 36px;
-            position: relative;
             transition: color 0.12s, border-color 0.12s, background 0.12s;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 1px 2px rgba(0,0,0,0.3);
         }
@@ -197,23 +171,14 @@ permalink: /
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 1px 3px rgba(0,0,0,0.35);
         }
 
-        /* ── Contact ───────────────────────────────────────────── */
-        .contact-section {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            justify-content: center;
-            padding: var(--sp-10) var(--sp-6) var(--sp-10);
-        }
-
         .contact-link {
             font-family: var(--sans);
             font-size: 14px;
             font-weight: 500;
             letter-spacing: 0.08em;
-            color: rgba(255,255,255,0.80);
+            color: rgba(255,255,255,0.55);
             text-decoration: none;
-            border: 1px solid rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.12);
             border-radius: 3px;
             padding: 12px 32px;
             margin-top: 48px;
@@ -226,7 +191,6 @@ permalink: /
             border-color: rgba(255,255,255,0.25);
         }
 
-        /* ── Footer ────────────────────────────────────────────── */
         footer {
             position: relative;
             z-index: 1;
@@ -246,18 +210,16 @@ permalink: /
             opacity: 0.6;
         }
 
-        /* ── Animation ─────────────────────────────────────────── */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(6px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── Responsive ────────────────────────────────────────── */
         @media (max-width: 600px) {
             .hero { padding: 72px var(--sp-3) var(--sp-8); }
             .hero-cards { flex-direction: column; width: 100%; }
             .hero-card-btn { text-align: center; }
-            footer, .contact-section { padding-left: var(--sp-3); padding-right: var(--sp-3); }
+            footer { padding-left: var(--sp-3); padding-right: var(--sp-3); }
         }
     </style>
 </head>
@@ -267,16 +229,14 @@ permalink: /
         <div class="hero-inner">
             <img src="validity-logo.png" alt="Validity" class="logo">
             <p class="hero-headline">Logic as Infrastructure.</p>
+            <p class="hero-sub">Complex documents contain contradictions that traditional review cannot find.<br><br>Validity detects them — <span style="font-weight:600;color:rgba(255,255,255,0.95);">before capital is deployed.</span></p>
             <div class="hero-cards">
                 <a href="/structured-finance" class="hero-card-btn">Structured Finance</a>
                 <a href="/legal-agreements" class="hero-card-btn">Legal Agreements</a>
             </div>
-            <p class="hero-sub">Validity applies formal mathematical proof to structured finance and legal agreements—detecting contradictions, inconsistencies, and logical failures <span style="font-weight:600;color:rgba(255,255,255,0.95);">before capital is deployed.</span></p>
             <a href="mailto:info@validity.live" class="contact-link">Contact</a>
         </div>
     </div>
-
-
 
     <footer>
         <span class="footer-note">validity.live</span>
