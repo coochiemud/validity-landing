@@ -245,3 +245,251 @@ permalink: /
 
 </body>
 </html>
+
+---
+permalink: /
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validity</title>
+    <meta name="description" content="Validity verifies the internal logic of complex agreements. Formal verification for structured finance and law firms.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://validity.live/">
+    <meta property="og:title" content="Validity">
+    <meta property="og:description" content="Verify the internal logic of complex documents before capital is committed.">
+    <meta property="og:image" content="https://validity.live/validity-og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Validity">
+    <meta name="twitter:description" content="Verify the internal logic of complex documents before capital is committed.">
+    <meta name="twitter:image" content="https://validity.live/validity-og.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/vin8syh.css">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:        #0A0E1A;
+            --surface:   #0f1623;
+            --surface2:  #161e2e;
+            --border:    rgba(255,255,255,0.06);
+            --border2:   rgba(255,255,255,0.11);
+            --border3:   rgba(255,255,255,0.18);
+            --text:      #E8E8E8;
+            --text-mid:  #9CA3AF;
+            --text-dim:  #6B7280;
+            --accent:    #3B82F6;
+            --mono:   'IBM Plex Mono', monospace;
+            --serif:  'gt-super', 'IBM Plex Serif', Georgia, serif;
+            --sans:   'Inter', sans-serif;
+            --t-xs:   11px;
+            --t-sm:   13px;
+            --t-base: 15px;
+            --t-md:   17px;
+            --t-lg:   22px;
+            --t-xl:   clamp(28px, 4vw, 42px);
+            --sp-1: 8px; --sp-2: 16px; --sp-3: 24px; --sp-4: 32px;
+            --sp-5: 40px; --sp-6: 48px; --sp-8: 64px; --sp-10: 80px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--serif);
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: 0.022;
+            pointer-events: none;
+            z-index: 998;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 150 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 150px 150px;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 55% 40% at 50% 38%, rgba(59,130,246,0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 80% 55% at 50% -5%, rgba(59,130,246,0.04) 0%, transparent 65%),
+                radial-gradient(ellipse 45% 30% at 85% 92%, rgba(139,92,246,0.025) 0%, transparent 55%);
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 var(--sp-6);
+            text-align: center;
+        }
+
+        .hero-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 720px;
+            width: 100%;
+            margin-top: -5vh;
+        }
+
+        .logo {
+            width: 220px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+            filter: brightness(1.1) drop-shadow(0 0 18px rgba(59,130,246,0.08));
+        }
+
+        .hero-headline {
+            font-family: var(--serif);
+            font-size: clamp(40px, 5.5vw, 68px);
+            font-weight: 500;
+            color: rgba(232,232,232,0.97);
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            max-width: 800px;
+            width: 100%;
+            opacity: 0;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.12s;
+            margin-bottom: 40px;
+        }
+
+        .hero-sub {
+            font-family: var(--serif);
+            font-size: clamp(18px, 2.2vw, 26px);
+            font-weight: 500;
+            color: rgba(180,200,230,0.85);
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+            max-width: 600px;
+            opacity: 0;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.24s;
+            margin-bottom: 48px;
+        }
+
+        .hero-cards {
+            display: flex;
+            gap: var(--sp-2);
+            opacity: 0;
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.38s;
+        }
+
+        .hero-card-btn {
+            font-family: var(--sans);
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: rgba(255,255,255,0.95);
+            text-decoration: none;
+            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%), var(--surface);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 3px;
+            padding: 16px 36px;
+            transition: color 0.12s, border-color 0.12s, background 0.12s;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .hero-card-btn:hover {
+            color: #fff;
+            background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%), var(--surface2);
+            border-color: rgba(255,255,255,0.28);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 1px 3px rgba(0,0,0,0.35);
+        }
+
+        .contact-link {
+            font-family: var(--sans);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.55);
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 3px;
+            padding: 12px 32px;
+            margin-top: 48px;
+            transition: color 0.15s, border-color 0.15s;
+            display: inline-block;
+        }
+
+        .contact-link:hover {
+            color: rgba(255,255,255,0.85);
+            border-color: rgba(255,255,255,0.25);
+        }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--border);
+            padding: var(--sp-3) var(--sp-6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-note {
+            font-family: var(--sans);
+            font-size: var(--t-xs);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            color: var(--text-dim);
+            opacity: 0.6;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .hero { padding: 72px var(--sp-3) var(--sp-8); }
+            .hero-cards { flex-direction: column; width: 100%; }
+            .hero-card-btn { text-align: center; }
+            footer { padding-left: var(--sp-3); padding-right: var(--sp-3); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <div class="hero-inner">
+            <img src="validity-logo.png" alt="Validity" class="logo">
+            <p class="hero-headline">Logic as Infrastructure.</p>
+            <div class="hero-cards">
+                <a href="/structured-finance" class="hero-card-btn">Structured Finance</a>
+                <a href="/legal-agreements" class="hero-card-btn">Legal Agreements</a>
+                <a href="/consulting" class="hero-card-btn">Consulting</a>
+            </div>
+            <a href="mailto:info@validity.live" class="contact-link">Contact</a>
+        </div>
+    </div>
+
+    <footer>
+        <span class="footer-note">validity.live</span>
+        <span class="footer-note">© 2025 Validity</span>
+    </footer>
+
+</body>
+</html>
