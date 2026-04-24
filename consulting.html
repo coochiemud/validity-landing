@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulting — Validity</title>
+<title>AI Consulting — Validity</title>
 <meta name="description" content="Use AI as a thinking tool to do more with the expertise you already have.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,6 +83,26 @@ nav {
     justify-content: space-between;
 }
 
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.nav-ai-badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--text-mid);
+    border: 1px solid var(--border2);
+    border-radius: 3px;
+    padding: 3px 7px;
+    line-height: 1;
+    opacity: 0.85;
+}
+
 .nav-logo img {
     height: 22px;
     opacity: 0.92;
@@ -132,9 +152,9 @@ nav {
 
 .hero-eyebrow {
     font-family: var(--mono);
-    font-size: var(--t-xs);
+    font-size: 13px;
     letter-spacing: 0.18em;
-    color: var(--text-dim);
+    color: var(--text-mid);
     text-transform: uppercase;
     margin-bottom: var(--sp-4);
     opacity: 0;
@@ -231,9 +251,9 @@ nav {
 
 .label {
     font-family: var(--mono);
-    font-size: var(--t-xs);
-    letter-spacing: 0.18em;
-    color: var(--text-mid);
+    font-size: 15px;
+    letter-spacing: 0.14em;
+    color: var(--text);
     text-transform: uppercase;
     margin-bottom: var(--sp-3);
 }
@@ -635,7 +655,7 @@ a.footer-note:hover { opacity: 1; }
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0;
+    padding: var(--sp-2) 0;
     text-align: left;
     color: inherit;
 }
@@ -647,9 +667,9 @@ a.footer-note:hover { opacity: 1; }
 
 .accordion-icon {
     font-family: var(--mono);
-    font-size: 18px;
-    font-weight: 400;
-    color: var(--text-dim);
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--text-mid);
     transition: transform 0.3s ease, color 0.2s;
     line-height: 1;
     flex-shrink: 0;
@@ -680,6 +700,7 @@ a.footer-note:hover { opacity: 1; }
 <nav>
     <a href="https://validity.live/" class="nav-logo">
         <img src="https://validity.live/validity-logo.png" alt="Validity">
+        <span class="nav-ai-badge">AI</span>
     </a>
     <ul class="nav-links">
         <li><a href="https://validity.live/structured-finance">Structured Finance</a></li>
@@ -692,7 +713,7 @@ a.footer-note:hover { opacity: 1; }
 <!-- HERO -->
 <div class="hero">
     <div class="hero-inner">
-        <p class="hero-eyebrow">Consulting Services</p>
+        <p class="hero-eyebrow">AI Consulting Services</p>
         <h1 class="hero-headline">Transform how your organisation<br>thinks, decides, and performs.</h1>
         <p class="hero-sub-head">Using AI as a strategic thinking partner.</p>
         <div class="hero-cta">
