@@ -250,12 +250,13 @@ nav {
 }
 
 .label {
-    font-family: var(--mono);
-    font-size: 15px;
-    letter-spacing: 0.14em;
-    color: var(--text);
-    text-transform: uppercase;
-    margin-bottom: var(--sp-3);
+    font-family: var(--serif);
+    font-size: clamp(22px, 3vw, 32px);
+    letter-spacing: -0.02em;
+    color: rgba(232,232,232,0.97);
+    font-weight: 500;
+    text-transform: none;
+    margin-bottom: 0;
 }
 
 h2 {
@@ -640,9 +641,10 @@ a.footer-note:hover { opacity: 1; }
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 14px;
     padding: var(--sp-2) 0;
-    text-align: left;
+    text-align: center;
     color: inherit;
 }
 
@@ -790,9 +792,6 @@ a.footer-note:hover { opacity: 1; }
 
     <!-- ENQUIRE -->
     <div class="section" id="enquire">
-        <p class="label">Enquire</p>
-        <h2>To discuss an engagement, contact us below.</h2>
-
         <p class="body">
             If you believe this applies to your organisation, use the form below.
             Describe the specific problem you want to address.
