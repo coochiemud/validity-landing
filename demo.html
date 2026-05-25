@@ -6,217 +6,757 @@ permalink: /verify
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validity — Verify</title>
+    <title>Validity — Formal Verification</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
         :root {
-            --bg:#0A0E1A;--bg2:#0D1117;--surface:#111827;--surface2:#1a2235;
-            --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
-            --text:#E8E8E8;--text-mid:#9CA3AF;--text-dim:#4B5563;
-            --accent:#3B82F6;--accent-dim:rgba(59,130,246,0.12);
-            --sat:#10B981;--sat-dim:rgba(16,185,129,0.10);
-            --unsat:#EF4444;--unsat-dim:rgba(239,68,68,0.10);
-            --undet:#F59E0B;--undet-dim:rgba(245,158,11,0.10);
-            --mono:'IBM Plex Mono',monospace;
-            --serif:'IBM Plex Serif',Georgia,serif;
-            --sans:'Inter',sans-serif;
+            --bg:         #080B14;
+            --surface:    #0D1120;
+            --surface2:   #111827;
+            --border:     rgba(255,255,255,0.06);
+            --border2:    rgba(255,255,255,0.10);
+            --border3:    rgba(255,255,255,0.18);
+            --text:       #DDE2EC;
+            --text-mid:   #7A8BA8;
+            --text-dim:   #3A4A60;
+            --blue:       #3B82F6;
+            --blue-glow:  rgba(59,130,246,0.08);
+            --green:      #10B981;
+            --green-dim:  rgba(16,185,129,0.08);
+            --red:        #EF4444;
+            --red-dim:    rgba(239,68,68,0.08);
+            --amber:      #F59E0B;
+            --mono:       'IBM Plex Mono', monospace;
+            --sans:       'IBM Plex Sans', system-ui, sans-serif;
         }
-        html { scroll-behavior: smooth; }
-        body { font-family:var(--sans); background:var(--bg); color:var(--text); min-height:100vh; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
-        body::before { content:''; position:fixed; inset:0; opacity:0.03; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); z-index:999; }
 
-        header { display:flex; align-items:center; justify-content:space-between; padding:24px 48px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(10,14,26,0.94); backdrop-filter:blur(14px); z-index:100; }
-        .header-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
-        .header-wordmark { font-family:var(--sans); font-size:13px; font-weight:500; letter-spacing:0.10em; text-transform:uppercase; color:var(--text); }
-        .header-label { font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:4px; color:var(--text-dim); }
+        html, body { height:100%; }
 
-        main { max-width:740px; margin:0 auto; padding:72px 48px 120px; }
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
 
-        /* ── Page header ── */
-        .page-label { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:4px; color:var(--text-dim); margin-bottom:20px; display:block; opacity:0; animation:fadeUp 0.6s ease forwards 0.05s; }
-        .page-title { font-family:var(--serif); font-size:clamp(24px,3.5vw,34px); font-weight:500; line-height:1.15; color:var(--text); letter-spacing:-0.3px; margin-bottom:12px; opacity:0; animation:fadeUp 0.6s ease forwards 0.10s; }
-        .page-sub { font-size:14px; color:var(--text-mid); line-height:1.7; max-width:520px; margin-bottom:48px; opacity:0; animation:fadeUp 0.6s ease forwards 0.15s; }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
 
-        /* ── Upload zone ── */
-        .upload-zone { border:1px solid var(--border2); border-radius:8px; background:var(--surface); padding:40px 32px; text-align:center; cursor:pointer; transition:border-color 0.2s, background 0.2s; position:relative; margin-bottom:12px; opacity:0; animation:fadeUp 0.6s ease forwards 0.20s; }
-        .upload-zone:hover, .upload-zone.drag-over { border-color:rgba(59,130,246,0.35); background:var(--surface2); }
-        .upload-zone input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-        .upload-icon { width:36px; height:36px; margin:0 auto 14px; border:1px solid var(--border2); border-radius:6px; display:flex; align-items:center; justify-content:center; }
-        .upload-icon svg { width:16px; height:16px; stroke:var(--text-mid); }
-        .upload-title { font-size:13px; font-weight:500; color:var(--text); margin-bottom:4px; }
-        .upload-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:0.04em; }
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            padding: 0 36px;
+            background: rgba(8,11,20,0.90);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
 
-        /* ── Divider ── */
-        .or-divider { display:flex; align-items:center; gap:12px; margin-bottom:12px; opacity:0; animation:fadeUp 0.6s ease forwards 0.23s; }
-        .or-divider::before, .or-divider::after { content:''; flex:1; height:1px; background:var(--border); }
-        .or-divider span { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:0.10em; }
+        nav img { height: 24px; display: block; filter: brightness(1.05); }
 
-        /* ── Textarea ── */
-        textarea { width:100%; background:var(--surface); border:1px solid var(--border2); border-radius:6px; padding:16px 18px; font-family:var(--mono); font-size:11px; color:var(--text-mid); line-height:1.75; resize:vertical; min-height:140px; outline:none; transition:border-color 0.2s; margin-bottom:14px; display:block; opacity:0; animation:fadeUp 0.6s ease forwards 0.26s; }
-        textarea:focus { border-color:rgba(59,130,246,0.3); }
-        textarea::placeholder { color:var(--text-dim); }
+        /* ── ENTRANCE SCREEN ── */
+        #entrance {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 52px 24px 80px;
+            text-align: center;
+        }
 
-        /* ── Run button ── */
-        .run-btn { width:100%; height:44px; background:var(--accent); border:none; border-radius:5px; font-family:var(--sans); font-size:13px; font-weight:500; letter-spacing:0.03em; color:#fff; cursor:pointer; transition:opacity 0.15s; display:flex; align-items:center; justify-content:center; gap:8px; opacity:0; animation:fadeUp 0.6s ease forwards 0.29s; }
-        .run-btn:not(:disabled):hover { opacity:0.88; }
-        .run-btn:disabled { opacity:0.35; cursor:not-allowed; }
+        .entrance-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.1s;
+        }
 
-        /* ── Pipeline ── */
-        .pipeline { margin-top:44px; display:none; }
-        .pipeline.visible { display:block; }
-        .pipeline-header { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:3px; color:var(--text-dim); margin-bottom:14px; }
+        .entrance-title {
+            font-family: var(--sans);
+            font-size: clamp(26px, 4vw, 40px);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.18s;
+        }
 
-        .stage-row { display:flex; align-items:flex-start; gap:14px; padding:12px 0; border-bottom:1px solid var(--border); }
-        .stage-row:last-child { border-bottom:none; }
-        .stage-dot { width:18px; height:18px; border-radius:50%; border:1px solid var(--border2); flex-shrink:0; margin-top:2px; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
-        .stage-dot.running { border-color:var(--accent); animation:pulse 1.2s ease infinite; }
-        .stage-dot.done { border-color:var(--sat); background:rgba(16,185,129,0.12); }
-        .stage-dot.done::after { content:''; width:5px; height:5px; border-radius:50%; background:var(--sat); }
-        .stage-name { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-mid); margin-bottom:2px; }
-        .stage-detail { font-family:var(--mono); font-size:10px; color:var(--text-dim); }
-        .stage-detail.live { color:var(--accent); }
+        .entrance-sub {
+            font-family: var(--sans);
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--text-mid);
+            line-height: 1.65;
+            max-width: 400px;
+            margin-bottom: 56px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.26s;
+        }
 
-        /* ── Result ── */
-        .result { margin-top:44px; display:none; }
-        .result.visible { display:block; }
+        /* ── CHAMBER ── */
+        .chamber-wrap {
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.36s;
+            width: 100%;
+            max-width: 480px;
+        }
 
-        /* Verdict banner */
-        .verdict { border-radius:6px; padding:22px 24px; margin-bottom:20px; border:1px solid; }
-        .verdict.clean { background:var(--sat-dim); border-color:rgba(16,185,129,0.18); }
-        .verdict.contradiction { background:var(--unsat-dim); border-color:rgba(239,68,68,0.16); }
-        .verdict-tag { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:3px; margin-bottom:8px; }
-        .verdict.clean .verdict-tag { color:var(--sat); }
-        .verdict.contradiction .verdict-tag { color:var(--unsat); }
-        .verdict-title { font-family:var(--serif); font-size:20px; font-weight:500; color:var(--text); margin-bottom:6px; letter-spacing:-0.2px; }
-        .verdict-meta { font-family:var(--mono); font-size:10px; color:var(--text-dim); }
+        .chamber {
+            position: relative;
+            width: 100%;
+            border: 1px solid var(--border2);
+            border-radius: 6px;
+            background: var(--surface);
+            padding: 56px 32px;
+            cursor: pointer;
+            transition: border-color 0.3s, background 0.3s;
+            overflow: hidden;
+        }
+
+        .chamber input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .chamber::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 50% at 50% 0%, var(--blue-glow) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .chamber:hover,
+        .chamber.active {
+            border-color: rgba(59,130,246,0.25);
+            background: var(--surface2);
+        }
+
+        .chamber:hover::before,
+        .chamber.active::before {
+            opacity: 1;
+        }
+
+        .chamber.sealed {
+            border-color: rgba(59,130,246,0.35);
+            cursor: default;
+            animation: sealPulse 0.4s ease;
+        }
+
+        @keyframes sealPulse {
+            0%   { box-shadow: 0 0 0 0 rgba(59,130,246,0.2); }
+            50%  { box-shadow: 0 0 0 8px rgba(59,130,246,0.05); }
+            100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+        }
+
+        .chamber-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 20px;
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.3s;
+        }
+
+        .chamber:hover .chamber-icon,
+        .chamber.sealed .chamber-icon {
+            border-color: rgba(59,130,246,0.3);
+        }
+
+        .chamber-icon svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--text-mid);
+            transition: stroke 0.3s;
+        }
+
+        .chamber:hover .chamber-icon svg,
+        .chamber.sealed .chamber-icon svg {
+            stroke: var(--blue);
+        }
+
+        .chamber-cta {
+            font-family: var(--sans);
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--text);
+            margin-bottom: 8px;
+            transition: color 0.3s;
+        }
+
+        .chamber-filename {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--blue);
+            margin-bottom: 8px;
+            display: none;
+        }
+
+        .chamber-types {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 0.10em;
+        }
+
+        /* Paste link */
+        .paste-link {
+            margin-top: 16px;
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-dim);
+            cursor: pointer;
+            letter-spacing: 0.06em;
+            transition: color 0.2s;
+            display: block;
+        }
+
+        .paste-link:hover { color: var(--text-mid); }
+
+        /* Paste panel */
+        .paste-panel {
+            display: none;
+            margin-top: 12px;
+        }
+
+        .paste-panel.visible { display: block; }
+
+        .paste-panel textarea {
+            width: 100%;
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 5px;
+            padding: 14px 16px;
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-mid);
+            line-height: 1.75;
+            resize: vertical;
+            min-height: 120px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .paste-panel textarea:focus { border-color: rgba(59,130,246,0.25); }
+        .paste-panel textarea::placeholder { color: var(--text-dim); }
+
+        /* Verify button */
+        .verify-btn {
+            display: none;
+            width: 100%;
+            height: 44px;
+            margin-top: 12px;
+            background: transparent;
+            border: 1px solid var(--border3);
+            border-radius: 4px;
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--text);
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s, color 0.2s;
+        }
+
+        .verify-btn.visible { display: block; }
+        .verify-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-glow); }
+        .verify-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        /* ── VERIFICATION SCREEN ── */
+        #verification {
+            display: none;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            padding: 52px 24px 80px;
+        }
+
+        #verification.visible { display: block; }
+
+        .ver-inner {
+            max-width: 640px;
+            margin: 0 auto;
+            padding-top: 56px;
+        }
+
+        /* Pipeline */
+        .pipeline-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+
+        .stage {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stage:last-of-type { border-bottom: none; }
+
+        .stage-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid var(--border2);
+            flex-shrink: 0;
+            margin-top: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s;
+        }
+
+        .stage-dot.running {
+            border-color: var(--blue);
+            animation: stagePulse 1.4s ease infinite;
+        }
+
+        .stage-dot.done {
+            border-color: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.04);
+        }
+
+        .stage-dot.done::after {
+            content: '';
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--text-mid);
+        }
+
+        @keyframes stagePulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+            50%      { box-shadow: 0 0 0 4px rgba(59,130,246,0.12); }
+        }
+
+        .stage-name {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--text-mid);
+            margin-bottom: 3px;
+        }
+
+        .stage-detail {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-dim);
+            transition: color 0.3s;
+        }
+
+        .stage-detail.live { color: var(--blue); }
+
+        /* ── RESULT ── */
+        #result { margin-top: 48px; display: none; }
+        #result.visible { display: block; }
+
+        /* Verdict */
+        .verdict {
+            border: 1px solid var(--border2);
+            border-radius: 6px;
+            padding: 24px 28px;
+            margin-bottom: 2px;
+        }
+
+        .verdict.clean { border-color: rgba(255,255,255,0.08); }
+        .verdict.contradiction { border-color: rgba(239,68,68,0.14); background: rgba(239,68,68,0.03); }
+
+        .verdict-status {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .verdict.clean .verdict-status { color: var(--text-dim); }
+        .verdict.contradiction .verdict-status { color: var(--red); }
+
+        .verdict-title {
+            font-family: var(--sans);
+            font-size: 20px;
+            font-weight: 300;
+            color: var(--text);
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .verdict-meta {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 0.04em;
+        }
 
         /* Commitments */
-        .section-label { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:3px; color:var(--text-dim); margin-bottom:14px; display:block; }
+        .block-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin: 28px 0 12px;
+        }
 
-        .commitment { background:var(--surface); border:1px solid var(--border); border-radius:5px; padding:16px 18px; margin-bottom:6px; }
-        .commitment-num { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:8px; }
-        .commitment-text { font-family:var(--serif); font-size:14px; font-weight:400; color:var(--text); line-height:1.65; font-style:italic; margin-bottom:8px; }
-        .commitment-loc { font-family:var(--mono); font-size:10px; color:var(--text-dim); }
+        .commitment {
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 16px 20px;
+            margin-bottom: 4px;
+            background: var(--surface);
+        }
 
-        /* Proof */
-        .proof-block { background:var(--bg2); border:1px solid var(--border); border-radius:5px; padding:18px 20px; margin-top:20px; }
-        .proof-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
-        .proof-header-label { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:3px; color:var(--text-dim); }
-        .proof-verdict-tag { font-family:var(--mono); font-size:10px; color:var(--unsat); }
-        .proof-line { font-family:var(--mono); font-size:11px; color:var(--text-dim); line-height:1.85; }
-        .proof-line .constraint { color:var(--text-mid); }
-        .proof-line .bottom { color:var(--unsat); font-weight:500; }
-        .proof-sep { border:none; border-top:1px solid var(--border); margin:12px 0; }
+        .commitment-id {
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
 
-        /* Certificate grid */
-        .cert { border:1px solid var(--border2); border-radius:8px; overflow:hidden; margin-top:20px; }
-        .cert-top { display:flex; align-items:center; gap:14px; padding:18px 22px; background:var(--surface); border-bottom:1px solid var(--border); }
-        .cert-pill { font-family:var(--mono); font-size:11px; font-weight:500; padding:4px 12px; border-radius:4px; letter-spacing:1px; }
-        .cert-pill.sat { background:var(--sat-dim); color:var(--sat); border:1px solid rgba(16,185,129,0.25); }
-        .cert-pill.unsat { background:var(--unsat-dim); color:var(--unsat); border:1px solid rgba(239,68,68,0.25); }
-        .cert-headline { font-size:12px; color:var(--text-mid); }
-        .cert-grid { display:grid; grid-template-columns:1fr 1fr 1fr; background:var(--surface); }
-        .cert-field { padding:12px 18px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
-        .cert-field:nth-child(3n) { border-right:none; }
-        .cert-field:nth-last-child(-n+3) { border-bottom:none; }
-        .cert-field-label { font-family:var(--mono); font-size:9px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-dim); margin-bottom:4px; }
-        .cert-field-value { font-family:var(--mono); font-size:11px; color:var(--text-mid); word-break:break-all; }
-        .cert-field-value.sat { color:var(--sat); }
-        .cert-field-value.unsat { color:var(--unsat); }
-        .cert-field-value.blue { color:#60A5FA; }
-        .cert-statement { padding:14px 22px; border-top:1px solid var(--border); background:var(--surface); font-size:11px; color:var(--text-dim); line-height:1.7; }
+        .commitment-text {
+            font-family: var(--sans);
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--text);
+            line-height: 1.65;
+            font-style: italic;
+        }
 
-        /* Refused */
-        .refused { border:1px solid var(--border); border-radius:5px; overflow:hidden; margin-top:20px; }
-        .refused-head { background:var(--surface); padding:10px 18px; display:flex; align-items:center; justify-content:space-between; }
-        .refused-head-label { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); }
-        .refused-item { padding:12px 18px; border-top:1px solid var(--border); }
-        .refused-text { font-family:var(--serif); font-size:13px; font-style:italic; color:var(--text-mid); line-height:1.6; margin-bottom:5px; }
-        .refused-reason { font-family:var(--mono); font-size:10px; color:var(--undet); }
+        .commitment-loc {
+            font-family: var(--mono);
+            font-size: 9px;
+            color: var(--text-dim);
+            margin-top: 10px;
+            letter-spacing: 0.06em;
+        }
 
-        /* Footer meta */
-        .result-footer { margin-top:20px; display:flex; gap:20px; flex-wrap:wrap; padding-top:16px; border-top:1px solid var(--border); }
-        .result-footer-item { font-family:var(--mono); font-size:10px; color:var(--text-dim); }
-        .result-footer-item span { color:var(--text-mid); }
+        /* Proof block */
+        .proof {
+            background: #050810;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 20px 24px;
+            margin-top: 4px;
+        }
 
-        footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; align-items:center; justify-content:space-between; margin-top:80px; }
-        .footer-note { font-size:11px; color:var(--text-dim); }
-        .footer-link { font-size:11px; color:var(--text-dim); text-decoration:none; transition:color 0.2s; }
-        .footer-link:hover { color:var(--text-mid); }
+        .proof-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
 
-        @keyframes fadeUp { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
-        @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,0);} 50%{box-shadow:0 0 0 4px rgba(59,130,246,0.12);} }
+        .proof-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
 
-        @media(max-width:640px) {
-            header,footer{padding:20px 24px;}
-            main{padding:48px 24px 80px;}
-            .cert-grid{grid-template-columns:1fr 1fr;}
+        .proof-solver {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--red);
+            letter-spacing: 0.06em;
+        }
+
+        .proof-line {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-dim);
+            line-height: 1.9;
+        }
+
+        .proof-line .c { color: var(--text-mid); }
+        .proof-line .bottom { color: var(--red); }
+
+        .proof-rule {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 12px 0;
+        }
+
+        /* Certificate */
+        .certificate {
+            border: 1px solid var(--border2);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .cert-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 22px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cert-pill {
+            font-family: var(--mono);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.10em;
+            padding: 4px 10px;
+            border-radius: 3px;
+        }
+
+        .cert-pill.sat { background: var(--green-dim); color: var(--green); border: 1px solid rgba(16,185,129,0.2); }
+        .cert-pill.unsat { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+
+        .cert-line { font-family: var(--sans); font-size: 12px; font-weight: 300; color: var(--text-mid); }
+
+        .cert-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--surface); }
+
+        .cert-cell {
+            padding: 12px 18px;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cert-cell:nth-child(3n) { border-right: none; }
+        .cert-cell:nth-last-child(-n+3) { border-bottom: none; }
+
+        .cert-cell-label {
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 4px;
+        }
+
+        .cert-cell-value {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-mid);
+            word-break: break-all;
+        }
+
+        .cert-cell-value.red { color: var(--red); }
+        .cert-cell-value.blue { color: #60A5FA; }
+
+        .cert-footer {
+            padding: 12px 22px;
+            border-top: 1px solid var(--border);
+            background: var(--surface);
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        /* Outside fragment */
+        .fragment-block {
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .fragment-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 18px;
+            background: var(--surface);
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 0.08em;
+        }
+
+        .fragment-item { padding: 14px 18px; border-top: 1px solid var(--border); }
+        .fragment-text { font-family: var(--sans); font-size: 13px; font-weight: 300; font-style: italic; color: var(--text-mid); line-height: 1.6; margin-bottom: 6px; }
+        .fragment-reason { font-family: var(--mono); font-size: 10px; color: var(--amber); letter-spacing: 0.04em; }
+
+        /* Result footer */
+        .result-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .result-meta-item {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 0.04em;
+        }
+
+        .result-meta-item span { color: var(--text-mid); }
+
+        /* Reset */
+        .reset-link {
+            display: inline-block;
+            margin-top: 32px;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .reset-link:hover { color: var(--text-mid); }
+
+        /* ── PAGE FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-note { font-family: var(--mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.06em; }
+        .footer-link { font-family: var(--mono); font-size: 10px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.06em; transition: color 0.2s; }
+        .footer-link:hover { color: var(--text-mid); }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity:0; transform:translateY(10px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            nav { padding: 0 20px; }
+            #entrance { padding: 52px 20px 60px; }
+            .ver-inner { padding-top: 40px; }
+            .cert-grid { grid-template-columns: 1fr 1fr; }
+            footer { padding: 16px 20px; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <a href="/" class="header-logo">
-        <img src="validity-logo.png" alt="Validity" style="height:28px; filter:brightness(1.1);" />
-    </a>
-    <span class="header-label">Verify</span>
-</header>
+<nav>
+    <a href="/"><img src="validity-logo.png" alt="Validity" /></a>
+</nav>
 
-<main>
+<!-- ── ENTRANCE ── -->
+<div id="entrance">
+    <span class="entrance-label">Formal Verification</span>
+    <h1 class="entrance-title">Run Formal Verification</h1>
+    <p class="entrance-sub">Upload a document. Validity extracts its commitments, tests their logic, and shows whether they can all be true at once.</p>
 
-    <span class="page-label">Formal Verification</span>
-    <h1 class="page-title">Document Analysis</h1>
-    <p class="page-sub">Upload a document or paste text. Validity extracts all commitments, tests them for logical coherence, and surfaces any contradictions — before capital is committed.</p>
-
-    <!-- Upload -->
-    <div class="upload-zone" id="uploadZone">
-        <input type="file" id="fileInput" accept=".txt,.pdf,.doc,.docx" />
-        <div class="upload-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="12" y1="18" x2="12" y2="12"/>
-                <line x1="9" y1="15" x2="15" y2="15"/>
-            </svg>
+    <div class="chamber-wrap">
+        <div class="chamber" id="chamber">
+            <input type="file" id="fileInput" accept=".txt,.pdf,.doc,.docx" />
+            <div class="chamber-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="12" y1="18" x2="12" y2="12"/>
+                    <line x1="9" y1="15" x2="15" y2="15"/>
+                </svg>
+            </div>
+            <div class="chamber-cta" id="chamberCta">Drop document to verify</div>
+            <div class="chamber-filename" id="chamberFilename"></div>
+            <div class="chamber-types">.pdf &nbsp;·&nbsp; .docx &nbsp;·&nbsp; .txt</div>
         </div>
-        <div class="upload-title">Drop document here</div>
-        <div class="upload-sub">.txt &nbsp;·&nbsp; .pdf &nbsp;·&nbsp; .docx &nbsp;·&nbsp; or click to browse</div>
+
+        <span class="paste-link" id="pasteToggle" onclick="togglePaste()">or paste text instead</span>
+
+        <div class="paste-panel" id="pastePanel">
+            <textarea id="pasteInput" placeholder="Paste document text here..."></textarea>
+        </div>
+
+        <button class="verify-btn" id="verifyBtn" onclick="startVerification()">Verify</button>
     </div>
+</div>
 
-    <div class="or-divider"><span>or paste text</span></div>
+<!-- ── VERIFICATION ── -->
+<div id="verification">
+    <div class="ver-inner">
+        <div class="pipeline-label">Verification in progress</div>
 
-    <textarea id="textInput" placeholder="Paste document text here..."></textarea>
-
-    <button class="run-btn" id="runBtn" onclick="runAnalysis()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        Run Verification
-    </button>
-
-    <!-- Pipeline -->
-    <div class="pipeline" id="pipeline">
-        <div class="pipeline-header">Pipeline</div>
-        <div class="stage-row">
+        <div class="stage">
             <div class="stage-dot" id="d1"></div>
-            <div><div class="stage-name">Stage 1 — Extraction</div><div class="stage-detail" id="dt1">Waiting</div></div>
+            <div>
+                <div class="stage-name">Commitment Extraction</div>
+                <div class="stage-detail" id="dt1">Waiting</div>
+            </div>
         </div>
-        <div class="stage-row">
+        <div class="stage">
             <div class="stage-dot" id="d2"></div>
-            <div><div class="stage-name">Stage 2 — Translation</div><div class="stage-detail" id="dt2">Waiting</div></div>
+            <div>
+                <div class="stage-name">Logical Translation</div>
+                <div class="stage-detail" id="dt2">Waiting</div>
+            </div>
         </div>
-        <div class="stage-row">
+        <div class="stage">
             <div class="stage-dot" id="d3"></div>
-            <div><div class="stage-name">Stage 3 — Formal Verification</div><div class="stage-detail" id="dt3">Waiting</div></div>
+            <div>
+                <div class="stage-name">SMT Encoding</div>
+                <div class="stage-detail" id="dt3">Waiting</div>
+            </div>
         </div>
+        <div class="stage">
+            <div class="stage-dot" id="d4"></div>
+            <div>
+                <div class="stage-name">Solver · Z3</div>
+                <div class="stage-detail" id="dt4">Waiting</div>
+            </div>
+        </div>
+
+        <div id="result"></div>
+
+        <button class="reset-link" onclick="reset()">← Run another document</button>
     </div>
-
-    <!-- Result -->
-    <div class="result" id="result"></div>
-
-</main>
+</div>
 
 <footer>
     <span class="footer-note">validity.live</span>
@@ -232,72 +772,106 @@ permalink: /verify
         timestamp: new Date().toISOString(),
         document_hash: "462fc16b027e3eca8f4b91d3a2b8c7d1",
         core: [
-            { text: "The Borrower shall not make any distributions to shareholders during the term of this Agreement.", section: "Section 4.3", page: 4, constraint: "Not(distribute__borrower__shareholders)" },
-            { text: "The Borrower shall make distributions to shareholders during the term of this Agreement.", section: "Section 6.1", page: 9, constraint: "distribute__borrower__shareholders" }
+            {
+                text: "The Borrower shall not make any distributions to shareholders during the term of this Agreement.",
+                section: "Section 4.3", page: 4,
+                constraint: "Not(distribute__borrower__shareholders)"
+            },
+            {
+                text: "The Borrower shall make distributions to shareholders during the term of this Agreement.",
+                section: "Section 6.1", page: 9,
+                constraint: "distribute__borrower__shareholders"
+            }
         ],
-        refused: [
-            { text: "The Borrower represents and warrants that all financial statements provided are true and accurate in all material respects as at the date of this Agreement.", reason: "Unresolved modal term: 'material'", rule: "R10" }
-        ]
+        refused: [{
+            text: "The Borrower represents and warrants that all financial statements provided are true and accurate in all material respects as at the date of this Agreement.",
+            reason: "Unresolved modal term: 'material'",
+            rule: "R10"
+        }]
     };
 
-    document.getElementById('uploadZone').addEventListener('dragover', e => { e.preventDefault(); e.currentTarget.classList.add('drag-over'); });
-    document.getElementById('uploadZone').addEventListener('dragleave', e => e.currentTarget.classList.remove('drag-over'));
-    document.getElementById('uploadZone').addEventListener('drop', e => {
-        e.preventDefault(); e.currentTarget.classList.remove('drag-over');
-        const f = e.dataTransfer.files[0]; if (f) handleFile(f);
-    });
-    document.getElementById('fileInput').addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+    let hasContent = false;
 
-    function handleFile(f) {
+    // File input
+    const fileInput = document.getElementById('fileInput');
+    const chamber   = document.getElementById('chamber');
+
+    fileInput.addEventListener('change', e => {
+        const f = e.target.files[0];
+        if (!f) return;
+        document.getElementById('chamberCta').style.display = 'none';
+        document.getElementById('chamberFilename').style.display = 'block';
+        document.getElementById('chamberFilename').textContent = f.name;
+        chamber.classList.add('sealed');
+        hasContent = true;
+        showVerifyBtn();
         const r = new FileReader();
-        r.onload = e => { document.getElementById('textInput').value = e.target.result; };
+        r.onload = ev => { document.getElementById('pasteInput').value = ev.target.result; };
         r.readAsText(f);
-        document.querySelector('.upload-title').textContent = f.name;
-        document.querySelector('.upload-sub').textContent = (f.size/1024).toFixed(1) + ' KB';
+    });
+
+    chamber.addEventListener('dragover', e => { e.preventDefault(); chamber.classList.add('active'); });
+    chamber.addEventListener('dragleave', () => chamber.classList.remove('active'));
+    chamber.addEventListener('drop', e => {
+        e.preventDefault(); chamber.classList.remove('active');
+        const f = e.dataTransfer.files[0]; if (!f) return;
+        fileInput.files = e.dataTransfer.files;
+        fileInput.dispatchEvent(new Event('change'));
+    });
+
+    function togglePaste() {
+        const panel = document.getElementById('pastePanel');
+        const toggle = document.getElementById('pasteToggle');
+        const visible = panel.classList.toggle('visible');
+        toggle.textContent = visible ? 'hide text input' : 'or paste text instead';
+        if (visible) {
+            document.getElementById('pasteInput').addEventListener('input', () => {
+                hasContent = document.getElementById('pasteInput').value.trim().length > 0;
+                if (hasContent) showVerifyBtn(); else hideVerifyBtn();
+            });
+        }
     }
 
+    function showVerifyBtn() {
+        document.getElementById('verifyBtn').classList.add('visible');
+    }
+
+    function hideVerifyBtn() {
+        document.getElementById('verifyBtn').classList.remove('visible');
+    }
+
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
     function setStage(n, state, detail) {
-        const d = document.getElementById('d'+n), dt = document.getElementById('dt'+n);
+        const d = document.getElementById('d'+n);
+        const dt = document.getElementById('dt'+n);
         d.className = 'stage-dot ' + state;
         dt.textContent = detail;
         dt.className = 'stage-detail' + (state === 'running' ? ' live' : '');
     }
 
-    const sleep = ms => new Promise(r => setTimeout(r, ms));
-
-    async function runAnalysis() {
-        const text = document.getElementById('textInput').value.trim();
-        if (!text) {
-            const ta = document.getElementById('textInput');
-            ta.style.borderColor = 'rgba(239,68,68,0.4)';
-            setTimeout(() => ta.style.borderColor = '', 1400);
-            return;
-        }
-        const btn = document.getElementById('runBtn');
-        btn.disabled = true;
-        btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Running...';
-
-        document.getElementById('pipeline').classList.add('visible');
-        document.getElementById('result').classList.remove('visible');
-        document.getElementById('result').innerHTML = '';
+    async function startVerification() {
+        document.getElementById('entrance').style.display = 'none';
+        document.getElementById('verification').classList.add('visible');
 
         setStage(1, 'running', 'Extracting candidate commitments...');
-        await sleep(1800);
-        setStage(1, 'done', '7 candidate commitment(s) identified');
+        await sleep(1900);
+        setStage(1, 'done', '7 candidate commitments identified');
 
-        setStage(2, 'running', 'Translating to formal logic...');
-        await sleep(2400);
+        setStage(2, 'running', 'Translating to logical representations...');
+        await sleep(2200);
         setStage(2, 'done', '6 validated · 1 outside fragment');
 
-        setStage(3, 'running', 'Encoding constraints · Running Z3...');
-        await sleep(1200);
-        setStage(3, 'done', 'Z3 verdict: unsat');
+        setStage(3, 'running', 'Encoding constraints as SMT assertions...');
+        await sleep(1100);
+        setStage(3, 'done', '6 assertions encoded');
+
+        setStage(4, 'running', 'Running Z3 solver...');
+        await sleep(900);
+        setStage(4, 'done', 'Z3 4.15.x · verdict: unsat');
 
         await sleep(300);
         renderResult(DEMO);
-
-        btn.disabled = false;
-        btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Run Verification';
     }
 
     function renderResult(d) {
@@ -306,75 +880,98 @@ permalink: /verify
         const ts = new Date(d.timestamp).toUTCString();
         let h = '';
 
-        // Verdict
         h += `<div class="verdict ${unsat ? 'contradiction' : 'clean'}">
-            <div class="verdict-tag">${unsat ? 'Contradiction Proven' : 'No Contradiction'}</div>
-            <div class="verdict-title">${unsat ? d.failure_class : 'Clean — No contradiction provable within analysed fragment'}</div>
-            <div class="verdict-meta">${d.claims_analysed} claims analysed &nbsp;·&nbsp; ${d.claims_refused} outside fragment &nbsp;·&nbsp; LFS 2.0</div>
+            <div class="verdict-status">${unsat ? 'Contradiction proven' : 'No contradiction proven'}</div>
+            <div class="verdict-title">${unsat ? d.failure_class : 'All commitments are mutually consistent within the analysed fragment'}</div>
+            <div class="verdict-meta">${d.claims_analysed} commitments analysed &nbsp;·&nbsp; ${d.claims_refused} outside fragment &nbsp;·&nbsp; LFS 2.0</div>
         </div>`;
 
         if (unsat && d.core.length) {
-            h += `<span class="section-label">Contradicting Commitments</span>`;
+            h += `<div class="block-label">Contradicting Commitments</div>`;
             d.core.forEach((c, i) => {
                 h += `<div class="commitment">
-                    <div class="commitment-num">Commitment ${i+1}${c.section ? ' &nbsp;·&nbsp; ' + c.section : ''}</div>
+                    <div class="commitment-id">Commitment ${i+1}${c.section ? ' &nbsp;·&nbsp; ' + c.section : ''}</div>
                     <div class="commitment-text">"${c.text}"</div>
                     ${c.page ? `<div class="commitment-loc">Page ${c.page}</div>` : ''}
                 </div>`;
             });
 
-            h += `<div class="proof-block">
-                <div class="proof-header">
-                    <span class="proof-header-label">Formal Proof</span>
-                    <span class="proof-verdict-tag">Z3 · unsat</span>
+            h += `<div class="proof">
+                <div class="proof-top">
+                    <span class="proof-label">Formal Proof</span>
+                    <span class="proof-solver">Z3 · unsat</span>
                 </div>`;
             d.core.forEach((c, i) => {
-                h += `<div class="proof-line">${i+1}. &nbsp;<span class="constraint">${c.constraint}</span></div>`;
+                h += `<div class="proof-line">${i+1}. &nbsp;<span class="c">${c.constraint}</span></div>`;
             });
-            h += `<hr class="proof-sep"><div class="proof-line"><span class="bottom">⊥ &nbsp;These constraints cannot simultaneously hold.</span></div></div>`;
+            h += `<hr class="proof-rule">
+                <div class="proof-line"><span class="bottom">⊥ &nbsp;These constraints cannot simultaneously hold.</span></div>
+            </div>`;
 
-            // Certificate
-            h += `<div class="cert">
-                <div class="cert-top">
+            h += `<div class="certificate">
+                <div class="cert-head">
                     <span class="cert-pill unsat">UNSAT</span>
-                    <span class="cert-headline">Logical contradiction proven within extracted commitments</span>
+                    <span class="cert-line">Logical contradiction proven within extracted commitments</span>
                 </div>
                 <div class="cert-grid">
-                    <div class="cert-field"><div class="cert-field-label">Outcome</div><div class="cert-field-value unsat">UNSAT</div></div>
-                    <div class="cert-field"><div class="cert-field-label">Failure Class</div><div class="cert-field-value">${d.failure_class}</div></div>
-                    <div class="cert-field"><div class="cert-field-label">Core Size</div><div class="cert-field-value">${d.core.length} claim(s)</div></div>
-                    <div class="cert-field"><div class="cert-field-label">Document Hash</div><div class="cert-field-value blue">${d.document_hash.slice(0,16)}…</div></div>
-                    <div class="cert-field"><div class="cert-field-label">Solver</div><div class="cert-field-value">Z3 · 4.15.x</div></div>
-                    <div class="cert-field"><div class="cert-field-label">LFS Version</div><div class="cert-field-value">2.0</div></div>
+                    <div class="cert-cell"><div class="cert-cell-label">Outcome</div><div class="cert-cell-value red">UNSAT</div></div>
+                    <div class="cert-cell"><div class="cert-cell-label">Failure Class</div><div class="cert-cell-value">${d.failure_class}</div></div>
+                    <div class="cert-cell"><div class="cert-cell-label">Core Size</div><div class="cert-cell-value">${d.core.length} claims</div></div>
+                    <div class="cert-cell"><div class="cert-cell-label">Document Hash</div><div class="cert-cell-value blue">${d.document_hash.slice(0,14)}…</div></div>
+                    <div class="cert-cell"><div class="cert-cell-label">Solver</div><div class="cert-cell-value">Z3 · 4.15.x</div></div>
+                    <div class="cert-cell"><div class="cert-cell-label">LFS Version</div><div class="cert-cell-value">2.0</div></div>
                 </div>
-                <div class="cert-statement">This certificate covers logical consistency of extracted commitments only. It does not constitute an opinion on creditworthiness, suitability, or legal enforceability.</div>
+                <div class="cert-footer">This certificate covers logical consistency of extracted commitments only. It does not constitute an opinion on creditworthiness, suitability, or legal enforceability.</div>
             </div>`;
         }
 
         if (d.refused && d.refused.length) {
-            h += `<div class="refused">
-                <div class="refused-head">
-                    <span class="refused-head-label">Outside Fragment</span>
-                    <span style="font-family:var(--mono);font-size:10px;color:var(--text-dim);">${d.refused.length} claim(s) — human attestation required</span>
+            h += `<div class="fragment-block">
+                <div class="fragment-head">
+                    <span>Outside Fragment</span>
+                    <span>${d.refused.length} claim(s) · human attestation required</span>
                 </div>`;
             d.refused.forEach(r => {
-                h += `<div class="refused-item">
-                    <div class="refused-text">"${r.text}"</div>
-                    <div class="refused-reason">Rule ${r.rule} &nbsp;·&nbsp; ${r.reason}</div>
+                h += `<div class="fragment-item">
+                    <div class="fragment-text">"${r.text}"</div>
+                    <div class="fragment-reason">Rule ${r.rule} &nbsp;·&nbsp; ${r.reason}</div>
                 </div>`;
             });
             h += `</div>`;
         }
 
-        h += `<div class="result-footer">
-            <div class="result-footer-item">Document hash &nbsp;<span>${d.document_hash.slice(0,16)}…</span></div>
-            <div class="result-footer-item">Timestamp &nbsp;<span>${ts}</span></div>
-            <div class="result-footer-item">LFS version &nbsp;<span>2.0</span></div>
+        h += `<div class="result-meta">
+            <div class="result-meta-item">Hash &nbsp;<span>${d.document_hash.slice(0,16)}…</span></div>
+            <div class="result-meta-item">Timestamp &nbsp;<span>${ts}</span></div>
+            <div class="result-meta-item">LFS &nbsp;<span>2.0</span></div>
         </div>`;
 
         el.innerHTML = h;
         el.classList.add('visible');
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function reset() {
+        document.getElementById('entrance').style.display = '';
+        document.getElementById('verification').classList.remove('visible');
+        document.getElementById('result').innerHTML = '';
+        document.getElementById('result').classList.remove('visible');
+        document.getElementById('chamberCta').style.display = '';
+        document.getElementById('chamberFilename').style.display = 'none';
+        document.getElementById('chamberFilename').textContent = '';
+        chamber.classList.remove('sealed', 'active');
+        document.getElementById('pasteInput').value = '';
+        document.getElementById('pastePanel').classList.remove('visible');
+        document.getElementById('pasteToggle').textContent = 'or paste text instead';
+        hideVerifyBtn();
+        hasContent = false;
+        ['d1','d2','d3','d4'].forEach(id => {
+            document.getElementById(id).className = 'stage-dot';
+        });
+        ['dt1','dt2','dt3','dt4'].forEach(id => {
+            document.getElementById(id).textContent = 'Waiting';
+            document.getElementById(id).className = 'stage-detail';
+        });
     }
 </script>
 
