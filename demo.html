@@ -68,7 +68,7 @@ permalink: /verify
             border-bottom: 1px solid var(--border);
         }
 
-        nav img { height: 24px; display: block; filter: brightness(1.05); }
+        nav img { height: 20px; display: block; filter: brightness(1.05); opacity: 0.6; }
 
         /* ── ENTRANCE SCREEN ── */
         #entrance {
@@ -83,7 +83,18 @@ permalink: /verify
             text-align: center;
         }
 
-        .entrance-label {
+        .entrance-logo {
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.05s;
+        }
+
+        .entrance-logo img {
+            height: 40px;
+            filter: brightness(1.1);
+        }
+
+
             font-family: var(--mono);
             font-size: 10px;
             letter-spacing: 0.18em;
@@ -688,6 +699,9 @@ permalink: /verify
 
 <!-- ── ENTRANCE ── -->
 <div id="entrance">
+    <div class="entrance-logo">
+        <img src="validity-logo.png" alt="Validity" />
+    </div>
     <span class="entrance-label">Formal Verification</span>
     <h1 class="entrance-title">Run Formal Verification</h1>
     <p class="entrance-sub">Upload a document. Validity extracts its commitments, tests their logic, and shows whether they can all be true at once.</p>
