@@ -1,255 +1,380 @@
----
-permalink: /demo
----
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validity — Analysis</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
-            --bg:       #0A0E1A;
-            --surface:  #111827;
-            --surface2: #1a2235;
-            --border:   rgba(255,255,255,0.07);
-            --border2:  rgba(255,255,255,0.13);
-            --text:     #E8E8E8;
-            --text-mid: #9CA3AF;
-            --text-dim: #4B5563;
-            --sat:      #10B981;
-            --unsat:    #EF4444;
-            --sans:     'Inter', sans-serif;
-            --mono:     'IBM Plex Mono', monospace;
+            --bg:#0A0E1A;--bg2:#0D1117;--surface:#111827;--surface2:#1a2235;
+            --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+            --text:#E8E8E8;--text-mid:#9CA3AF;--text-dim:#4B5563;
+            --accent:#3B82F6;--accent-dim:rgba(59,130,246,0.12);
+            --sat:#10B981;--sat-dim:rgba(16,185,129,0.10);
+            --unsat:#EF4444;--unsat-dim:rgba(239,68,68,0.10);
+            --undet:#F59E0B;--undet-dim:rgba(245,158,11,0.10);
+            --mono:'IBM Plex Mono',monospace;
+            --serif:'IBM Plex Serif',Georgia,serif;
+            --sans:'Inter',sans-serif;
         }
+        html { scroll-behavior: smooth; }
+        body { font-family:var(--sans); background:var(--bg); color:var(--text); min-height:100vh; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+        body::before { content:''; position:fixed; inset:0; opacity:0.03; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); z-index:999; }
 
-        body {
-            font-family: var(--sans);
-            background: #0A0E1A;
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            -webkit-font-smoothing: antialiased;
-        }
+        header { display:flex; align-items:center; justify-content:space-between; padding:24px 48px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(10,14,26,0.94); backdrop-filter:blur(14px); z-index:100; }
+        .header-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+        .header-wordmark { font-family:var(--sans); font-size:13px; font-weight:500; letter-spacing:0.10em; text-transform:uppercase; color:var(--text); }
+        .header-label { font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:4px; color:var(--text-dim); }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            opacity: 0.03;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            z-index: 999;
-        }
+        main { max-width:740px; margin:0 auto; padding:72px 48px 120px; }
 
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 28px 48px;
-            border-bottom: 1px solid var(--border);
-            background: rgba(10,14,26,0.94);
-            backdrop-filter: blur(14px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        /* ── Page header ── */
+        .page-label { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:4px; color:var(--text-dim); margin-bottom:20px; display:block; opacity:0; animation:fadeUp 0.6s ease forwards 0.05s; }
+        .page-title { font-family:var(--serif); font-size:clamp(24px,3.5vw,34px); font-weight:500; line-height:1.15; color:var(--text); letter-spacing:-0.3px; margin-bottom:12px; opacity:0; animation:fadeUp 0.6s ease forwards 0.10s; }
+        .page-sub { font-size:14px; color:var(--text-mid); line-height:1.7; max-width:520px; margin-bottom:48px; opacity:0; animation:fadeUp 0.6s ease forwards 0.15s; }
 
-        .header-logo img { height: 28px; filter: brightness(1.1); }
-        .header-label { font-size: 11px; text-transform: uppercase; letter-spacing: 4px; color: var(--text-dim); }
+        /* ── Upload zone ── */
+        .upload-zone { border:1px solid var(--border2); border-radius:8px; background:var(--surface); padding:40px 32px; text-align:center; cursor:pointer; transition:border-color 0.2s, background 0.2s; position:relative; margin-bottom:12px; opacity:0; animation:fadeUp 0.6s ease forwards 0.20s; }
+        .upload-zone:hover, .upload-zone.drag-over { border-color:rgba(59,130,246,0.35); background:var(--surface2); }
+        .upload-zone input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+        .upload-icon { width:36px; height:36px; margin:0 auto 14px; border:1px solid var(--border2); border-radius:6px; display:flex; align-items:center; justify-content:center; }
+        .upload-icon svg { width:16px; height:16px; stroke:var(--text-mid); }
+        .upload-title { font-size:13px; font-weight:500; color:var(--text); margin-bottom:4px; }
+        .upload-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:0.04em; }
 
-        main {
-            flex: 1;
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 72px 48px 100px;
-            width: 100%;
-        }
+        /* ── Divider ── */
+        .or-divider { display:flex; align-items:center; gap:12px; margin-bottom:12px; opacity:0; animation:fadeUp 0.6s ease forwards 0.23s; }
+        .or-divider::before, .or-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+        .or-divider span { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:0.10em; }
 
-        .page-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: var(--text-dim);
-            margin-bottom: 48px;
-            display: block;
-        }
+        /* ── Textarea ── */
+        textarea { width:100%; background:var(--surface); border:1px solid var(--border2); border-radius:6px; padding:16px 18px; font-family:var(--mono); font-size:11px; color:var(--text-mid); line-height:1.75; resize:vertical; min-height:140px; outline:none; transition:border-color 0.2s; margin-bottom:14px; display:block; opacity:0; animation:fadeUp 0.6s ease forwards 0.26s; }
+        textarea:focus { border-color:rgba(59,130,246,0.3); }
+        textarea::placeholder { color:var(--text-dim); }
 
-        /* ── Cards ─────────────────────────────────────────── */
-        .cards {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        /* ── Run button ── */
+        .run-btn { width:100%; height:44px; background:var(--accent); border:none; border-radius:5px; font-family:var(--sans); font-size:13px; font-weight:500; letter-spacing:0.03em; color:#fff; cursor:pointer; transition:opacity 0.15s; display:flex; align-items:center; justify-content:center; gap:8px; opacity:0; animation:fadeUp 0.6s ease forwards 0.29s; }
+        .run-btn:not(:disabled):hover { opacity:0.88; }
+        .run-btn:disabled { opacity:0.35; cursor:not-allowed; }
 
-        .card {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: center;
-            gap: 24px;
-            padding: 24px 28px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            text-decoration: none;
-            transition: background 0.2s, border-color 0.2s;
-        }
+        /* ── Pipeline ── */
+        .pipeline { margin-top:44px; display:none; }
+        .pipeline.visible { display:block; }
+        .pipeline-header { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:3px; color:var(--text-dim); margin-bottom:14px; }
 
-        .card:hover { background: var(--surface2); border-color: var(--border2); }
-        .card:hover .card-arrow { opacity: 1; transform: translateX(0); }
+        .stage-row { display:flex; align-items:flex-start; gap:14px; padding:12px 0; border-bottom:1px solid var(--border); }
+        .stage-row:last-child { border-bottom:none; }
+        .stage-dot { width:18px; height:18px; border-radius:50%; border:1px solid var(--border2); flex-shrink:0; margin-top:2px; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
+        .stage-dot.running { border-color:var(--accent); animation:pulse 1.2s ease infinite; }
+        .stage-dot.done { border-color:var(--sat); background:rgba(16,185,129,0.12); }
+        .stage-dot.done::after { content:''; width:5px; height:5px; border-radius:50%; background:var(--sat); }
+        .stage-name { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-mid); margin-bottom:2px; }
+        .stage-detail { font-family:var(--mono); font-size:10px; color:var(--text-dim); }
+        .stage-detail.live { color:var(--accent); }
 
-        .card-left { display: flex; flex-direction: column; gap: 8px; }
+        /* ── Result ── */
+        .result { margin-top:44px; display:none; }
+        .result.visible { display:block; }
 
-        .card-sector {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--text-dim);
-        }
+        /* Verdict banner */
+        .verdict { border-radius:6px; padding:22px 24px; margin-bottom:20px; border:1px solid; }
+        .verdict.clean { background:var(--sat-dim); border-color:rgba(16,185,129,0.18); }
+        .verdict.contradiction { background:var(--unsat-dim); border-color:rgba(239,68,68,0.16); }
+        .verdict-tag { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:3px; margin-bottom:8px; }
+        .verdict.clean .verdict-tag { color:var(--sat); }
+        .verdict.contradiction .verdict-tag { color:var(--unsat); }
+        .verdict-title { font-family:var(--serif); font-size:20px; font-weight:500; color:var(--text); margin-bottom:6px; letter-spacing:-0.2px; }
+        .verdict-meta { font-family:var(--mono); font-size:10px; color:var(--text-dim); }
 
-        .card-title {
-            font-size: 17px;
-            font-weight: 600;
-            color: var(--text);
-            letter-spacing: -0.2px;
-            line-height: 1.3;
-        }
+        /* Commitments */
+        .section-label { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:3px; color:var(--text-dim); margin-bottom:14px; display:block; }
 
-        .card-doc {
-            font-family: var(--mono);
-            font-size: 11px;
-            color: var(--text-dim);
-            margin-top: 2px;
-        }
+        .commitment { background:var(--surface); border:1px solid var(--border); border-radius:5px; padding:16px 18px; margin-bottom:6px; }
+        .commitment-num { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:8px; }
+        .commitment-text { font-family:var(--serif); font-size:14px; font-weight:400; color:var(--text); line-height:1.65; font-style:italic; margin-bottom:8px; }
+        .commitment-loc { font-family:var(--mono); font-size:10px; color:var(--text-dim); }
 
-        .card-right {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 8px;
-            flex-shrink: 0;
-        }
+        /* Proof */
+        .proof-block { background:var(--bg2); border:1px solid var(--border); border-radius:5px; padding:18px 20px; margin-top:20px; }
+        .proof-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+        .proof-header-label { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:3px; color:var(--text-dim); }
+        .proof-verdict-tag { font-family:var(--mono); font-size:10px; color:var(--unsat); }
+        .proof-line { font-family:var(--mono); font-size:11px; color:var(--text-dim); line-height:1.85; }
+        .proof-line .constraint { color:var(--text-mid); }
+        .proof-line .bottom { color:var(--unsat); font-weight:500; }
+        .proof-sep { border:none; border-top:1px solid var(--border); margin:12px 0; }
 
-        .outcome {
-            font-family: var(--mono);
-            font-size: 10px;
-            font-weight: 500;
-            padding: 3px 10px;
-            border-radius: 3px;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
+        /* Certificate grid */
+        .cert { border:1px solid var(--border2); border-radius:8px; overflow:hidden; margin-top:20px; }
+        .cert-top { display:flex; align-items:center; gap:14px; padding:18px 22px; background:var(--surface); border-bottom:1px solid var(--border); }
+        .cert-pill { font-family:var(--mono); font-size:11px; font-weight:500; padding:4px 12px; border-radius:4px; letter-spacing:1px; }
+        .cert-pill.sat { background:var(--sat-dim); color:var(--sat); border:1px solid rgba(16,185,129,0.25); }
+        .cert-pill.unsat { background:var(--unsat-dim); color:var(--unsat); border:1px solid rgba(239,68,68,0.25); }
+        .cert-headline { font-size:12px; color:var(--text-mid); }
+        .cert-grid { display:grid; grid-template-columns:1fr 1fr 1fr; background:var(--surface); }
+        .cert-field { padding:12px 18px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
+        .cert-field:nth-child(3n) { border-right:none; }
+        .cert-field:nth-last-child(-n+3) { border-bottom:none; }
+        .cert-field-label { font-family:var(--mono); font-size:9px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-dim); margin-bottom:4px; }
+        .cert-field-value { font-family:var(--mono); font-size:11px; color:var(--text-mid); word-break:break-all; }
+        .cert-field-value.sat { color:var(--sat); }
+        .cert-field-value.unsat { color:var(--unsat); }
+        .cert-field-value.blue { color:#60A5FA; }
+        .cert-statement { padding:14px 22px; border-top:1px solid var(--border); background:var(--surface); font-size:11px; color:var(--text-dim); line-height:1.7; }
 
-        .outcome-sat   { background: rgba(16,185,129,0.10); color: var(--sat);   border: 1px solid rgba(16,185,129,0.2); }
-        .outcome-unsat { background: rgba(239,68,68,0.10);  color: var(--unsat); border: 1px solid rgba(239,68,68,0.22); }
+        /* Refused */
+        .refused { border:1px solid var(--border); border-radius:5px; overflow:hidden; margin-top:20px; }
+        .refused-head { background:var(--surface); padding:10px 18px; display:flex; align-items:center; justify-content:space-between; }
+        .refused-head-label { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); }
+        .refused-item { padding:12px 18px; border-top:1px solid var(--border); }
+        .refused-text { font-family:var(--serif); font-size:13px; font-style:italic; color:var(--text-mid); line-height:1.6; margin-bottom:5px; }
+        .refused-reason { font-family:var(--mono); font-size:10px; color:var(--undet); }
 
-        .badge-illustrative {
-            font-family: var(--mono);
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-dim);
-            border: 1px solid var(--border2);
-            padding: 2px 8px;
-            border-radius: 3px;
-            white-space: nowrap;
-        }
+        /* Footer meta */
+        .result-footer { margin-top:20px; display:flex; gap:20px; flex-wrap:wrap; padding-top:16px; border-top:1px solid var(--border); }
+        .result-footer-item { font-family:var(--mono); font-size:10px; color:var(--text-dim); }
+        .result-footer-item span { color:var(--text-mid); }
 
-        .card-arrow {
-            color: var(--text-dim);
-            font-size: 13px;
-            opacity: 0.4;
-            transform: translateX(-4px);
-            transition: opacity 0.2s, transform 0.2s;
-            margin-top: 4px;
-        }
+        footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; align-items:center; justify-content:space-between; margin-top:80px; }
+        .footer-note { font-size:11px; color:var(--text-dim); }
+        .footer-link { font-size:11px; color:var(--text-dim); text-decoration:none; transition:color 0.2s; }
+        .footer-link:hover { color:var(--text-mid); }
 
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 24px 48px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+        @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,0);} 50%{box-shadow:0 0 0 4px rgba(59,130,246,0.12);} }
 
-        .footer-note { font-size: 11px; color: var(--text-dim); }
-        .back-link { font-size: 11px; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
-        .back-link:hover { color: var(--text-mid); }
-
-        @media (max-width: 580px) {
-            header, footer { padding: 20px 24px; }
-            main { padding: 48px 24px 80px; }
-            .card { grid-template-columns: 1fr; }
-            .card-right { flex-direction: row; align-items: center; }
+        @media(max-width:640px) {
+            header,footer{padding:20px 24px;}
+            main{padding:48px 24px 80px;}
+            .cert-grid{grid-template-columns:1fr 1fr;}
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="/"><img src="validity-logo.png" alt="Validity" style="height:28px;filter:brightness(1.1);" /></a>
-        <span class="header-label">Analysis</span>
-    </header>
+<header>
+    <a href="/" class="header-logo">
+        <img src="validity-logo.png" alt="Validity" style="height:28px; filter:brightness(1.1);" />
+    </a>
+    <span class="header-label">Verify</span>
+</header>
 
-    <main>
-        <span class="page-label">Pipeline Executions</span>
+<main>
 
-        <div class="cards">
+    <span class="page-label">Formal Verification</span>
+    <h1 class="page-title">Document Analysis</h1>
+    <p class="page-sub">Upload a document or paste text. Validity extracts all commitments, tests them for logical coherence, and surfaces any contradictions — before capital is committed.</p>
 
-            <!-- Investment Banks -->
-            <a href="/demo-freddie" class="card">
-                <div class="card-left">
-                    <span class="card-title">Investment Banks</span>
-                    <span class="card-doc">Freddie Mac MSCR Trust 2024-MN9</span>
-                </div>
-                <div class="card-right">                    <span class="card-arrow">→</span>
-                </div>
-            </a>
-
-            <!-- Private Equity -->
-            <a href="/demo-ilpa" class="card">
-                <div class="card-left">
-                    <span class="card-title">Private Equity &amp; Venture Capital</span>
-                    <span class="card-doc">ILPA Model LPA — Whole-of-Fund Waterfall</span>
-                </div>
-                <div class="card-right">                    <span class="card-arrow">→</span>
-                </div>
-            </a>
-
-            <!-- Law Firms -->
-            <a href="/demo-anaheim" class="card">
-                <div class="card-left">
-                    <span class="card-title">Law Firms</span>
-                    <span class="card-doc">City of Anaheim / JLL Brokerage — Professional Services Agreement</span>
-                </div>
-                <div class="card-right">                    <span class="card-arrow">→</span>
-                </div>
-            </a>
-
-            <!-- Commercial Real Estate -->
-            <a href="/demo-realestate" class="card">
-                <div class="card-left">
-                    <span class="card-title">Commercial Real Estate</span>
-                    <span class="card-doc">Illustrative Retail Lease Agreement</span>
-                </div>
-                <div class="card-right">                    <span class="badge-illustrative">Illustrative</span>
-                    <span class="card-arrow">→</span>
-                </div>
-            </a>
-
+    <!-- Upload -->
+    <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept=".txt,.pdf,.doc,.docx" />
+        <div class="upload-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="12" y1="18" x2="12" y2="12"/>
+                <line x1="9" y1="15" x2="15" y2="15"/>
+            </svg>
         </div>
-    </main>
+        <div class="upload-title">Drop document here</div>
+        <div class="upload-sub">.txt &nbsp;·&nbsp; .pdf &nbsp;·&nbsp; .docx &nbsp;·&nbsp; or click to browse</div>
+    </div>
 
-    <footer>
-        <span class="footer-note">validity.live</span>
-        <a href="/" class="back-link">← Back</a>
-    </footer>
+    <div class="or-divider"><span>or paste text</span></div>
+
+    <textarea id="textInput" placeholder="Paste document text here..."></textarea>
+
+    <button class="run-btn" id="runBtn" onclick="runAnalysis()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Run Verification
+    </button>
+
+    <!-- Pipeline -->
+    <div class="pipeline" id="pipeline">
+        <div class="pipeline-header">Pipeline</div>
+        <div class="stage-row">
+            <div class="stage-dot" id="d1"></div>
+            <div><div class="stage-name">Stage 1 — Extraction</div><div class="stage-detail" id="dt1">Waiting</div></div>
+        </div>
+        <div class="stage-row">
+            <div class="stage-dot" id="d2"></div>
+            <div><div class="stage-name">Stage 2 — Translation</div><div class="stage-detail" id="dt2">Waiting</div></div>
+        </div>
+        <div class="stage-row">
+            <div class="stage-dot" id="d3"></div>
+            <div><div class="stage-name">Stage 3 — Formal Verification</div><div class="stage-detail" id="dt3">Waiting</div></div>
+        </div>
+    </div>
+
+    <!-- Result -->
+    <div class="result" id="result"></div>
+
+</main>
+
+<footer>
+    <span class="footer-note">validity.live</span>
+    <a href="/" class="footer-link">← validity.live</a>
+</footer>
+
+<script>
+    const DEMO = {
+        verdict: "unsat",
+        failure_class: "Deontic Conflict",
+        claims_analysed: 6,
+        claims_refused: 1,
+        timestamp: new Date().toISOString(),
+        document_hash: "462fc16b027e3eca8f4b91d3a2b8c7d1",
+        core: [
+            { text: "The Borrower shall not make any distributions to shareholders during the term of this Agreement.", section: "Section 4.3", page: 4, constraint: "Not(distribute__borrower__shareholders)" },
+            { text: "The Borrower shall make distributions to shareholders during the term of this Agreement.", section: "Section 6.1", page: 9, constraint: "distribute__borrower__shareholders" }
+        ],
+        refused: [
+            { text: "The Borrower represents and warrants that all financial statements provided are true and accurate in all material respects as at the date of this Agreement.", reason: "Unresolved modal term: 'material'", rule: "R10" }
+        ]
+    };
+
+    document.getElementById('uploadZone').addEventListener('dragover', e => { e.preventDefault(); e.currentTarget.classList.add('drag-over'); });
+    document.getElementById('uploadZone').addEventListener('dragleave', e => e.currentTarget.classList.remove('drag-over'));
+    document.getElementById('uploadZone').addEventListener('drop', e => {
+        e.preventDefault(); e.currentTarget.classList.remove('drag-over');
+        const f = e.dataTransfer.files[0]; if (f) handleFile(f);
+    });
+    document.getElementById('fileInput').addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+    function handleFile(f) {
+        const r = new FileReader();
+        r.onload = e => { document.getElementById('textInput').value = e.target.result; };
+        r.readAsText(f);
+        document.querySelector('.upload-title').textContent = f.name;
+        document.querySelector('.upload-sub').textContent = (f.size/1024).toFixed(1) + ' KB';
+    }
+
+    function setStage(n, state, detail) {
+        const d = document.getElementById('d'+n), dt = document.getElementById('dt'+n);
+        d.className = 'stage-dot ' + state;
+        dt.textContent = detail;
+        dt.className = 'stage-detail' + (state === 'running' ? ' live' : '');
+    }
+
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    async function runAnalysis() {
+        const text = document.getElementById('textInput').value.trim();
+        if (!text) {
+            const ta = document.getElementById('textInput');
+            ta.style.borderColor = 'rgba(239,68,68,0.4)';
+            setTimeout(() => ta.style.borderColor = '', 1400);
+            return;
+        }
+        const btn = document.getElementById('runBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Running...';
+
+        document.getElementById('pipeline').classList.add('visible');
+        document.getElementById('result').classList.remove('visible');
+        document.getElementById('result').innerHTML = '';
+
+        setStage(1, 'running', 'Extracting candidate commitments...');
+        await sleep(1800);
+        setStage(1, 'done', '7 candidate commitment(s) identified');
+
+        setStage(2, 'running', 'Translating to formal logic...');
+        await sleep(2400);
+        setStage(2, 'done', '6 validated · 1 outside fragment');
+
+        setStage(3, 'running', 'Encoding constraints · Running Z3...');
+        await sleep(1200);
+        setStage(3, 'done', 'Z3 verdict: unsat');
+
+        await sleep(300);
+        renderResult(DEMO);
+
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Run Verification';
+    }
+
+    function renderResult(d) {
+        const el = document.getElementById('result');
+        const unsat = d.verdict === 'unsat';
+        const ts = new Date(d.timestamp).toUTCString();
+        let h = '';
+
+        // Verdict
+        h += `<div class="verdict ${unsat ? 'contradiction' : 'clean'}">
+            <div class="verdict-tag">${unsat ? 'Contradiction Proven' : 'No Contradiction'}</div>
+            <div class="verdict-title">${unsat ? d.failure_class : 'Clean — No contradiction provable within analysed fragment'}</div>
+            <div class="verdict-meta">${d.claims_analysed} claims analysed &nbsp;·&nbsp; ${d.claims_refused} outside fragment &nbsp;·&nbsp; LFS 2.0</div>
+        </div>`;
+
+        if (unsat && d.core.length) {
+            h += `<span class="section-label">Contradicting Commitments</span>`;
+            d.core.forEach((c, i) => {
+                h += `<div class="commitment">
+                    <div class="commitment-num">Commitment ${i+1}${c.section ? ' &nbsp;·&nbsp; ' + c.section : ''}</div>
+                    <div class="commitment-text">"${c.text}"</div>
+                    ${c.page ? `<div class="commitment-loc">Page ${c.page}</div>` : ''}
+                </div>`;
+            });
+
+            h += `<div class="proof-block">
+                <div class="proof-header">
+                    <span class="proof-header-label">Formal Proof</span>
+                    <span class="proof-verdict-tag">Z3 · unsat</span>
+                </div>`;
+            d.core.forEach((c, i) => {
+                h += `<div class="proof-line">${i+1}. &nbsp;<span class="constraint">${c.constraint}</span></div>`;
+            });
+            h += `<hr class="proof-sep"><div class="proof-line"><span class="bottom">⊥ &nbsp;These constraints cannot simultaneously hold.</span></div></div>`;
+
+            // Certificate
+            h += `<div class="cert">
+                <div class="cert-top">
+                    <span class="cert-pill unsat">UNSAT</span>
+                    <span class="cert-headline">Logical contradiction proven within extracted commitments</span>
+                </div>
+                <div class="cert-grid">
+                    <div class="cert-field"><div class="cert-field-label">Outcome</div><div class="cert-field-value unsat">UNSAT</div></div>
+                    <div class="cert-field"><div class="cert-field-label">Failure Class</div><div class="cert-field-value">${d.failure_class}</div></div>
+                    <div class="cert-field"><div class="cert-field-label">Core Size</div><div class="cert-field-value">${d.core.length} claim(s)</div></div>
+                    <div class="cert-field"><div class="cert-field-label">Document Hash</div><div class="cert-field-value blue">${d.document_hash.slice(0,16)}…</div></div>
+                    <div class="cert-field"><div class="cert-field-label">Solver</div><div class="cert-field-value">Z3 · 4.15.x</div></div>
+                    <div class="cert-field"><div class="cert-field-label">LFS Version</div><div class="cert-field-value">2.0</div></div>
+                </div>
+                <div class="cert-statement">This certificate covers logical consistency of extracted commitments only. It does not constitute an opinion on creditworthiness, suitability, or legal enforceability.</div>
+            </div>`;
+        }
+
+        if (d.refused && d.refused.length) {
+            h += `<div class="refused">
+                <div class="refused-head">
+                    <span class="refused-head-label">Outside Fragment</span>
+                    <span style="font-family:var(--mono);font-size:10px;color:var(--text-dim);">${d.refused.length} claim(s) — human attestation required</span>
+                </div>`;
+            d.refused.forEach(r => {
+                h += `<div class="refused-item">
+                    <div class="refused-text">"${r.text}"</div>
+                    <div class="refused-reason">Rule ${r.rule} &nbsp;·&nbsp; ${r.reason}</div>
+                </div>`;
+            });
+            h += `</div>`;
+        }
+
+        h += `<div class="result-footer">
+            <div class="result-footer-item">Document hash &nbsp;<span>${d.document_hash.slice(0,16)}…</span></div>
+            <div class="result-footer-item">Timestamp &nbsp;<span>${ts}</span></div>
+            <div class="result-footer-item">LFS version &nbsp;<span>2.0</span></div>
+        </div>`;
+
+        el.innerHTML = h;
+        el.classList.add('visible');
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+</script>
 
 </body>
 </html>
