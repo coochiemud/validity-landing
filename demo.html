@@ -815,8 +815,15 @@ permalink: /verify
     chamber.addEventListener('drop', e => {
         e.preventDefault(); chamber.classList.remove('active');
         const f = e.dataTransfer.files[0]; if (!f) return;
-        fileInput.files = e.dataTransfer.files;
-        fileInput.dispatchEvent(new Event('change'));
+        document.getElementById('chamberCta').style.display = 'none';
+        document.getElementById('chamberFilename').style.display = 'block';
+        document.getElementById('chamberFilename').textContent = f.name;
+        chamber.classList.add('sealed');
+        hasContent = true;
+        showVerifyBtn();
+        const r = new FileReader();
+        r.onload = ev => { document.getElementById('pasteInput').value = ev.target.result; };
+        r.readAsText(f);
     });
 
     function togglePaste() {
