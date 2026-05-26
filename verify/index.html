@@ -1,6 +1,3 @@
----
-permalink: /verify
----
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -889,15 +886,6 @@ permalink: /verify
         document.getElementById('verifyBtn').classList.remove('visible');
     }
 
-    const sleep = ms => new Promise(r => setTimeout(r, ms));
-
-    function setStage(n, state, detail) {
-        const d = document.getElementById('d'+n);
-        const dt = document.getElementById('dt'+n);
-        d.className = 'stage-dot ' + state;
-        dt.textContent = detail;
-        dt.className = 'stage-detail' + (state === 'running' ? ' live' : '');
-    }
 
     function renderResult(d) {
         const el = document.getElementById('result');
