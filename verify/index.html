@@ -775,7 +775,13 @@
 </footer>
 
 <script>
-    const API_URL = 'https://web-production-cb401.up.railway.app/verify';
+    // Force correct initial state on every load — prevents stale cache issues
+    (function init() {
+        document.getElementById('entrance').style.display = '';
+        document.getElementById('verification').classList.remove('visible');
+        document.getElementById('result').innerHTML = '';
+        document.getElementById('result').classList.remove('visible');
+    })();
 
     const sleep = ms => new Promise(r => setTimeout(r, ms));
 
