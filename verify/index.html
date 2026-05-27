@@ -215,9 +215,6 @@
         chamber.classList.add('sealed');
         hasContent = true;
         showVerifyBtn();
-        const r = new FileReader();
-        r.onload = ev => { document.getElementById('pasteInput').value = ev.target.result; };
-        r.readAsText(f);
     });
 
     chamber.addEventListener('dragover', e => { e.preventDefault(); chamber.classList.add('active'); });
@@ -231,9 +228,6 @@
         chamber.classList.add('sealed');
         hasContent = true;
         showVerifyBtn();
-        const r = new FileReader();
-        r.onload = ev => { document.getElementById('pasteInput').value = ev.target.result; };
-        r.readAsText(f);
     });
 
     function togglePaste() {
@@ -253,9 +247,6 @@
     function hideVerifyBtn() { document.getElementById('verifyBtn').classList.remove('visible'); }
 
     async function startVerification() {
-        const text = document.getElementById('pasteInput').value.trim();
-        if (!text) return;
-
         document.getElementById('entrance').style.display = 'none';
         document.getElementById('verification').classList.add('visible');
 
@@ -265,11 +256,28 @@
         setStage(4, 'running', 'Waiting...');
 
         try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text }),
-            });
+            var response;
+            var uploadedFile = document.getElementById('fileInput').files[0];
+
+            if (uploadedFile) {
+                // Send as multipart file upload — server handles PDF extraction
+                var formData = new FormData();
+                formData.append('file', uploadedFile);
+                response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData,
+                });
+            } else {
+                // Send as JSON text
+                var text = document.getElementById('pasteInput').value.trim();
+                if (!text) return;
+                response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: text }),
+                });
+            }
+
             if (!response.ok) {
                 const err = await response.json();
                 throw new Error(err.error || 'API error');
