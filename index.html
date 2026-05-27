@@ -13,324 +13,15 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg:         #F7F7F5;
-            --border:     #E2E2DC;
-            --text:       #0D1117;
-            --text-mid:   #4A505C;
-            --text-dim:   #9CA3AF;
-            --blue:       #2563EB;
-            --serif: 'gt-super', 'IBM Plex Serif', Georgia, serif;
-            --sans:  'Inter', system-ui, sans-serif;
-            --mono:  'IBM Plex Mono', monospace;
-        }
-
-        html, body { height: 100%; }
-        body {
-            font-family: var(--serif);
-            background: var(--bg);
-            color: var(--text);
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
-        }
-
-        /* ── NAV ── */
-        nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 56px;
-            background: rgba(247,247,245,0.96);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        nav img { height: 22px; display: block; }
-
-        .nav-contact {
-            font-family: var(--sans);
-            font-size: 13px;
-            font-weight: 400;
-            color: var(--text-dim);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .nav-contact:hover { color: var(--text-mid); }
-
-        /* ── PAGE ── */
-        .page {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 56px;
-        }
-
-        /* ── HERO ── */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-top: 56px;
-            text-align: center;
-        }
-
-        .logo-block {
-            margin-bottom: 80px;
-            opacity: 0;
-            animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards 0.05s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .logo-block img {
-            height: 60px;
-            display: block;
-            margin-bottom: 14px;
-        }
-
-        .logo-tagline {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 14px;
-            font-weight: 400;
-            font-style: italic;
-            color: var(--text-dim);
-            letter-spacing: 0.02em;
-        }
-
-        .hero-statement {
-            opacity: 0;
-            animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards 0.20s;
-            border-top: 1px solid var(--border);
-            padding-top: 56px;
-            width: 100%;
-            text-align: left;
-        }
-
-        .hero-statement p {
-            font-family: var(--serif);
-            font-size: clamp(36px, 5vw, 64px);
-            font-weight: 600;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            color: var(--text);
-            max-width: 900px;
-        }
-
-        .hero-statement p .blue-word {
-            color: var(--blue);
-            font-style: italic;
-        }
-
-        /* ── ALTERNATING BLOCKS ── */
-        .blocks { padding: 0 0 100px; }
-
-        .block {
-            display: flex;
-            align-items: flex-start;
-            padding: 72px 0;
-            border-top: 1px solid var(--border);
-            gap: 64px;
-            opacity: 0;
-            transform: translateY(16px);
-            transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
-        }
-
-        .block.left  { flex-direction: row; }
-        .block.right { flex-direction: row-reverse; }
-
-        .block.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .block-accent {
-            width: 3px;
-            background: var(--blue);
-            flex-shrink: 0;
-            align-self: stretch;
-            min-height: 80px;
-            opacity: 0.25;
-            border-radius: 2px;
-        }
-
-        .block-content { flex: 1; }
-
-        .block.right .block-content { text-align: right; }
-
-        .block-content p {
-            font-family: var(--serif);
-            font-size: clamp(22px, 2.6vw, 32px);
-            font-weight: 500;
-            line-height: 1.35;
-            letter-spacing: -0.02em;
-            color: var(--text-mid);
-        }
-
-        .block-content p strong {
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        .block-content p .blue-inline { color: var(--blue); }
-
-        /* ── CTA ── */
-        .cta-block {
-            padding: 72px 0 100px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 48px;
-            opacity: 0;
-            transform: translateY(16px);
-            transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
-        }
-
-        .cta-block.visible { opacity: 1; transform: translateY(0); }
-
-        .cta-rule {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(to right, var(--blue), transparent);
-            opacity: 0.25;
-        }
-
-        .btn-request {
-            display: inline-block;
-            font-family: var(--sans);
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            color: #FFFFFF;
-            background: var(--blue);
-            border-radius: 4px;
-            padding: 14px 36px;
-            text-decoration: none;
-            transition: background 0.2s, transform 0.15s;
-            flex-shrink: 0;
-        }
-
-        .btn-request:hover { background: #1D4ED8; transform: translateY(-1px); }
-
-        /* ── FOOTER ── */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 18px 56px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .footer-note {
-            font-family: var(--mono);
-            font-size: 10px;
-            color: var(--text-dim);
-            letter-spacing: 0.06em;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 700px) {
-            nav, footer { padding: 0 20px; }
-            .page { padding: 0 20px; }
-            .block { flex-direction: column !important; gap: 24px; }
-            .block.right .block-content { text-align: left; }
-            .block-accent { display: none; }
-            .hero-statement p { font-size: 32px; }
-        }
-    </style>
-</head>
-<body>
-
-<nav>
-    <a href="/"><img src="val-logo.png" alt="Validity" /></a>
-    <a href="mailto:info@validity.live" class="nav-contact">Contact</a>
-</nav>
-
-<div class="page">
-    <section class="hero">
-
-        <div class="logo-block">
-            <img src="val-logo.png" alt="Validity" />
-            <span class="logo-tagline">logic-as-infrastructure</span>
-        </div>
-
-        <div class="hero-statement">
-            <p>Every major decision depends on documents. Validity makes the logic inside them <span class="blue-word">visible, testable, and verifiable.</span></p>
-        </div>
-
-    </section>
-
-    <div class="blocks">
-
-        <div class="block left">
-            <div class="block-accent"></div>
-            <div class="block-content">
-                <p>AI is now generating documents that govern capital, liability, and obligation faster than humans can review them, without verifying whether the commitments inside them hold together. <strong>A contradiction that goes undetected is capital committed on a false premise.</strong> Validity is the <span class="blue-inline">verification layer.</span></p>
-            </div>
-        </div>
-
-        <div class="block right">
-            <div class="block-accent"></div>
-            <div class="block-content">
-                <p>Validity extracts every binding commitment in your document, translates it into formal logic, and runs it through a theorem prover. In seconds, you know whether the document is internally consistent — or whether it contains <span class="blue-inline">a provable contradiction.</span></p>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="cta-block">
-        <div class="cta-rule"></div>
-        <a href="mailto:info@validity.live?subject=Request Access — Validity" class="btn-request">Request Access</a>
-        <div class="cta-rule" style="background: linear-gradient(to left, var(--blue), transparent);"></div>
-    </div>
-</div>
-
-<footer>
-    <span class="footer-note">validity.live</span>
-    <span class="footer-note">© 2026 Validity</span>
-</footer>
-
-<script>
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-        });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.block, .cta-block').forEach(el => observer.observe(el));
-</script>
-
-</body>
-</html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validity — Logic as Infrastructure</title>
-    <meta name="description" content="Validity detects provable contradictions inside complex documents — before capital is committed.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.typekit.net/vin8syh.css">
-    <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg:         #F7F7F5;
-            --border:     #E2E2DC;
-            --text:       #0D1117;
-            --text-mid:   #4A505C;
-            --text-dim:   #9CA3AF;
-            --blue:       #2563EB;
-            --blue-light: #EFF6FF;
-            --blue-mid:   #3B82F6;
+            --bg:        #F8F8F6;
+            --white:     #FFFFFF;
+            --border:    #DDDDD8;
+            --border-lg: #E8E8E3;
+            --text:      #0D0D0D;
+            --text-mid:  #3C3C3C;
+            --text-dim:  #9A9A9A;
+            --silver:    #C8C8C2;
+            --blue:      #1A3CC2;
             --serif: 'gt-super', 'Playfair Display', Georgia, serif;
             --sans:  'Inter', system-ui, sans-serif;
             --mono:  'IBM Plex Mono', monospace;
@@ -338,7 +29,7 @@
 
         html, body { height: 100%; }
         body {
-            font-family: var(--serif);
+            font-family: var(--sans);
             background: var(--bg);
             color: var(--text);
             -webkit-font-smoothing: antialiased;
@@ -350,205 +41,160 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 100;
-            height: 56px;
+            height: 52px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 56px;
-            background: rgba(247,247,245,0.96);
+            padding: 0 48px;
+            background: rgba(248,248,246,0.97);
             backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--border);
         }
 
-        nav img { height: 22px; display: block; }
+        nav img { height: 20px; display: block; }
 
-        .nav-contact {
+        .nav-link {
             font-family: var(--sans);
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 400;
             color: var(--text-dim);
             text-decoration: none;
-            transition: color 0.2s;
+            transition: color 0.15s;
         }
-        .nav-contact:hover { color: var(--text-mid); }
+        .nav-link:hover { color: var(--text-mid); }
 
-        /* ── PAGE WRAPPER ── */
-        .page {
-            max-width: 1100px;
+        /* ── COLUMN ── */
+        .col {
+            max-width: 680px;
             margin: 0 auto;
-            padding: 0 56px;
+            padding: 0 32px;
         }
 
-        /* ── HERO ── */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-top: 56px;
-        }
-
-        /* Logo */
-        .logo-block {
-            margin-bottom: 88px;
+        /* ── HEADER ── */
+        header {
+            padding-top: 120px;
+            padding-bottom: 64px;
+            border-bottom: 1px solid var(--border);
             opacity: 0;
-            animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards 0.05s;
+            animation: fadeUp 0.6s ease forwards 0.05s;
+            text-align: center;
         }
 
-        .logo-wrap {
-            display: inline-block;
-            position: relative;
+        .header-logo {
+            margin-bottom: 56px;
         }
 
-        .logo-wrap img {
+        .header-logo img {
             height: 56px;
             display: block;
+            margin: 0 auto;
         }
 
-        .logo-tagline {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 13px;
-            font-weight: 400;
-            font-style: italic;
-            letter-spacing: 0.02em;
-            color: var(--text-dim);
-            margin-left: 24%;
-            margin-top: 10px;
-            display: block;
-        }
-
-        /* Hero statement */
-        .hero-statement {
-            opacity: 0;
-            animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards 0.20s;
-            border-top: 1px solid var(--border);
-            padding-top: 56px;
-            max-width: 900px;
-        }
-
-        .hero-statement p {
+        .header-thesis {
             font-family: var(--serif);
-            font-size: clamp(36px, 5vw, 64px);
-            font-weight: 500;
-            line-height: 1.1;
+            font-size: clamp(28px, 3.8vw, 44px);
+            font-weight: 600;
+            line-height: 1.12;
             letter-spacing: -0.03em;
             color: var(--text);
+            margin-bottom: 36px;
+            text-align: left;
         }
 
-        .hero-statement p .blue-word {
-            color: var(--blue);
-            font-style: italic;
-        }
-
-        /* ── ALTERNATING BLOCKS ── */
-        .blocks {
-            padding: 0 0 100px;
-        }
-
-        .block {
-            display: flex;
-            align-items: flex-start;
-            padding: 72px 0;
-            border-top: 1px solid var(--border);
-            gap: 80px;
-            opacity: 0;
-        }
-
-        .block.left  { flex-direction: row; }
-        .block.right { flex-direction: row-reverse; }
-
-        .block-number {
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: 0.14em;
-            color: var(--blue);
-            padding-top: 8px;
-            flex-shrink: 0;
-            width: 32px;
-        }
-
-        .block-accent {
-            width: 3px;
-            background: var(--blue);
-            flex-shrink: 0;
-            align-self: stretch;
-            min-height: 80px;
-            opacity: 0.2;
-            border-radius: 2px;
-        }
-
-        .block-content {
-            flex: 1;
-            max-width: 620px;
-        }
-
-        .block.right .block-content {
-            text-align: right;
-        }
-
-        .block-content p {
-            font-family: var(--serif);
-            font-size: clamp(22px, 2.6vw, 32px);
-            font-weight: 500;
-            line-height: 1.35;
-            letter-spacing: -0.02em;
-            color: var(--text-mid);
-        }
-
-        .block-content p strong {
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        .block-content p .blue-inline {
+        .header-thesis .blue {
             color: var(--blue);
         }
 
-        /* Blue accent strip on left blocks */
-        .block.left  .block-accent { order: -1; }
-        .block.right .block-accent { order: 1; }
-
-        /* ── CTA ── */
-        .cta-block {
-            padding: 72px 0 100px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 48px;
-            opacity: 0;
-        }
-
-        .cta-rule {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(to right, var(--blue), transparent);
-            opacity: 0.3;
-        }
-
+        /* ── REQUEST ACCESS BUTTON ── */
         .btn-request {
             display: inline-block;
             font-family: var(--sans);
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 13px;
+            font-weight: 500;
             letter-spacing: 0.02em;
             color: #FFFFFF;
             background: var(--blue);
-            border-radius: 4px;
-            padding: 14px 36px;
+            border-radius: 3px;
+            padding: 12px 28px;
             text-decoration: none;
-            transition: background 0.2s, transform 0.15s;
-            flex-shrink: 0;
+            transition: background 0.15s, transform 0.12s;
+        }
+        .btn-request:hover { background: #142FA0; transform: translateY(-1px); }
+
+        /* ── READ MORE BLOCK ── */
+        .readmore-section {
+            padding: 48px 0 64px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.22s;
         }
 
-        .btn-request:hover {
-            background: #1D4ED8;
-            transform: translateY(-1px);
+        .readmore-trigger {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            user-select: none;
+            border: none;
+            background: none;
+            padding: 0;
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            transition: color 0.15s;
+        }
+
+        .readmore-trigger:hover { color: var(--text-mid); }
+
+        .readmore-arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+            font-size: 10px;
+        }
+
+        .readmore-trigger.open .readmore-arrow {
+            transform: rotate(90deg);
+        }
+
+        .readmore-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .readmore-body.open {
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        .readmore-inner {
+            padding-top: 28px;
+            border-top: 1px solid var(--border-lg);
+            margin-top: 20px;
+        }
+
+        .readmore-inner p {
+            font-family: var(--sans);
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.75;
+            color: var(--text-mid);
+            margin-bottom: 20px;
+        }
+
+        .readmore-inner p:last-child { margin-bottom: 0; }
+
+        .readmore-inner p strong {
+            font-weight: 500;
+            color: var(--text);
         }
 
         /* ── FOOTER ── */
         footer {
             border-top: 1px solid var(--border);
-            padding: 18px 56px;
+            padding: 16px 48px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -556,85 +202,58 @@
 
         .footer-note {
             font-family: var(--mono);
-            font-size: 10px;
-            color: var(--text-dim);
-            letter-spacing: 0.06em;
+            font-size: 9px;
+            color: var(--silver);
+            letter-spacing: 0.08em;
         }
 
-        /* ── ANIMATIONS ── */
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        .block, .cta-block {
-            transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
-            transform: translateY(16px);
-        }
-
-        .block.visible, .cta-block.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (max-width: 700px) {
+        @media (max-width: 600px) {
             nav, footer { padding: 0 20px; }
-            .page { padding: 0 20px; }
-            .block { flex-direction: column !important; gap: 24px; }
-            .block.right .block-content { text-align: left; }
-            .block-accent { display: none; }
-            .hero-statement p { font-size: 32px; }
+            .col { padding: 0 20px; }
+            header { padding-top: 88px; }
         }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="/"><img src="val-logo.png" alt="Validity" /></a>
-    <a href="mailto:info@validity.live" class="nav-contact">Contact</a>
+    <a href="/"><img src="/val-logo-3.png" alt="Validity" /></a>
+    <a href="mailto:nick@validity.live" class="nav-link">Contact</a>
 </nav>
 
-<div class="page">
-    <section class="hero">
+<div class="col">
 
-        <div class="logo-block">
-            <div class="logo-wrap">
-                <img src="val-logo.png" alt="Validity" />
-                <span class="logo-tagline">logic-as-infrastructure</span>
-            </div>
+    <header>
+        <div class="header-logo">
+            <img src="/val-logo-3.png" alt="Validity" />
         </div>
 
-        <div class="hero-statement">
-            <p>Every major decision depends on documents. Validity makes the logic inside them <span class="blue-word">visible, testable, and verifiable.</span></p>
-        </div>
+        <p class="header-thesis">Every major decision depends on documents. Validity makes the logic inside them <span class="blue">visible, testable, and verifiable.</span></p>
 
-    </section>
+        <a href="mailto:nick@validity.live?subject=Request Access — Validity" class="btn-request">Request Access</a>
+    </header>
 
-    <div class="blocks">
+    <div class="readmore-section">
 
-        <div class="block left">
-            <span class="block-number">01</span>
-            <div class="block-accent"></div>
-            <div class="block-content">
-                <p>AI is now generating documents that govern capital, liability, and obligation faster than humans can review them, without verifying whether the commitments inside them hold together. <strong>A contradiction that goes undetected is capital committed on a false premise.</strong> Validity is the <span class="blue-inline">verification layer.</span></p>
-            </div>
-        </div>
+        <button class="readmore-trigger" onclick="toggleReadMore(this)" aria-expanded="false">
+            <span class="readmore-arrow">›</span>
+            <span>Read more</span>
+        </button>
 
-        <div class="block right">
-            <span class="block-number">02</span>
-            <div class="block-accent"></div>
-            <div class="block-content">
-                <p>Validity extracts every binding commitment in your document, translates it into formal logic, and runs it through a theorem prover. In seconds, you know whether the document is internally consistent — or whether it contains <span class="blue-inline">a provable contradiction.</span></p>
+        <div class="readmore-body" id="readmore-body">
+            <div class="readmore-inner">
+                <p>AI is now generating documents that govern capital, liability, and obligation faster than humans can review them, without verifying whether the commitments inside them hold together. <strong>A contradiction that goes undetected is capital committed on a false premise.</strong> Validity is the verification layer.</p>
+                <p>Validity extracts every binding commitment in your document, translates it into formal logic, and runs it through a theorem prover. In seconds, you know whether the document is internally consistent — or whether it contains a provable contradiction.</p>
             </div>
         </div>
 
     </div>
 
-    <div class="cta-block">
-        <div class="cta-rule"></div>
-        <a href="mailto:info@validity.live?subject=Request Access — Validity" class="btn-request">Request Access</a>
-        <div class="cta-rule" style="background: linear-gradient(to left, var(--blue), transparent);"></div>
-    </div>
 </div>
 
 <footer>
@@ -643,16 +262,15 @@
 </footer>
 
 <script>
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('visible');
-                observer.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.block, .cta-block').forEach(el => observer.observe(el));
+    function toggleReadMore(trigger) {
+        const body = document.getElementById('readmore-body');
+        const isOpen = trigger.classList.contains('open');
+        trigger.classList.toggle('open', !isOpen);
+        body.classList.toggle('open', !isOpen);
+        trigger.setAttribute('aria-expanded', String(!isOpen));
+        const label = trigger.querySelector('span:last-child');
+        label.textContent = isOpen ? 'Read more' : 'Read less';
+    }
 </script>
 
 </body>
