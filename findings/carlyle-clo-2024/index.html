@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validity — Carlyle Direct Lending CLO 2024-1</title>
-    <meta name="description" content="In a blind run against an issued Carlyle CLO indenture, Validity identified a conditional stress exposure in the waterfall — not as an opinion, but as a reproducible proof.">
+    <meta name="description" content="Validity ran the Carlyle Direct Lending CLO 2024-1 indenture. It found a stress-state exposure in the waterfall. The finding is mathematical.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -22,8 +22,10 @@
             --text-dim:  #9A9A9A;
             --silver:    #C8C8C2;
             --blue:      #1A3CC2;
-            --amber:     #B45309;
-            --amber-bg:  #FFFBEB;
+            --red:       #B91C1C;
+            --red-dark:  #991B1B;
+            --red-bg:    #FEF2F2;
+            --red-border:#EF4444;
             --serif: 'gt-super', 'Playfair Display', Georgia, serif;
             --sans:  'Inter', system-ui, sans-serif;
             --mono:  'IBM Plex Mono', monospace;
@@ -70,40 +72,24 @@
             padding: 0 32px;
         }
 
-        /* ── PAGE HEADER ── */
-        .page-header {
-            padding-top: 116px;
-            padding-bottom: 56px;
+        /* ── OPENING ── */
+        .opening {
+            padding-top: 120px;
+            padding-bottom: 48px;
             border-bottom: 1px solid var(--border);
+            text-align: center;
             opacity: 0;
             animation: fadeUp 0.7s ease forwards 0.05s;
         }
 
-        .eyebrow {
-            font-family: var(--mono);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--text-dim);
-            margin-bottom: 32px;
-        }
-
         .opening-statement {
             font-family: var(--serif);
-            font-size: clamp(20px, 3vw, 28px);
+            font-size: clamp(22px, 3.4vw, 32px);
             font-weight: 400;
-            line-height: 1.45;
+            line-height: 1.35;
             letter-spacing: -0.02em;
             color: var(--text);
-            margin-bottom: 36px;
-        }
-
-        .opening-statement p + p {
-            margin-top: 20px;
-        }
-
-        .opening-statement .emphasis {
-            color: var(--blue);
+            margin-bottom: 32px;
         }
 
         .page-meta {
@@ -114,13 +100,14 @@
             line-height: 1.7;
         }
 
-        /* ── VERDICT CARD ── */
+        /* ── VERDICT CARD (RED) ── */
         .verdict-card {
             background: var(--white);
-            border: 1px solid var(--border);
+            border: 1px solid var(--red-border);
+            border-top: 3px solid var(--red-border);
             border-radius: 6px;
             padding: 32px 36px;
-            margin-top: 40px;
+            margin: 40px 0;
             opacity: 0;
             animation: fadeUp 0.7s ease forwards 0.12s;
         }
@@ -134,9 +121,9 @@
             text-transform: uppercase;
             padding: 5px 13px;
             border-radius: 3px;
-            background: var(--amber-bg);
-            color: var(--amber);
-            border: 1px solid rgba(180,83,9,0.25);
+            background: var(--red-bg);
+            color: var(--red);
+            border: 1px solid rgba(239,68,68,0.35);
             margin-bottom: 18px;
         }
 
@@ -144,7 +131,7 @@
             font-family: var(--serif);
             font-size: clamp(18px, 2.6vw, 24px);
             font-weight: 400;
-            color: var(--amber);
+            color: var(--red);
             letter-spacing: -0.02em;
             line-height: 1.2;
             margin-bottom: 14px;
@@ -154,7 +141,7 @@
             font-family: var(--sans);
             font-size: 14px;
             font-weight: 300;
-            color: var(--text-mid);
+            color: var(--red-dark);
             line-height: 1.75;
         }
 
@@ -165,13 +152,13 @@
             gap: 6px;
             margin-top: 20px;
             padding-top: 16px;
-            border-top: 1px solid var(--border-lg);
+            border-top: 1px solid rgba(239,68,68,0.2);
             font-family: var(--mono);
             font-size: 10px;
-            color: var(--text-dim);
+            color: var(--red-dark);
             letter-spacing: 0.04em;
         }
-        .verdict-meta-sep { color: var(--silver); }
+        .verdict-meta-sep { color: var(--red-border); opacity: 0.5; }
 
         /* ── SECTIONS ── */
         .section {
@@ -182,10 +169,7 @@
 
         .section:nth-child(3) { animation: fadeUp 0.7s ease forwards 0.16s; }
         .section:nth-child(4) { animation: fadeUp 0.7s ease forwards 0.20s; }
-        .section:nth-child(5) { animation: fadeUp 0.7s ease forwards 0.24s; }
-        .section:nth-child(6) { animation: fadeUp 0.7s ease forwards 0.28s; }
-        .section:nth-child(7) { animation: fadeUp 0.7s ease forwards 0.32s; }
-        .section:nth-child(8) { animation: fadeUp 0.7s ease forwards 0.36s; border-bottom: none; }
+        .section:nth-child(5) { animation: fadeUp 0.7s ease forwards 0.24s; border-bottom: none; }
 
         .section-label {
             font-family: var(--mono);
@@ -196,16 +180,6 @@
             margin-bottom: 20px;
         }
 
-        .section-title {
-            font-family: var(--serif);
-            font-size: clamp(18px, 2.6vw, 24px);
-            font-weight: 400;
-            color: var(--text);
-            letter-spacing: -0.02em;
-            line-height: 1.3;
-            margin-bottom: 24px;
-        }
-
         .prose {
             font-family: var(--sans);
             font-size: 15px;
@@ -214,61 +188,9 @@
             line-height: 1.8;
         }
         .prose p + p { margin-top: 20px; }
-        .prose strong { font-weight: 500; color: var(--text); }
-
-        /* ── COMPARISON TABLE ── */
-        .comparison-table {
-            margin: 28px 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .comparison-row {
-            display: grid;
-            grid-template-columns: 200px 1fr;
-            gap: 24px;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border-lg);
-            align-items: baseline;
-        }
-
-        .comparison-row:first-child {
-            border-top: 1px solid var(--border-lg);
-        }
-
-        .comparison-row.validity-row {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .comparison-actor {
-            font-family: var(--sans);
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text);
-            line-height: 1.5;
-        }
-
-        .comparison-row.validity-row .comparison-actor {
-            color: var(--blue);
-        }
-
-        .comparison-capability {
-            font-family: var(--sans);
-            font-size: 14px;
-            font-weight: 300;
-            color: var(--text-mid);
-            line-height: 1.6;
-        }
-
-        .comparison-row.validity-row .comparison-capability {
-            font-weight: 400;
-            color: var(--text);
-        }
 
         /* ── SOURCE CLAUSES ── */
         .clauses-list {
-            margin-top: 24px;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -297,14 +219,13 @@
             line-height: 1.75;
         }
 
-        /* ── CERTIFICATE ── */
+        /* ── CERT GRID ── */
         .cert-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             border: 1px solid var(--border);
             border-radius: 6px;
             overflow: hidden;
-            margin-top: 24px;
             background: var(--white);
         }
 
@@ -339,27 +260,28 @@
             font-size: 10px;
             color: var(--text-dim);
             letter-spacing: 0.04em;
-            margin-top: 16px;
+            margin-top: 14px;
         }
 
-        /* ── FOOTER CTA ── */
+        /* ── CTA ── */
         .cta-section {
             padding: 72px 0 88px;
+            text-align: center;
             opacity: 0;
-            animation: fadeUp 0.7s ease forwards 0.40s;
+            animation: fadeUp 0.7s ease forwards 0.28s;
         }
 
         .cta-headline {
             font-family: var(--serif);
-            font-size: clamp(24px, 3.6vw, 36px);
+            font-size: clamp(26px, 4vw, 40px);
             font-weight: 400;
             color: var(--text);
             letter-spacing: -0.025em;
-            line-height: 1.15;
-            margin-bottom: 20px;
+            line-height: 1.1;
+            margin-bottom: 18px;
         }
 
-        .cta-action {
+        .cta-sub {
             font-family: var(--mono);
             font-size: 12px;
             color: var(--blue);
@@ -370,7 +292,7 @@
             gap: 8px;
             transition: gap 0.2s ease;
         }
-        .cta-action:hover { gap: 14px; }
+        .cta-sub:hover { gap: 14px; }
 
         /* ── FOOTER ── */
         footer {
@@ -397,7 +319,6 @@
             nav, footer { padding: 0 20px; }
             .col { padding: 0 20px; }
             .verdict-card { padding: 24px 20px; }
-            .comparison-row { grid-template-columns: 1fr; gap: 6px; }
             .cert-grid { grid-template-columns: 1fr; }
             .cert-field { border-right: none; }
             .cert-field:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
@@ -414,88 +335,41 @@
 
 <div class="col">
 
-    <div class="page-header">
-        <div class="eyebrow">Validity · Structured Finance Verification</div>
-
+    <div class="opening">
         <div class="opening-statement">
-            <p>Structured finance documents now contain more conditional logic than any human review process can reliably test.</p>
-            <p>Validity verifies whether that logic holds under defined market and payment states.</p>
-            <p>In a blind run against an issued Carlyle CLO indenture, Validity identified a <span class="emphasis">conditional stress exposure</span> in the waterfall — not as an opinion, but as a reproducible proof.</p>
+            <p>Validity ran the Carlyle Direct Lending CLO 2024-1 indenture.<br>
+            It found a stress-state exposure in the waterfall.<br>
+            The finding is mathematical.</p>
         </div>
-
-        <p class="page-meta">Carlyle Direct Lending CLO 2024-1 &nbsp;·&nbsp; Indenture dated October 29, 2024 &nbsp;·&nbsp; SEC EDGAR — unmodified filing &nbsp;·&nbsp; Verified June 2026</p>
+        <p class="page-meta">Carlyle Direct Lending CLO 2024-1 &nbsp;·&nbsp; Indenture dated October 29, 2024 &nbsp;·&nbsp; SEC EDGAR &nbsp;·&nbsp; Verified June 2026</p>
     </div>
 
     <div class="verdict-card">
         <div class="verdict-badge">Conditional</div>
         <div class="verdict-headline">Stress Exposure Detected</div>
-        <div class="verdict-body">Under a specific, reachable stress-state assignment, the waterfall's coverage test draw obligations cannot all be satisfied simultaneously from available funds. The proof is deterministic. Its activation depends on the stress state.</div>
+        <div class="verdict-body">Under simultaneous coverage-test failures, the waterfall's Debt Payment Sequence draws exceed available Interest Proceeds. Lower-priority obligations cannot be satisfied.</div>
         <div class="verdict-meta">
             <span>Finding Type: Conditional UNSAT</span>
             <span class="verdict-meta-sep">·</span>
-            <span>Clauses: 5 waterfall provisions</span>
+            <span>Clauses: 5 provisions</span>
             <span class="verdict-meta-sep">·</span>
             <span>Engine: Z3 · LFS v2.0</span>
         </div>
     </div>
 
-    <!-- 01 — The Exposure -->
+    <!-- 01 — The Finding -->
     <div class="section">
-        <div class="section-label">01 — The Exposure</div>
-        <h2 class="section-title">A coverage-test cascade under constrained proceeds</h2>
+        <div class="section-label">01 — The Finding</div>
         <div class="prose">
-            <p>The Carlyle CLO 2024-1 indenture contains a Priority of Payments waterfall with multiple independent coverage-test triggers. When a coverage test fails, the waterfall directs payment through the Debt Payment Sequence. Each trigger draws from the same finite pool of available Interest Proceeds.</p>
-            <p>Validity detected that, under a stress state where multiple coverage tests fail simultaneously, the aggregate draw obligation can exceed available proceeds. Lower-priority payment obligations cannot be fully satisfied.</p>
-            <p>The waterfall resolves this by design — senior claims are paid first, junior claims receive what remains. That is how CLO structures are built to function under stress.</p>
-            <p>What Validity adds is different: a formal proof of the exact structural condition under which that shortfall occurs. Not a scenario estimate. Not a risk opinion. A deterministic proof object, produced automatically from the unmodified filing.</p>
+            <p>The Priority of Payments waterfall contains four independent coverage-test triggers — clauses (F), (H), (K), and (M) — each directing payment through the Debt Payment Sequence when a test fails. Each draw competes for the same pool of available Interest Proceeds. No provision caps the aggregate across simultaneous failures.</p>
+            <p>Under a stress state where multiple tests fail at once, the combined draw obligation exceeds available funds. Section 11.1.2 instructs the Trustee to disburse in priority order to the extent funds are available. Lower-priority obligations go unmet.</p>
+            <p>This is how the waterfall is designed to function. Validity proved the exact condition under which it happens.</p>
         </div>
     </div>
 
-    <!-- 02 — What This Means for Your Documents -->
+    <!-- 02 — The Source Provisions -->
     <div class="section">
-        <div class="section-label">02 — What This Means for Your Documents</div>
-        <h2 class="section-title">This pattern is not unique to this transaction.</h2>
-        <div class="prose">
-            <p>Any CLO indenture that conditions Debt Payment Sequence draws on coverage test failures, without an explicit aggregate cap on simultaneous triggers, creates an analogous stress-state exposure. The specific thresholds, note classes, and fund dynamics will differ. The structural logic is the same.</p>
-            <p>The question is not whether your documents contain conditional payment logic. They do. The question is whether you have a systematic way to verify how that logic behaves under defined stress states — before the market, a trustee, or a counterparty forces you to find out.</p>
-            <p>Validity answers that question with a proof, not an estimate.</p>
-        </div>
-    </div>
-
-    <!-- 03 — What Conventional Review Provides. What Validity Adds. -->
-    <div class="section">
-        <div class="section-label">03 — What Conventional Review Provides. What Validity Adds.</div>
-        <h2 class="section-title">A different capability, not a criticism of existing practice.</h2>
-
-        <div class="comparison-table">
-            <div class="comparison-row">
-                <span class="comparison-actor">A structured finance lawyer</span>
-                <span class="comparison-capability">reads the waterfall and explains the priority structure</span>
-            </div>
-            <div class="comparison-row">
-                <span class="comparison-actor">A credit analyst</span>
-                <span class="comparison-capability">models expected payment behaviour under assumed scenarios</span>
-            </div>
-            <div class="comparison-row">
-                <span class="comparison-actor">A rating agency</span>
-                <span class="comparison-capability">assesses the deal under stress assumptions</span>
-            </div>
-            <div class="comparison-row validity-row">
-                <span class="comparison-actor">Validity</span>
-                <span class="comparison-capability">converts the document into a logical system and proves whether specified commitments can be jointly satisfied under defined conditions</span>
-            </div>
-        </div>
-
-        <div class="prose">
-            <p>The risk in structured finance documents often sits not in individual clauses, but in the interaction between them. Validity reads those interactions as logic.</p>
-        </div>
-    </div>
-
-    <!-- 04 — The Source Provisions -->
-    <div class="section">
-        <div class="section-label">04 — The Source Provisions</div>
-        <h2 class="section-title">Five provisions constituting the formal finding</h2>
-
+        <div class="section-label">02 — The Source Provisions</div>
         <div class="clauses-list">
             <div class="clause">
                 <div class="clause-ref">§ 11.1.1.1(F) — Class A/B Coverage Test DPS Draw</div>
@@ -527,7 +401,7 @@ or to make payments in accordance with the Debt Payment Sequence;</div>
             </div>
 
             <div class="clause">
-                <div class="clause-ref">§ 11.1.2 — Insufficiency of Funds (Operative Limit)</div>
+                <div class="clause-ref">§ 11.1.2 — Insufficiency of Funds</div>
                 <div class="clause-text">If on any Payment Date the amount available in the Payment Account is
 insufficient to make the full amount of the disbursements required by
 the Distribution Report, the Trustee shall make the disbursements
@@ -538,21 +412,9 @@ are available therefor.</div>
         </div>
     </div>
 
-    <!-- 05 — What This Is Not -->
+    <!-- 03 — Verification Certificate -->
     <div class="section">
-        <div class="section-label">05 — What This Is Not</div>
-        <h2 class="section-title">A demonstration, not an allegation</h2>
-        <div class="prose">
-            <p>This is not a claim that the Carlyle CLO is defective or improperly drafted. The document is legally coherent. The waterfall functions as intended.</p>
-            <p>It is not a claim that rating agencies, counsel, or investors failed in their review. The exposure Validity identified is not visible to qualitative review. It is visible to formal logic.</p>
-            <p>It is a demonstration that verification infrastructure can detect and prove stress-state payment interactions that conventional document review does not express as deterministic logic.</p>
-        </div>
-    </div>
-
-    <!-- 06 — Verification Certificate -->
-    <div class="section">
-        <div class="section-label">06 — Verification Certificate</div>
-        <h2 class="section-title">Proof metadata</h2>
+        <div class="section-label">03 — Verification Certificate</div>
 
         <div class="cert-grid">
             <div class="cert-field">
@@ -587,8 +449,8 @@ are available therefor.</div>
     <!-- CTA -->
     <div class="cta-section">
         <p class="cta-headline">Know before you're asked.</p>
-        <a href="mailto:nick@validity.live?subject=Portfolio Diagnostic — Validity" class="cta-action">
-            Request a portfolio diagnostic &nbsp;→
+        <a href="mailto:nick@validity.live?subject=Portfolio Diagnostic — Validity" class="cta-sub">
+            Request a portfolio diagnostic &nbsp;→&nbsp; nick@validity.live
         </a>
     </div>
 
