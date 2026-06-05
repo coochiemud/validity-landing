@@ -91,19 +91,26 @@
             margin: 0 auto;
         }
 
+        .header-rule {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin-bottom: 28px;
+        }
+
         .header-thesis {
             font-family: var(--serif);
-            font-size: clamp(28px, 3.8vw, 44px);
-            font-weight: 600;
-            line-height: 1.12;
-            letter-spacing: -0.03em;
-            color: var(--text);
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1.8;
+            letter-spacing: 0;
+            color: #0D0D0D;
+            max-width: 600px;
             margin-bottom: 36px;
             text-align: left;
         }
 
         .header-thesis p + p {
-            margin-top: 20px;
+            margin-top: 16px;
         }
 
         .page-meta {
@@ -306,6 +313,7 @@
         <div class="header-logo">
             <img src="/val-logo-3.png" alt="Validity" />
         </div>
+        <hr class="header-rule">
         <div class="header-thesis">
             <p>Carlyle Direct Lending CLO 2024-1 is a $431.6 million middle market CLO managed by Carlyle Global Credit Investment Management. Rated by S&P Global Ratings. Collateralised by senior secured loans.</p>
             <p>Under simultaneous coverage test failures, available Interest Proceeds are insufficient to satisfy all Debt Payment Sequence draws.</p>
