@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validity — Carlyle Direct Lending CLO 2024-1</title>
-    <meta name="description" content="Validity ran the Carlyle Direct Lending CLO 2024-1 indenture. It found a stress-state exposure in the waterfall. The finding is mathematical.">
+    <meta name="description" content="Under simultaneous coverage test failures, available Interest Proceeds are insufficient to satisfy all Debt Payment Sequence draws. Carlyle Direct Lending CLO 2024-1.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -72,8 +72,8 @@
             padding: 0 32px;
         }
 
-        /* ── OPENING ── */
-        .opening {
+        /* ── HEADER ── */
+        .page-header {
             padding-top: 120px;
             padding-bottom: 64px;
             border-bottom: 1px solid var(--border);
@@ -82,17 +82,16 @@
             text-align: center;
         }
 
-        .opening-logo {
+        .header-logo {
             margin-bottom: 56px;
         }
-
-        .opening-logo img {
+        .header-logo img {
             height: 56px;
             display: block;
             margin: 0 auto;
         }
 
-        .opening-statement {
+        .header-thesis {
             font-family: var(--serif);
             font-size: clamp(28px, 3.8vw, 44px);
             font-weight: 600;
@@ -101,6 +100,10 @@
             color: var(--text);
             margin-bottom: 36px;
             text-align: left;
+        }
+
+        .header-thesis p + p {
+            margin-top: 20px;
         }
 
         .page-meta {
@@ -121,7 +124,7 @@
             padding: 32px 36px;
             margin: 40px 0;
             opacity: 0;
-            animation: fadeUp 0.7s ease forwards 0.12s;
+            animation: fadeUp 0.6s ease forwards 0.10s;
         }
 
         .verdict-badge {
@@ -157,21 +160,6 @@
             line-height: 1.75;
         }
 
-        .verdict-meta {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 6px;
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(239,68,68,0.2);
-            font-family: var(--mono);
-            font-size: 10px;
-            color: var(--red-dark);
-            letter-spacing: 0.04em;
-        }
-        .verdict-meta-sep { color: var(--red-border); opacity: 0.5; }
-
         /* ── SECTIONS ── */
         .section {
             padding: 56px 0;
@@ -179,9 +167,8 @@
             opacity: 0;
         }
 
-        .section:nth-child(3) { animation: fadeUp 0.7s ease forwards 0.16s; }
-        .section:nth-child(4) { animation: fadeUp 0.7s ease forwards 0.20s; }
-        .section:nth-child(5) { animation: fadeUp 0.7s ease forwards 0.24s; border-bottom: none; }
+        .section:nth-child(3) { animation: fadeUp 0.6s ease forwards 0.14s; }
+        .section:nth-child(4) { animation: fadeUp 0.6s ease forwards 0.18s; border-bottom: none; }
 
         .section-label {
             font-family: var(--mono);
@@ -231,80 +218,50 @@
             line-height: 1.75;
         }
 
-        /* ── CERT GRID ── */
-        .cert-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            overflow: hidden;
-            background: var(--white);
+        /* ── FOOTER CTA ── */
+        .footer-cta {
+            padding: 64px 0 80px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.22s;
         }
 
-        .cert-field {
-            padding: 16px 20px;
-            border-right: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+        .btn-access {
+            display: inline-block;
+            font-family: var(--sans);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #FFFFFF;
+            background: var(--blue);
+            border-radius: 3px;
+            padding: 12px 28px;
+            text-decoration: none;
+            transition: background 0.15s, transform 0.12s;
+            margin-bottom: 28px;
         }
-        .cert-field:nth-child(2n)        { border-right: none; }
-        .cert-field:nth-last-child(-n+2) { border-bottom: none; }
+        .btn-access:hover { background: #142FA0; transform: translateY(-1px); }
 
-        .cert-label {
-            font-family: var(--mono);
-            font-size: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            color: var(--text-dim);
-            margin-bottom: 5px;
+        .doc-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            align-items: center;
         }
 
-        .cert-value {
+        .doc-link {
             font-family: var(--mono);
             font-size: 11px;
-            color: var(--text-mid);
-            word-break: break-all;
-            line-height: 1.4;
-        }
-        .cert-value.blue { color: var(--blue); }
-
-        .cert-note {
-            font-family: var(--mono);
-            font-size: 10px;
             color: var(--text-dim);
-            letter-spacing: 0.04em;
-            margin-top: 14px;
-        }
-
-        /* ── CTA ── */
-        .cta-section {
-            padding: 72px 0 88px;
-            text-align: center;
-            opacity: 0;
-            animation: fadeUp 0.7s ease forwards 0.28s;
-        }
-
-        .cta-headline {
-            font-family: var(--serif);
-            font-size: clamp(26px, 4vw, 40px);
-            font-weight: 400;
-            color: var(--text);
-            letter-spacing: -0.025em;
-            line-height: 1.1;
-            margin-bottom: 18px;
-        }
-
-        .cta-sub {
-            font-family: var(--mono);
-            font-size: 12px;
-            color: var(--blue);
-            letter-spacing: 0.04em;
             text-decoration: none;
+            letter-spacing: 0.04em;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            transition: gap 0.2s ease;
+            gap: 6px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1px;
+            transition: color 0.15s, border-color 0.15s;
         }
-        .cta-sub:hover { gap: 14px; }
+        .doc-link:hover { color: var(--blue); border-color: var(--blue); }
 
         /* ── FOOTER ── */
         footer {
@@ -330,11 +287,9 @@
         @media (max-width: 600px) {
             nav, footer { padding: 0 20px; }
             .col { padding: 0 20px; }
+            .page-header { padding-top: 88px; }
             .verdict-card { padding: 24px 20px; }
-            .cert-grid { grid-template-columns: 1fr; }
-            .cert-field { border-right: none; }
-            .cert-field:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
-            .cert-field:last-child { border-bottom: none; }
+            .doc-links { flex-direction: column; gap: 14px; }
         }
     </style>
 </head>
@@ -347,34 +302,30 @@
 
 <div class="col">
 
-    <div class="opening">
-        <div class="opening-logo">
+    <div class="page-header">
+        <div class="header-logo">
             <img src="/val-logo-3.png" alt="Validity" />
         </div>
-        <p class="opening-statement">Validity ran the Carlyle Direct Lending CLO 2024-1 indenture. It found a stress-state exposure in the waterfall. The finding is mathematical.</p>
-        <p class="page-meta">Carlyle Direct Lending CLO 2024-1 &nbsp;·&nbsp; Indenture dated October 29, 2024 &nbsp;·&nbsp; SEC EDGAR &nbsp;·&nbsp; Verified June 2026</p>
+        <div class="header-thesis">
+            <p>Carlyle Direct Lending CLO 2024-1 is a $431.6 million middle market CLO managed by Carlyle Global Credit Investment Management. Rated by S&P Global Ratings. Collateralised by senior secured loans.</p>
+            <p>Under simultaneous coverage test failures, available Interest Proceeds are insufficient to satisfy all Debt Payment Sequence draws.</p>
+        </div>
+        <p class="page-meta">Indenture dated October 29, 2024 &nbsp;·&nbsp; SEC EDGAR — unmodified filing &nbsp;·&nbsp; Verified June 2026</p>
     </div>
 
     <div class="verdict-card">
         <div class="verdict-badge">Conditional</div>
         <div class="verdict-headline">Stress Exposure Detected</div>
-        <div class="verdict-body">Under simultaneous coverage-test failures, the waterfall's Debt Payment Sequence draws exceed available Interest Proceeds. Lower-priority obligations cannot be satisfied.</div>
-        <div class="verdict-meta">
-            <span>Finding Type: Conditional UNSAT</span>
-            <span class="verdict-meta-sep">·</span>
-            <span>Clauses: 5 provisions</span>
-            <span class="verdict-meta-sep">·</span>
-            <span>Engine: Z3 · LFS v2.0</span>
-        </div>
+        <div class="verdict-body">Under simultaneous coverage test failures, the aggregate Debt Payment Sequence draws exceed available Interest Proceeds. Lower-priority obligations cannot be satisfied.</div>
     </div>
 
     <!-- 01 — The Finding -->
     <div class="section">
         <div class="section-label">01 — The Finding</div>
         <div class="prose">
-            <p>The Priority of Payments waterfall contains four independent coverage-test triggers — clauses (F), (H), (K), and (M) — each directing payment through the Debt Payment Sequence when a test fails. Each draw competes for the same pool of available Interest Proceeds. No provision caps the aggregate across simultaneous failures.</p>
-            <p>Under a stress state where multiple tests fail at once, the combined draw obligation exceeds available funds. Section 11.1.2 instructs the Trustee to disburse in priority order to the extent funds are available. Lower-priority obligations go unmet.</p>
-            <p>This is how the waterfall is designed to function. Validity proved the exact condition under which it happens.</p>
+            <p>The Priority of Payments waterfall contains four independent coverage test triggers — clauses (F), (H), (K), and (M) of Section 11.1.1.1 — each directing payment through the Debt Payment Sequence when a test fails.</p>
+            <p>Each draw competes for the same pool of available Interest Proceeds. No provision caps the aggregate across simultaneous failures.</p>
+            <p>Section 11.1.2 instructs the Trustee to disburse in waterfall order to the extent funds are available. When multiple coverage tests fail at once, the combined Debt Payment Sequence obligation exceeds available proceeds. Lower-priority obligations go unmet.</p>
         </div>
     </div>
 
@@ -389,28 +340,24 @@ related Determination Date, to make payments in accordance with the
 Debt Payment Sequence to the extent necessary to cause all Class A/B
 Coverage Tests to be satisfied on a pro forma basis;</div>
             </div>
-
             <div class="clause">
                 <div class="clause-ref">§ 11.1.1.1(H) — Class C Coverage Test DPS Draw</div>
                 <div class="clause-text">if either of the Class C Coverage Tests is not satisfied, to make
 payments in accordance with the Debt Payment Sequence to the extent
 necessary to cause all Class C Coverage Tests to be satisfied;</div>
             </div>
-
             <div class="clause">
                 <div class="clause-ref">§ 11.1.1.1(K) — Class D Coverage Test DPS Draw</div>
                 <div class="clause-text">if either of the Class D Coverage Tests is not satisfied, to make
 payments in accordance with the Debt Payment Sequence to the extent
 necessary to cause all Class D Coverage Tests to be satisfied;</div>
             </div>
-
             <div class="clause">
                 <div class="clause-ref">§ 11.1.1.1(M) — Interest Diversion Test</div>
                 <div class="clause-text">during the Reinvestment Period, if the Interest Diversion Test is not
 satisfied, to deposit into the Collection Account as Principal Proceeds
 or to make payments in accordance with the Debt Payment Sequence;</div>
             </div>
-
             <div class="clause">
                 <div class="clause-ref">§ 11.1.2 — Insufficiency of Funds</div>
                 <div class="clause-text">If on any Payment Date the amount available in the Payment Account is
@@ -423,46 +370,15 @@ are available therefor.</div>
         </div>
     </div>
 
-    <!-- 03 — Verification Certificate -->
-    <div class="section">
-        <div class="section-label">03 — Verification Certificate</div>
-
-        <div class="cert-grid">
-            <div class="cert-field">
-                <div class="cert-label">Proof ID</div>
-                <div class="cert-value blue">0391bce1927a9427…</div>
-            </div>
-            <div class="cert-field">
-                <div class="cert-label">Verdict</div>
-                <div class="cert-value">CONDITIONAL</div>
-            </div>
-            <div class="cert-field">
-                <div class="cert-label">Document Hash (SHA-256)</div>
-                <div class="cert-value">0391bce1927a9427d9f3c…</div>
-            </div>
-            <div class="cert-field">
-                <div class="cert-label">Timestamp</div>
-                <div class="cert-value">2026-06-05 00:48 UTC</div>
-            </div>
-            <div class="cert-field">
-                <div class="cert-label">Proof Engine</div>
-                <div class="cert-value">Validity LFS v2.0 / Z3 4.15.x</div>
-            </div>
-            <div class="cert-field">
-                <div class="cert-label">Source</div>
-                <div class="cert-value">SEC EDGAR — unmodified filing</div>
-            </div>
+    <!-- Footer CTA -->
+    <div class="footer-cta">
+        <div>
+            <a href="mailto:nick@validity.live?subject=Request Access — Validity" class="btn-access">Request Access</a>
         </div>
-
-        <p class="cert-note">The proof object is available on request.</p>
-    </div>
-
-    <!-- CTA -->
-    <div class="cta-section">
-        <p class="cta-headline">Know before you're asked.</p>
-        <a href="mailto:nick@validity.live?subject=Portfolio Diagnostic — Validity" class="cta-sub">
-            Request a portfolio diagnostic &nbsp;→&nbsp; nick@validity.live
-        </a>
+        <div class="doc-links">
+            <a href="#" class="doc-link">↓ Download Technical Report (PDF)</a>
+            <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=carlyle+direct+lending+clo+2024&type=&dateb=&owner=include&count=40" class="doc-link" target="_blank" rel="noopener">Source Document — SEC EDGAR ↗</a>
+        </div>
     </div>
 
 </div>
