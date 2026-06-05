@@ -369,7 +369,7 @@
             <span>Findings — Case Study</span>
         </div>
         <h1 class="page-title">Carlyle Direct Lending CLO 2024-1</h1>
-        <p class="page-subtitle">A provable stress-state resource conflict detected independently in a real, unmodified CLO indenture</p>
+        <p class="page-subtitle">A structural payment conflict in a rated, issued CLO indenture — undetected by conventional review, proven in seconds by formal verification.</p>
         <p class="page-meta">Indenture dated October 29, 2024 &nbsp;·&nbsp; Verified June 2026 &nbsp;·&nbsp; SEC EDGAR</p>
     </div>
 
@@ -381,6 +381,7 @@
             <p>Carlyle Direct Lending CLO 2024-1, LLC is a collateralised loan obligation managed by Carlyle, Inc. and issued under an indenture dated October 29, 2024. The CLO securitises a portfolio of broadly syndicated and middle-market loans. Wilmington Trust, National Association acts as Trustee.</p>
             <p>The capital structure comprises U.S.$348.5 million in rated debt across seven note classes. Class A-1 Notes ($92.5M), Class A-L1 Loans ($104M), and Class A-L2 Loans ($50M) are rated AAA(sf) by S&amp;P. Class A-2 Notes ($17M) are also AAA(sf). Class B Notes ($25.5M) are AA(sf). Class C Notes ($34M, deferrable) are A(sf) and Class D Notes ($25.5M, deferrable) are BBB-(sf). Preferred Interests carry a notional amount of $83.1M.</p>
             <p>The indenture was filed with the SEC on EDGAR. Validity ran its verification engine against the unmodified filing — no annotations, no modifications, no prior knowledge of the document's structure.</p>
+            <p>The indenture was reviewed by counsel, rated AAA to BBB- by S&amp;P, and issued to institutional investors. Nothing in the rating process, the legal opinions, or the offering documents identified the structural condition Validity found. It was not visible to qualitative review. It was visible to formal logic.</p>
         </div>
     </div>
 
@@ -389,6 +390,7 @@
         <div class="section-label">02 — What Validity Found</div>
         <h2 class="section-title">A coverage test cascade with no aggregate cap under stress</h2>
         <div class="prose">
+            <p>Every CLO indenture contains a Priority of Payments — a waterfall that determines who gets paid, in what order, and under what conditions. When that waterfall contains multiple independent payment triggers drawing from the same finite pool, with no aggregate cap on simultaneous draws, the document contains a structural condition that conventional review cannot quantify: a provable point at which the payment commitments cannot all be honoured at once.</p>
             <p>The Priority of Interest Proceeds (Section 11.1.1.1) contains three conditional draw clauses triggered by coverage test failures. Clause (F) triggers a draw under the Debt Payment Sequence if either Class A/B Coverage Test is not satisfied. Clause (H) triggers a draw if either Class C Coverage Test is not satisfied. Clause (K) triggers a draw if either Class D Coverage Test is not satisfied. Clause (M) triggers a further draw if the Interest Diversion Test is not satisfied during the Reinvestment Period.</p>
             <p>Each draw is sized <strong>"to the extent necessary"</strong> to cause the relevant coverage test to be satisfied on a pro forma basis. No provision specifies an aggregate cap on simultaneous draws across multiple concurrent coverage test failures.</p>
             <p>Section 11.1.2 — the insufficiency clause — instructs the Trustee that if available funds are insufficient to make all required disbursements, payments shall be made "in the order and according to the priority set forth under the Priority of Payments… to the extent funds are available therefor." That is the operative limit: funds are applied in waterfall order until exhausted.</p>
@@ -408,6 +410,7 @@
         </div>
 
         <div class="prose">
+            <p>The significance is not that junior noteholders go short under stress. Every structured finance lawyer knows that. The significance is that the exact conditions under which they go short — and the precise interaction between coverage test triggers that creates that outcome — can now be expressed as a formal proof, not a risk estimate. That proof is deterministic. It does not depend on assumptions. It is either true or it is not.</p>
             <p>A conditional finding differs from a universal contradiction. Validity's solver does not conclude that the document is broken. It identifies a truth assignment — a specific combination of fund shortfall and simultaneous coverage test failures — under which the commitments cannot all be satisfied.</p>
             <p>The stress-state assignment: available Interest Proceeds are insufficient to cover the combined Debt Payment Sequence draws required to restore all breached coverage tests to pro forma compliance. Under this assignment, the Trustee's obligation to disburse in waterfall order (per Section 11.1.2) cannot simultaneously honour all triggered draw clauses. The solver returns <strong>conditional</strong>: the conflict exists, is reachable, and is formally proven for the assigned state.</p>
             <p>The waterfall resolves the conflict mechanically — senior claims are paid first, junior classes go short. That is how CLO structures are designed to function under stress. The significance is not that the conflict is unresolvable by the document, but that its existence under specifiable conditions is a structural feature that can be proven, not merely estimated.</p>
@@ -480,9 +483,10 @@ are available therefor.</div>
         <div class="section-label">06 — Why It Matters</div>
         <h2 class="section-title">Stress testing, coverage sensitivity, and structural pattern recognition</h2>
         <div class="prose">
-            <p><strong>For stress testing.</strong> Junior note coverage is more sensitive to coverage test cascades than face analysis suggests. The scenario in which this conflict activates — simultaneous breach of multiple coverage tests under elevated credit stress — is precisely the scenario stress models are built to assess. A formal proof of the conflict structure provides a more precise input to that analysis than scenario estimates alone.</p>
-            <p><strong>For CLO structuring.</strong> The pattern is common. Any indenture that conditions DPS draws on coverage test failures without an explicit aggregate cap on simultaneous draws creates an analogous structural exposure. The specific note classes, test thresholds, and fund dynamics will differ; the structural logic is identical. This is a pattern Validity can detect at scale across an entire CLO portfolio, in seconds per document.</p>
-            <p><strong>For detection methodology.</strong> Validity detected this without prior knowledge of the specific indenture structure, without modifying the document, and without a human identifying the relevant clauses in advance. The system ran the unmodified SEC filing through the verification engine and returned a proof object. That is what automated formal verification produces that manual review cannot: exhaustive, systematic detection of structural conditions across the full logical content of a document.</p>
+            <p>The pattern Validity found in this indenture is not unique to Carlyle. Any CLO waterfall that conditions Debt Payment Sequence draws on coverage test failures, without an explicit aggregate cap on simultaneous triggers, creates an analogous structural exposure. The specific thresholds, note classes, and fund dynamics will differ. The structural logic is identical.</p>
+            <p><strong>For a credit analyst:</strong> the scenario in which this conflict activates is exactly the scenario your stress models are designed to assess. A formal proof of the conflict structure is a more precise input than a scenario estimate.</p>
+            <p><strong>For a structured finance lawyer:</strong> this is the kind of structural condition that does not appear in a legal opinion because it is not a question of law. It is a question of logic. Validity answers it.</p>
+            <p><strong>For an investor in Validity:</strong> there are thousands of CLO indentures in the market. Each one contains a Priority of Payments section. Validity can run this analysis across an entire portfolio in the time it takes a lawyer to read one document.</p>
         </div>
     </div>
 
