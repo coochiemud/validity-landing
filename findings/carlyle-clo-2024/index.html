@@ -179,7 +179,9 @@
             border: 1px solid var(--border);
             border-radius: 6px;
             padding: 32px 36px;
-            margin: 28px 0 32px;
+            margin: 32px 0 0;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.08s;
         }
 
         .verdict-badge {
@@ -373,6 +375,12 @@
         <p class="page-meta">Indenture dated October 29, 2024 &nbsp;·&nbsp; Verified June 2026 &nbsp;·&nbsp; SEC EDGAR</p>
     </div>
 
+    <div class="verdict-card">
+        <div class="verdict-badge">Conditional</div>
+        <div class="verdict-headline">Stress Exposure Detected</div>
+        <div class="verdict-body">Under a specific, reachable stress-state assignment, the waterfall's coverage test draw obligations cannot all be satisfied simultaneously from available funds. The conflict is formally provable; its activation depends on the stress state.</div>
+    </div>
+
     <!-- 1. The Document -->
     <div class="section">
         <div class="section-label">01 — The Document</div>
@@ -402,12 +410,6 @@
     <div class="section">
         <div class="section-label">03 — The Formal Finding</div>
         <h2 class="section-title">Conditional — not a universal contradiction</h2>
-
-        <div class="verdict-card">
-            <div class="verdict-badge">Conditional</div>
-            <div class="verdict-headline">Stress Exposure Detected</div>
-            <div class="verdict-body">Under a specific, reachable stress-state assignment, the waterfall's coverage test draw obligations cannot all be satisfied simultaneously from available funds. The conflict is formally provable; its activation depends on the stress state.</div>
-        </div>
 
         <div class="prose">
             <p>The significance is not that junior noteholders go short under stress. Every structured finance lawyer knows that. The significance is that the exact conditions under which they go short — and the precise interaction between coverage test triggers that creates that outcome — can now be expressed as a formal proof, not a risk estimate. That proof is deterministic. It does not depend on assumptions. It is either true or it is not.</p>
