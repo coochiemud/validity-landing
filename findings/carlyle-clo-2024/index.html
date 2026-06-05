@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validity — Carlyle Direct Lending CLO 2024-1</title>
-    <meta name="description" content="Under simultaneous coverage test failures, available Interest Proceeds are insufficient to satisfy all Debt Payment Sequence draws. Carlyle Direct Lending CLO 2024-1.">
+    <meta name="description" content="Conditional stress-state exposure in Carlyle Direct Lending CLO 2024-1 Priority of Payments waterfall.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/vin8syh.css">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,10 +22,6 @@
             --text-dim:  #9A9A9A;
             --silver:    #C8C8C2;
             --blue:      #1A3CC2;
-            --red:       #B91C1C;
-            --red-dark:  #991B1B;
-            --red-bg:    #FEF2F2;
-            --red-border:#EF4444;
             --serif: 'gt-super', 'Playfair Display', Georgia, serif;
             --sans:  'Inter', system-ui, sans-serif;
             --mono:  'IBM Plex Mono', monospace;
@@ -73,10 +69,9 @@
         }
 
         /* ── HEADER ── */
-        .page-header {
+        header {
             padding-top: 120px;
             padding-bottom: 64px;
-            border-bottom: 1px solid var(--border);
             opacity: 0;
             animation: fadeUp 0.6s ease forwards 0.05s;
             text-align: center;
@@ -91,91 +86,34 @@
             margin: 0 auto;
         }
 
-        .header-rule {
+        /* ── BODY PROSE ── */
+        .body-prose {
+            text-align: left;
+        }
+        .body-prose p {
+            font-family: var(--sans);
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--text-mid);
+        }
+        .body-prose p + p { margin-top: 20px; }
+
+        /* ── DIVIDER ── */
+        .divider {
             border: none;
             border-top: 1px solid var(--border);
-            margin-bottom: 28px;
-        }
-
-        .header-thesis {
-            font-family: var(--serif);
-            font-size: 20px;
-            font-weight: 400;
-            line-height: 1.8;
-            letter-spacing: 0;
-            color: #0D0D0D;
-            max-width: 600px;
-            margin-bottom: 36px;
-            text-align: left;
-        }
-
-        .header-thesis p + p {
-            margin-top: 16px;
-        }
-
-        .page-meta {
-            font-family: var(--mono);
-            font-size: 10px;
-            color: var(--text-dim);
-            letter-spacing: 0.05em;
-            line-height: 1.7;
-            text-align: left;
-        }
-
-        /* ── VERDICT CARD (RED) ── */
-        .verdict-card {
-            background: var(--white);
-            border: 1px solid var(--red-border);
-            border-top: 3px solid var(--red-border);
-            border-radius: 6px;
-            padding: 32px 36px;
-            margin: 40px 0;
+            margin: 0 0 48px;
             opacity: 0;
-            animation: fadeUp 0.6s ease forwards 0.10s;
+            animation: fadeUp 0.6s ease forwards 0.12s;
         }
 
-        .verdict-badge {
-            display: inline-block;
-            font-family: var(--mono);
-            font-size: 9px;
-            font-weight: 500;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            padding: 5px 13px;
-            border-radius: 3px;
-            background: var(--red-bg);
-            color: var(--red);
-            border: 1px solid rgba(239,68,68,0.35);
-            margin-bottom: 18px;
-        }
-
-        .verdict-headline {
-            font-family: var(--serif);
-            font-size: clamp(18px, 2.6vw, 24px);
-            font-weight: 400;
-            color: var(--red);
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-            margin-bottom: 14px;
-        }
-
-        .verdict-body {
-            font-family: var(--sans);
-            font-size: 14px;
-            font-weight: 300;
-            color: var(--red-dark);
-            line-height: 1.75;
-        }
-
-        /* ── SECTIONS ── */
-        .section {
-            padding: 56px 0;
-            border-bottom: 1px solid var(--border);
+        /* ── SOURCE PROVISIONS ── */
+        .sources-section {
+            padding-bottom: 48px;
             opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.14s;
         }
-
-        .section:nth-child(3) { animation: fadeUp 0.6s ease forwards 0.14s; }
-        .section:nth-child(4) { animation: fadeUp 0.6s ease forwards 0.18s; border-bottom: none; }
 
         .section-label {
             font-family: var(--mono);
@@ -183,19 +121,9 @@
             text-transform: uppercase;
             letter-spacing: 0.16em;
             color: var(--text-dim);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
-        .prose {
-            font-family: var(--sans);
-            font-size: 15px;
-            font-weight: 300;
-            color: var(--text-mid);
-            line-height: 1.8;
-        }
-        .prose p + p { margin-top: 20px; }
-
-        /* ── SOURCE CLAUSES ── */
         .clauses-list {
             display: flex;
             flex-direction: column;
@@ -225,14 +153,16 @@
             line-height: 1.75;
         }
 
-        /* ── FOOTER CTA ── */
-        .footer-cta {
-            padding: 64px 0 80px;
+        /* ── CTA ── */
+        .cta-section {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
             opacity: 0;
-            animation: fadeUp 0.6s ease forwards 0.22s;
+            animation: fadeUp 0.6s ease forwards 0.16s;
         }
 
-        .btn-access {
+        .btn-request {
             display: inline-block;
             font-family: var(--sans);
             font-size: 13px;
@@ -244,31 +174,101 @@
             padding: 12px 28px;
             text-decoration: none;
             transition: background 0.15s, transform 0.12s;
-            margin-bottom: 28px;
         }
-        .btn-access:hover { background: #142FA0; transform: translateY(-1px); }
+        .btn-request:hover { background: #142FA0; transform: translateY(-1px); }
 
-        .doc-links {
+        /* ── TECH REPORT (EXPANDABLE) ── */
+        .tech-section {
+            padding: 48px 0 80px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.18s;
+        }
+
+        .tech-trigger {
             display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
             align-items: center;
-        }
-
-        .doc-link {
+            gap: 12px;
+            cursor: pointer;
+            user-select: none;
+            border: none;
+            background: none;
+            padding: 0;
             font-family: var(--mono);
             font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
             color: var(--text-dim);
-            text-decoration: none;
-            letter-spacing: 0.04em;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 1px;
-            transition: color 0.15s, border-color 0.15s;
+            transition: color 0.15s;
         }
-        .doc-link:hover { color: var(--blue); border-color: var(--blue); }
+        .tech-trigger:hover { color: var(--text-mid); }
+
+        .tech-arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+            font-size: 10px;
+        }
+        .tech-trigger.open .tech-arrow { transform: rotate(90deg); }
+
+        .tech-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease;
+            opacity: 0;
+        }
+        .tech-body.open {
+            max-height: 900px;
+            opacity: 1;
+        }
+
+        .tech-inner {
+            padding-top: 28px;
+            border-top: 1px solid var(--border-lg);
+            margin-top: 20px;
+        }
+
+        .tech-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .tech-row {
+            display: flex;
+            gap: 16px;
+            font-family: var(--mono);
+            font-size: 11px;
+            line-height: 1.7;
+        }
+        .tech-key {
+            color: var(--text-dim);
+            min-width: 200px;
+            flex-shrink: 0;
+        }
+        .tech-val { color: var(--text-mid); }
+
+        .tech-note {
+            font-family: var(--sans);
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--text-mid);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .btn-download {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            color: var(--text-mid);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: border-color 0.15s, color 0.15s;
+        }
+        .btn-download:hover { border-color: var(--blue); color: var(--blue); }
 
         /* ── FOOTER ── */
         footer {
@@ -278,7 +278,6 @@
             align-items: center;
             justify-content: space-between;
         }
-
         .footer-note {
             font-family: var(--mono);
             font-size: 9px;
@@ -294,9 +293,8 @@
         @media (max-width: 600px) {
             nav, footer { padding: 0 20px; }
             .col { padding: 0 20px; }
-            .page-header { padding-top: 88px; }
-            .verdict-card { padding: 24px 20px; }
-            .doc-links { flex-direction: column; gap: 14px; }
+            header { padding-top: 88px; }
+            .tech-key { min-width: 140px; }
         }
     </style>
 </head>
@@ -309,83 +307,101 @@
 
 <div class="col">
 
-    <div class="page-header">
+    <header>
         <div class="header-logo">
             <img src="/val-logo-3.png" alt="Validity" />
         </div>
-        <hr class="header-rule">
-        <div class="header-thesis">
-            <p>Carlyle Direct Lending CLO 2024-1 is a $431.6 million middle market CLO managed by Carlyle Global Credit Investment Management. Rated by S&P Global Ratings. Collateralised by senior secured loans.</p>
-            <p>Under simultaneous coverage test failures, available Interest Proceeds are insufficient to satisfy all Debt Payment Sequence draws.</p>
+        <div class="body-prose">
+            <p>Validity is formal verification software for high-stakes legal and financial documents. It converts contractual obligations into a logical model and proves whether they can all be satisfied under defined conditions. If they cannot, Validity pinpoints the exact failure state: which obligations conflict, when the conflict arises, and why the document cannot resolve it.</p>
+            <p>Carlyle Direct Lending CLO 2024-1 is a $431.6 million middle-market collateralised loan obligation managed by Carlyle Global Credit Investment Management. Issued in October 2024 and rated by S&P Global Ratings, the transaction securitises a portfolio of senior secured loans across multiple note classes, ranging from AAA-rated senior notes to BBB-rated junior notes. Its indenture sets the transaction's operating logic: how loan proceeds are collected, how available cash is allocated, and how payments are distributed to noteholders through the Priority of Payments waterfall.</p>
+            <p>Validity ran the unmodified indenture as filed on SEC EDGAR. No clauses were pre-selected, and no findings were assumed. The pipeline extracted the binding obligations from the waterfall provisions, translated them into formal constraints, and submitted the resulting model to a theorem prover. The test was narrow: whether, under defined stress conditions, all payment obligations in the waterfall could be satisfied at the same time.</p>
+            <p>Validity identified a conditional stress-state exposure in the Priority of Payments. Under Section 11.1.1.1, clauses (F), (H), (K), and (M) each require payment through the Debt Payment Sequence when a coverage test fails. Each trigger draws on the same finite pool of available Interest Proceeds. The indenture does not impose an aggregate cap for simultaneous coverage test failures. As a result, under a stress state where multiple tests fail at once, the combined Debt Payment Sequence obligation can exceed available proceeds, leaving lower-priority obligations unsatisfied.</p>
+            <p>This condition is not readily visible through clause-by-clause legal review. Each trigger is clear in isolation. The exposure arises only when the provisions operate together: a system-level property, not a defect in any single clause. This is precisely the class of risk formal verification exists to detect.</p>
+            <p>Left unidentified, this condition creates potential exposure for junior noteholders, trustees executing waterfall instructions under stress, and funds making allocation decisions based on assumed payment behaviour. In a distressed scenario, the gap between expected and provable payment outcomes can translate directly into mispriced risk, disputed distributions, and litigation risk.</p>
+            <p>A fund using Validity before committing capital would know, with mathematical certainty, the precise conditions under which its payment entitlement cannot be fully satisfied. It would enter the transaction with a verified account of the structure's stress behaviour, not an assumed reading of the waterfall.</p>
         </div>
-        <p class="page-meta">Indenture dated October 29, 2024 &nbsp;·&nbsp; SEC EDGAR — unmodified filing &nbsp;·&nbsp; Verified June 2026</p>
-    </div>
+    </header>
 
-    <div class="verdict-card">
-        <div class="verdict-badge">Conditional</div>
-        <div class="verdict-headline">Stress Exposure Detected</div>
-        <div class="verdict-body">Under simultaneous coverage test failures, the aggregate Debt Payment Sequence draws exceed available Interest Proceeds. Lower-priority obligations cannot be satisfied.</div>
-    </div>
+    <hr class="divider">
 
-    <!-- 01 — The Finding -->
-    <div class="section">
-        <div class="section-label">01 — The Finding</div>
-        <div class="prose">
-            <p>The Priority of Payments waterfall contains four independent coverage test triggers — clauses (F), (H), (K), and (M) of Section 11.1.1.1 — each directing payment through the Debt Payment Sequence when a test fails.</p>
-            <p>Each draw competes for the same pool of available Interest Proceeds. No provision caps the aggregate across simultaneous failures.</p>
-            <p>Section 11.1.2 instructs the Trustee to disburse in waterfall order to the extent funds are available. When multiple coverage tests fail at once, the combined Debt Payment Sequence obligation exceeds available proceeds. Lower-priority obligations go unmet.</p>
-        </div>
-    </div>
-
-    <!-- 02 — The Source Provisions -->
-    <div class="section">
-        <div class="section-label">02 — The Source Provisions</div>
+    <div class="sources-section">
+        <div class="section-label">Source Provisions</div>
         <div class="clauses-list">
             <div class="clause">
                 <div class="clause-ref">§ 11.1.1.1(F) — Class A/B Coverage Test DPS Draw</div>
-                <div class="clause-text">if either of the Class A/B Coverage Tests is not satisfied on the
-related Determination Date, to make payments in accordance with the
-Debt Payment Sequence to the extent necessary to cause all Class A/B
-Coverage Tests to be satisfied on a pro forma basis;</div>
+                <div class="clause-text">if either of the Class A/B Coverage Tests is not satisfied on the related Determination Date, to make payments in accordance with the Debt Payment Sequence to the extent necessary to cause all Class A/B Coverage Tests to be satisfied on a pro forma basis;</div>
             </div>
             <div class="clause">
                 <div class="clause-ref">§ 11.1.1.1(H) — Class C Coverage Test DPS Draw</div>
-                <div class="clause-text">if either of the Class C Coverage Tests is not satisfied, to make
-payments in accordance with the Debt Payment Sequence to the extent
-necessary to cause all Class C Coverage Tests to be satisfied;</div>
+                <div class="clause-text">if either of the Class C Coverage Tests is not satisfied, to make payments in accordance with the Debt Payment Sequence to the extent necessary to cause all Class C Coverage Tests to be satisfied;</div>
             </div>
             <div class="clause">
                 <div class="clause-ref">§ 11.1.1.1(K) — Class D Coverage Test DPS Draw</div>
-                <div class="clause-text">if either of the Class D Coverage Tests is not satisfied, to make
-payments in accordance with the Debt Payment Sequence to the extent
-necessary to cause all Class D Coverage Tests to be satisfied;</div>
+                <div class="clause-text">if either of the Class D Coverage Tests is not satisfied, to make payments in accordance with the Debt Payment Sequence to the extent necessary to cause all Class D Coverage Tests to be satisfied;</div>
             </div>
             <div class="clause">
                 <div class="clause-ref">§ 11.1.1.1(M) — Interest Diversion Test</div>
-                <div class="clause-text">during the Reinvestment Period, if the Interest Diversion Test is not
-satisfied, to deposit into the Collection Account as Principal Proceeds
-or to make payments in accordance with the Debt Payment Sequence;</div>
+                <div class="clause-text">during the Reinvestment Period, if the Interest Diversion Test is not satisfied, to deposit into the Collection Account as Principal Proceeds or to make payments in accordance with the Debt Payment Sequence;</div>
             </div>
             <div class="clause">
                 <div class="clause-ref">§ 11.1.2 — Insufficiency of Funds</div>
-                <div class="clause-text">If on any Payment Date the amount available in the Payment Account is
-insufficient to make the full amount of the disbursements required by
-the Distribution Report, the Trustee shall make the disbursements
-called for in the order and according to the priority set forth under
-the Priority of Payments, subject to Section 13.1, to the extent funds
-are available therefor.</div>
+                <div class="clause-text">If on any Payment Date the amount available in the Payment Account is insufficient to make the full amount of the disbursements required by the Distribution Report, the Trustee shall make the disbursements called for in the order and according to the priority set forth under the Priority of Payments, subject to Section 13.1, to the extent funds are available therefor.</div>
             </div>
         </div>
     </div>
 
-    <!-- Footer CTA -->
-    <div class="footer-cta">
-        <div>
-            <a href="mailto:nick@validity.live?subject=Request Access — Validity" class="btn-access">Request Access</a>
-        </div>
-        <div class="doc-links">
-            <a href="#" class="doc-link">↓ Download Technical Report (PDF)</a>
-            <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=carlyle+direct+lending+clo+2024&type=&dateb=&owner=include&count=40" class="doc-link" target="_blank" rel="noopener">Source Document — SEC EDGAR ↗</a>
+    <div class="cta-section">
+        <a href="mailto:nick@validity.live" class="btn-request">Request Access</a>
+    </div>
+
+    <div class="tech-section">
+        <button class="tech-trigger" onclick="toggleTech(this)" aria-expanded="false">
+            <span class="tech-arrow">›</span>
+            <span>Full Technical Report</span>
+        </button>
+        <div class="tech-body" id="tech-body">
+            <div class="tech-inner">
+                <div class="tech-grid">
+                    <div class="tech-row">
+                        <span class="tech-key">Verdict</span>
+                        <span class="tech-val">CONDITIONAL — Stress Exposure Detected</span>
+                    </div>
+                    <div class="tech-row">
+                        <span class="tech-key">Failure class</span>
+                        <span class="tech-val">Resource Constraint / Waterfall Exhaustion</span>
+                    </div>
+                    <div class="tech-row">
+                        <span class="tech-key">Claims in core</span>
+                        <span class="tech-val">5</span>
+                    </div>
+                    <div class="tech-row">
+                        <span class="tech-key">Proof engine</span>
+                        <span class="tech-val">Z3 4.15.x</span>
+                    </div>
+                    <div class="tech-row">
+                        <span class="tech-key">LFS version</span>
+                        <span class="tech-val">2.0</span>
+                    </div>
+                    <div class="tech-row">
+                        <span class="tech-key">Timestamp</span>
+                        <span class="tech-val">2026-06-05T04:51:24Z</span>
+                    </div>
+                    <div class="tech-row">
+                        <span class="tech-key">Proof ID</span>
+                        <span class="tech-val">d8ed55826d5d315b…</span>
+                    </div>
+                    <div class="tech-row">
+                        <span class="tech-key">Document hash (SHA-256)</span>
+                        <span class="tech-val">d8ed55826d5d315b4f9aa4928703ee37…</span>
+                    </div>
+                    <div class="tech-row">
+                        <span class="tech-key">Source</span>
+                        <span class="tech-val">SEC EDGAR — unmodified filing</span>
+                    </div>
+                </div>
+                <p class="tech-note">The proof object is available on request.</p>
+                <a href="#" class="btn-download">Download Technical Report</a>
+            </div>
         </div>
     </div>
 
@@ -395,6 +411,16 @@ are available therefor.</div>
     <span class="footer-note">validity.live</span>
     <span class="footer-note">© 2026 Validity</span>
 </footer>
+
+<script>
+    function toggleTech(trigger) {
+        const body = document.getElementById('tech-body');
+        const isOpen = trigger.classList.contains('open');
+        trigger.classList.toggle('open', !isOpen);
+        body.classList.toggle('open', !isOpen);
+        trigger.setAttribute('aria-expanded', String(!isOpen));
+    }
+</script>
 
 </body>
 </html>
