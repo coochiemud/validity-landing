@@ -130,13 +130,13 @@ permalink: /
         }
 
         .hero-sub {
-            font-family: var(--serif);
-            font-size: clamp(18px, 2.2vw, 26px);
-            font-weight: 500;
-            color: rgba(180,200,230,0.85);
-            line-height: 1.4;
-            letter-spacing: -0.02em;
-            max-width: 600px;
+            font-family: 'IBM Plex Serif', Georgia, serif;
+            font-size: clamp(15px, 1.8vw, 20px);
+            font-weight: 300;
+            color: rgba(255,255,255,0.92);
+            line-height: 1.65;
+            letter-spacing: 0.005em;
+            max-width: 580px;
             opacity: 0;
             animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.24s;
             margin-bottom: 48px;
@@ -210,6 +210,28 @@ permalink: /
             opacity: 0.6;
         }
 
+
+        /* ── Shimmer effect ─────────────────────────────────────── */
+        .shimmer {
+            background: linear-gradient(
+                90deg,
+                rgba(180,185,190,0.85) 0%,
+                rgba(240,245,248,1.0) 35%,
+                rgba(210,215,220,0.9) 50%,
+                rgba(240,245,248,1.0) 65%,
+                rgba(180,185,190,0.85) 100%
+            );
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%   { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(6px); }
             to   { opacity: 1; transform: translateY(0); }
@@ -229,7 +251,7 @@ permalink: /
         <div class="hero-inner">
             <img src="validity-logo.png" alt="Validity" class="logo">
             <p class="hero-headline">Logic as Infrastructure.</p>
-            <p class="hero-sub">Validity models the operational rules inside complex documents and proves whether they form a coherent, executable system — <span style="font-weight:600;color:rgba(255,255,255,0.95);">before capital is committed.</span></p>
+            <p class="hero-sub">Validity models the operational rules inside complex documents and proves whether they form a coherent, executable system — <span class="shimmer">before capital is committed.</span></p>
             <div class="hero-cards">
                 <a href="/structured-finance" class="hero-card-btn">Structured Finance</a>
                 <a href="/legal-agreements" class="hero-card-btn">Legal Agreements</a>
